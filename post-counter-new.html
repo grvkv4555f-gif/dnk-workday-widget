@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DNK Content Plan</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green: #00f500;
+      --black: #111111;
+      --gray: #8f8f8f;
+      --bg: #f7f7f5;
+      --glass: rgba(255, 255, 255, 0.72);
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 26px 18px 40px;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: var(--black);
+
+      background:
+        radial-gradient(
+          circle at 8% 8%,
+          rgba(0, 245, 0, 0.09),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 92% 92%,
+          rgba(0, 245, 0, 0.05),
+          transparent 27%
+        ),
+        var(--bg);
+    }
+
+    .app {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      padding: 0 4px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 1.7px;
+    }
+
+    .online-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 16px rgba(0, 245, 0, 0.65);
+    }
+
+    .sync {
+      font-size: 10px;
+      font-weight: 800;
+      color: #999;
+      letter-spacing: 1.4px;
+    }
+
+    /* PROJECT SELECTOR */
+
+    .project-selector {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 3px 13px;
+      margin-bottom: 7px;
+      scrollbar-width: none;
+    }
+
+    .project-selector::-webkit-scrollbar {
+      display: none;
+    }
+
+    .project-btn {
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.95);
+      background: rgba(255,255,255,.60);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 800;
+      color: #777;
+      transition: .2s ease;
+      box-shadow:
+        0 6px 18px rgba(0,0,0,.04),
+        inset 0 1px 0 rgba(255,255,255,.9);
+      white-space: nowrap;
+    }
+
+    .project-btn:hover {
+      transform: translateY(-1px);
+      color: #111;
+    }
+
+    .project-btn.active {
+      background: #111;
+      color: white;
+      border-color: #111;
+      box-shadow: 0 10px 25px rgba(0,0,0,.15);
+    }
+
+    /* MAIN GLASS */
+
+    .main-card {
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 30px;
+      padding: 28px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+
+      box-shadow:
+        0 25px 55px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,1);
+    }
+
+    /* PROJECT INFO */
+
+    .project-head {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .logo-box {
+      width: 84px;
+      height: 76px;
+      flex: 0 0 84px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+
+      box-shadow:
+        0 10px 25px rgba(0,0,0,.05),
+        inset 0 1px 0 white;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 1.8px;
+      font-weight: 900;
+      color: #9b9b9b;
+      margin-bottom: 6px;
+    }
+
+    .project-name {
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .period {
+      color: #7f7f7f;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* COUNTER CARD */
+
+    .counter-card {
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 24px;
+      padding: 24px;
+
+      box-shadow:
+        0 15px 35px rgba(0,0,0,.055),
+        inset 0 1px 0 white;
+    }
+
+    .counter-label {
+      color: #969696;
+      font-size: 10px;
+      letter-spacing: 1.7px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .count-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .number {
+      font-size: 68px;
+      line-height: .9;
+      font-weight: 950;
+      letter-spacing: -4px;
+    }
+
+    .number span {
+      font-size: 31px;
+      color: #999;
+      letter-spacing: -1px;
+      margin-left: 6px;
+    }
+
+    .percentage {
+      font-size: 12px;
+      font-weight: 800;
+      color: #888;
+      padding-bottom: 5px;
+    }
+
+    /* PROGRESS */
+
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      background: rgba(0,0,0,.07);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,.05);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        #00d900,
+        #00f500
+      );
+
+      box-shadow: 0 0 15px rgba(0,245,0,.35);
+      transition: width .35s ease;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: #8e8e8e;
+      font-weight: 800;
+    }
+
+    /* BUTTONS */
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 12px;
+      margin-top: 17px;
+    }
+
+    button.control {
+      border: 0;
+      border-radius: 20px;
+      min-height: 62px;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .minus {
+      background: rgba(255,255,255,.65);
+      color: #aaa;
+      border: 1px solid rgba(255,255,255,.9) !important;
+
+      box-shadow:
+        0 10px 25px rgba(0,0,0,.04),
+        inset 0 1px 0 white;
+    }
+
+    .plus {
+      background: #111;
+      color: white;
+
+      box-shadow:
+        0 15px 30px rgba(0,0,0,.14);
+    }
+
+    button.control:hover {
+      transform: translateY(-2px);
+    }
+
+    button.control:active {
+      transform: scale(.98);
+    }
+
+    button:disabled {
+      opacity: .35;
+      cursor: default;
+      transform: none !important;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 17px;
+      color: #9a9a9a;
+      font-size: 9px;
+      letter-spacing: .7px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    /* LOADING */
+
+    .loading {
+      text-align: center;
+      padding: 70px 20px;
+      font-weight: 800;
+      color: #888;
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 16px 10px 30px;
+      }
+
+      .main-card {
+        padding: 20px;
+        border-radius: 25px;
+      }
+
+      .project-head {
+        gap: 13px;
+      }
+
+      .logo-box {
+        width: 70px;
+        height: 65px;
+        flex-basis: 70px;
+      }
+
+      .project-name {
+        font-size: 27px;
+      }
+
+      .number {
+        font-size: 57px;
+      }
+
+      .number span {
+        font-size: 26px;
+      }
+
+      .counter-card {
+        padding: 20px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="top">
+    <div class="brand">
+      КОНТЕНТ-ПЛАН
+      <span class="online-dot"></span>
+    </div>
+
+    <div class="sync" id="syncText">
+      СИНХРОНІЗАЦІЯ...
+    </div>
+  </div>
+
+  <div class="project-selector" id="projectSelector"></div>
+
+  <div class="main-card">
+
+    <div class="project-head">
+
+      <div class="logo-box">
+        <img id="projectLogo" alt="">
+      </div>
+
+      <div>
+        <div class="eyebrow">КІЛЬКІСТЬ ДОПИСІВ</div>
+        <div class="project-name" id="projectName">...</div>
+        <div class="period" id="periodText">...</div>
+      </div>
+
+    </div>
+
+    <div class="counter-card">
+
+      <div class="counter-label">ОПУБЛІКОВАНО</div>
+
+      <div class="count-row">
+
+        <div class="number">
+          <span id="currentCountMain" style="font-size:inherit;color:#111;margin:0;">0</span>
+          <span id="targetCount">/15</span>
+        </div>
+
+        <div class="percentage" id="percentage">
+          0% виконано
+        </div>
+
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="progress-meta">
+        <span id="remaining">Залишилось 15</span>
+        <span id="status">ПОЧИНАЄМО</span>
+      </div>
+
+    </div>
+
+    <div class="controls">
+
+      <button
+        class="control minus"
+        id="minusBtn"
+        onclick="changeCount(-1)"
+      >
+        − 1 ДОПИС
+      </button>
+
+      <button
+        class="control plus"
+        id="plusBtn"
+        onclick="changeCount(1)"
+      >
+        + 1 ДОПИС
+      </button>
+
+    </div>
+
+    <div class="footer">
+      <span id="reportDate"></span>
+      <span id="periodId"></span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<script type="module">
+
+  import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+
+  import {
+    getFirestore,
+    doc,
+    onSnapshot,
+    setDoc,
+    increment
+  }
+  from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+
+  /* ==============================
+     FIREBASE
+  ============================== */
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyArvN4PkhrXrLwehOE9mrzO_IDKmpYoGu4",
+    authDomain: "anya-80fd6.firebaseapp.com",
+    projectId: "anya-80fd6",
+    storageBucket: "anya-80fd6.firebasestorage.app",
+    messagingSenderId: "457102538038",
+    appId: "1:457102538038:web:2665c576a846cc9b7c2f97",
+    measurementId: "G-228WKNGZEE"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+
+  /* ==============================
+     PROJECTS
+  ============================== */
+
+  const projects = [
+
+    {
+      id: "amtex",
+      name: "AMTEX",
+      target: 15,
+      startDay: 18,
+      logo: "amtex-logo.svg"
+    },
+
+    {
+      id: "dnk",
+      name: "DNK AGENCY",
+      target: 15,
+      startDay: 5,
+      logo: "dnk-logo.png"
+    },
+
+    {
+      id: "redefine",
+      name: "REDEFINE",
+      target: 15,
+      startDay: 1,
+      logo: "redefine-logo.png"
+    },
+
+    {
+      id: "orising",
+      name: "ORISING",
+      target: 15,
+      startDay: 5,
+      logo: "orising-logo.png"
+    },
+
+    {
+      id: "epilax",
+      name: "EPILAX",
+      target: 12,
+      startDay: 11,
+      logo: "epilax-logo.png"
+    },
+
+    {
+      id: "duso-consulting",
+      name: "DUSO CONSULTING",
+      target: 8,
+      startDay: 1,
+      logo: "duso-consulting-logo.png"
+    },
+
+    {
+      id: "icoone",
+      name: "ICOONE",
+      target: 10,
+      startDay: 1,
+      logo: "icoone-logo.png"
+    },
+
+    {
+      id: "endymed",
+      name: "ENDYMED",
+      target: 10,
+      startDay: 1,
+      logo: "endymed-logo.png"
+    },
+
+    {
+      id: "duso",
+      name: "DUSO",
+      target: 22,
+      startDay: 1,
+      logo: "duso-logo.png"
+    },
+
+    {
+      id: "carp-pro",
+      name: "CARP PRO",
+      target: 22,
+      startDay: 1,
+      logo: "carp-pro-logo.png"
+    },
+
+    {
+      id: "azura",
+      name: "AZURA",
+      target: 22,
+      startDay: 1,
+      logo: "azura-logo.png"
+    },
+
+    {
+      id: "aerodrom",
+      name: "AERODROM",
+      target: 22,
+      startDay: 1,
+      logo: "aerodrom-logo.png"
+    }
+
+  ];
+
+
+  /* ==============================
+     DATE HELPERS
+  ============================== */
+
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function dateKey(date) {
+    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+  }
+
+  function displayDate(date) {
+    return `${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()}`;
+  }
+
+  function lastDayOfMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+
+  /*
+    Визначаємо поточний період.
+
+    startDay 1:
+    01.10 → 31.10
+
+    startDay 5:
+    05.10 → 04.11
+
+    startDay 11:
+    11.10 → 10.11
+
+    startDay 18:
+    18.09 → 17.10
+  */
+
+  function getPeriod(project) {
+
+    const now = new Date();
+
+    let year = now.getFullYear();
+    let month = now.getMonth();
+
+    let start;
+
+    if (project.startDay === 1) {
+
+      start = new Date(year, month, 1);
+
+    } else {
+
+      if (now.getDate() >= project.startDay) {
+
+        start = new Date(
+          year,
+          month,
+          project.startDay
+        );
+
+      } else {
+
+        start = new Date(
+          year,
+          month - 1,
+          project.startDay
+        );
+
+      }
+    }
+
+
+    let end;
+
+    if (project.startDay === 1) {
+
+      end = new Date(
+        start.getFullYear(),
+        start.getMonth(),
+        lastDayOfMonth(
+          start.getFullYear(),
+          start.getMonth()
+        )
+      );
+
+    } else {
+
+      end = new Date(
+        start.getFullYear(),
+        start.getMonth() + 1,
+        project.startDay - 1
+      );
+
+    }
+
+
+    return {
+      start,
+      end,
+      id: dateKey(start)
+    };
+  }
+
+
+  /* ==============================
+     STATE
+  ============================== */
+
+  let activeProject = projects[0];
+
+  let unsubscribe = null;
+
+  let currentCount = 0;
+
+
+  /* ==============================
+     PROJECT BUTTONS
+  ============================== */
+
+  const selector =
+    document.getElementById("projectSelector");
+
+
+  projects.forEach(project => {
+
+    const button = document.createElement("button");
+
+    button.className = "project-btn";
+
+    button.textContent = project.name;
+
+    button.dataset.id = project.id;
+
+    button.addEventListener("click", () => {
+
+      activeProject = project;
+
+      loadProject();
+
+    });
+
+    selector.appendChild(button);
+
+  });
+
+
+  /* ==============================
+     LOAD PROJECT
+  ============================== */
+
+  function loadProject() {
+
+    if (unsubscribe) {
+      unsubscribe();
+    }
+
+
+    document
+      .querySelectorAll(".project-btn")
+      .forEach(btn => {
+
+        btn.classList.toggle(
+          "active",
+          btn.dataset.id === activeProject.id
+        );
+
+      });
+
+
+    const period = getPeriod(activeProject);
+
+
+    document.getElementById("projectName")
+      .textContent = activeProject.name;
+
+
+    document.getElementById("projectLogo")
+      .src = activeProject.logo;
+
+
+    document.getElementById("periodText")
+      .textContent =
+      `${displayDate(period.start)} — ${displayDate(period.end)}`;
+
+
+    document.getElementById("targetCount")
+      .textContent = `/${activeProject.target}`;
+
+
+    document.getElementById("reportDate")
+      .textContent =
+      `ЗВІТ: ${displayDate(period.end)}`;
+
+
+    document.getElementById("periodId")
+      .textContent =
+      `ПЕРІОД ${period.id}`;
+
+
+    document.getElementById("syncText")
+      .textContent = "СИНХРОНІЗАЦІЯ...";
+
+
+    /*
+      Кожен проєкт + кожен період
+      має окремий документ Firebase.
+
+      Наприклад:
+      amtex_2026-09-18
+      azura_2026-10-01
+    */
+
+    const documentId =
+      `${activeProject.id}_${period.id}`;
+
+
+    const ref =
+      doc(db, "counters", documentId);
+
+
+    unsubscribe = onSnapshot(
+
+      ref,
+
+      snapshot => {
+
+        if (snapshot.exists()) {
+
+          currentCount =
+            snapshot.data().count ?? 0;
+
+        } else {
+
+          currentCount = 0;
+
+        }
+
+        updateUI();
+
+        document.getElementById("syncText")
+          .textContent = "СИНХРОНІЗОВАНО";
+
+      },
+
+      error => {
+
+        console.error(error);
+
+        document.getElementById("syncText")
+          .textContent = "ПОМИЛКА СИНХРОНІЗАЦІЇ";
+
+      }
+
+    );
+
+  }
+
+
+  /* ==============================
+     CHANGE COUNTER
+  ============================== */
+
+  window.changeCount = async function(change) {
+
+    const period = getPeriod(activeProject);
+
+    const documentId =
+      `${activeProject.id}_${period.id}`;
+
+    const ref =
+      doc(db, "counters", documentId);
+
+
+    if (change < 0 && currentCount <= 0) {
+      return;
+    }
+
+    if (
+      change > 0 &&
+      currentCount >= activeProject.target
+    ) {
+      return;
+    }
+
+
+    document.getElementById("syncText")
+      .textContent = "ЗБЕРІГАЄМО...";
+
+
+    try {
+
+      await setDoc(
+
+        ref,
+
+        {
+          count: increment(change),
+          project: activeProject.id,
+          periodStart: dateKey(period.start),
+          periodEnd: dateKey(period.end)
+        },
+
+        { merge: true }
+
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      document.getElementById("syncText")
+        .textContent = "ПОМИЛКА";
+
+    }
+
+  };
+
+
+  /* ==============================
+     UPDATE UI
+  ============================== */
+
+  function updateUI() {
+
+    const target =
+      activeProject.target;
+
+
+    const safeCount =
+      Math.max(
+        0,
+        Math.min(currentCount, target)
+      );
+
+
+    const percentage =
+      target === 0
+        ? 0
+        : Math.round(
+            (safeCount / target) * 100
+          );
+
+
+    const remaining =
+      Math.max(target - safeCount, 0);
+
+
+    document.getElementById("currentCountMain")
+      .textContent = safeCount;
+
+
+    document.getElementById("percentage")
+      .textContent =
+      `${percentage}% виконано`;
+
+
+    document.getElementById("progressFill")
+      .style.width =
+      `${percentage}%`;
+
+
+    document.getElementById("remaining")
+      .textContent =
+      remaining === 0
+        ? "План виконано"
+        : `Залишилось ${remaining}`;
+
+
+    let status = "ПОЧИНАЄМО";
+
+
+    if (percentage >= 100) {
+
+      status = "ГОТОВО ✓";
+
+    } else if (percentage >= 75) {
+
+      status = "ФІНІШНА ПРЯМА";
+
+    } else if (percentage >= 45) {
+
+      status = "В ПРОЦЕСІ";
+
+    } else if (percentage > 0) {
+
+      status = "РУХАЄМОСЬ";
+
+    }
+
+
+    document.getElementById("status")
+      .textContent = status;
+
+
+    document.getElementById("minusBtn")
+      .disabled =
+      safeCount <= 0;
+
+
+    document.getElementById("plusBtn")
+      .disabled =
+      safeCount >= target;
+
+  }
+
+
+  /* ==============================
+     START
+  ============================== */
+
+  loadProject();
+
+</script>
+
+</body>
+</html>
