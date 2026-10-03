@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --green: #00f500;
+  --text: #111111;
+  --muted: #777777;
+  --bg: #f7f7f5;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(circle at 15% 15%, rgba(0,245,0,.08), transparent 28%),
+    radial-gradient(circle at 90% 80%, rgba(0,245,0,.05), transparent 30%),
+    var(--bg);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+}
+
+.app {
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  padding: 22px;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .8px;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 16px rgba(0,245,0,.55);
+}
+
+/* GLASS */
+
+.glass {
+  background: rgba(255,255,255,.64);
+  border: 1px solid rgba(255,255,255,.9);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,1);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+/* MAIN CARD */
+
+.card {
+  border-radius: 28px;
+  padding: 27px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #8b8b8b;
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -.7px;
+}
+
+.description {
+  margin-top: 8px;
+  margin-bottom: 22px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* HOOK CARD */
+
+.hook-card {
+  position: relative;
+
+  min-height: 180px;
+
+  display: flex;
+  align-items: center;
+
+  background: rgba(255,255,255,.72);
+
+  border-radius: 22px;
+
+  padding: 26px 24px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 8px 25px rgba(0,0,0,.045);
+
+  overflow: hidden;
+}
+
+.hook-card::before {
+  content: "";
+
+  position: absolute;
+  width: 100px;
+  height: 100px;
+
+  right: -40px;
+  top: -40px;
+
+  border-radius: 50%;
+
+  background: rgba(0,245,0,.09);
+  filter: blur(20px);
+}
+
+.quote {
+  position: relative;
+  z-index: 2;
+
+  font-size: 22px;
+  line-height: 1.35;
+
+  font-weight: 800;
+  letter-spacing: -.35px;
+}
+
+/* META */
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 13px;
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .7px;
+  color: #969696;
+}
+
+.green-accent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mini-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px rgba(0,245,0,.4);
+}
+
+/* BUTTON */
+
+.generate {
+  width: 100%;
+
+  border: 0;
+  border-radius: 18px;
+
+  background: #111;
+  color: #fff;
+
+  padding: 17px 18px;
+  margin-top: 14px;
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .3px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 12px 25px rgba(0,0,0,.12),
+    0 0 24px rgba(0,245,0,.05);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.generate:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 15px 30px rgba(0,0,0,.15),
+    0 0 25px rgba(0,245,0,.08);
+}
+
+.generate:active {
+  transform: scale(.99);
+}
+
+/* ANIMATION */
+
+.hook-change {
+  animation: hookChange .32s ease;
+}
+
+@keyframes hookChange {
+  0% {
+    opacity: .15;
+    transform: translateY(7px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE / NOTION */
+
+@media (max-width: 520px) {
+
+  .app {
+    padding: 14px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .hook-card {
+    min-height: 170px;
+    padding: 22px 19px;
+  }
+
+  .quote {
+    font-size: 19px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+
+    <div class="title">
+      🎯 ГЕНЕРАТОР ХУКІВ
+    </div>
+
+    <div class="status-dot"></div>
+
+  </div>
+
+
+  <div class="card glass">
+
+    <div class="eyebrow">
+      ПОЧНИ З СИЛЬНОЇ ФРАЗИ
+    </div>
+
+    <h1>
+      Зачепи з першої секунди
+    </h1>
+
+    <div class="description">
+      Бери основу й адаптуй під свій проєкт.
+    </div>
+
+
+    <div class="hook-card">
+
+      <div
+        class="quote"
+        id="hook"
+      >
+        Завантажуємо хук...
+      </div>
+
+    </div>
+
+
+    <div class="meta">
+
+      <div
+        class="green-accent"
+        id="counter"
+      >
+        <span class="mini-dot"></span>
+        ХУК 1 ІЗ 80
+      </div>
+
+      <div>
+        DNK
+      </div>
+
+    </div>
+
+
+    <button
+      class="generate"
+      onclick="generateHook()"
+    >
+      ↻ ПОКАЗАТИ ІНШИЙ ХУК
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const hooks = [
+
+"Якщо ви досі ___, швидше за все, ви втрачаєте ___.",
+
+"Ви можете роками робити ___ і навіть не помічати цю помилку.",
+
+"Ось чому ваш ___ досі не дає бажаного результату.",
+
+"Найчастіша помилка, яку ми бачимо в ___.",
+
+"Перш ніж ___, перевірте ось це.",
+
+"Як зрозуміти, що вам уже час ___?",
+
+"Три сигнали, що з ___ щось не так.",
+
+"Вам не обовʼязково ___, щоб отримати ___.",
+
+"Якщо ___ не працює — причина може бути зовсім не там, де ви думаєте.",
+
+"Ось що майже ніхто не враховує перед ___.",
+
+"Здається логічним робити ___. Але є один нюанс.",
+
+"Чому у двох людей однаковий ___ може дати абсолютно різний результат?",
+
+"Що буде, якщо ___?",
+
+"Ви точно впевнені, що ___ потрібно робити саме так?",
+
+"Є одна деталь, яка може повністю змінити результат ___.",
+
+"Цю помилку легко пропустити — поки не зʼявиться ___.",
+
+"Якщо ви зараз обираєте ___, не дивіться тільки на ___.",
+
+"Одна річ, яку варто знати перед тим, як ___.",
+
+"Чому ___ іноді працює, а іноді — ні?",
+
+"Ось що відбувається насправді, коли ви ___.",
+
+"Міф, через який люди досі ___.",
+
+"Правда чи міф: ___?",
+
+"Ви могли чути, що ___. Розбираємося, чи це справді так.",
+
+"Не плутайте ___ з ___. Це різні речі.",
+
+"Популярна порада про ___, яка підходить далеко не всім.",
+
+"Чому фраза «___» не завжди означає те, що здається?",
+
+"Одна з найбільш переоцінених думок про ___.",
+
+"Те, що всі звикли робити з ___, але варто розібрати детальніше.",
+
+"___ чи ___? Пояснюємо різницю без складних слів.",
+
+"Що в твердженні «___» правда, а що — перебільшення?",
+
+"До нас прийшли із запитом: «___». Але проблема виявилась зовсім в іншому.",
+
+"Ось з чого починався цей результат.",
+
+"На перший погляд тут усе було нормально. Поки ми не побачили ___.",
+
+"Клієнт був упевнений, що потрібно ___. Ми почали з іншого.",
+
+"Що ми змінили, щоб отримати цей результат?",
+
+"Цей кейс добре показує, чому ___ важливіше, ніж здається.",
+
+"Результат виглядає просто. Але ось що залишилось за кадром.",
+
+"Найцікавіше в цьому кейсі — не результат, а те, що сталося до нього.",
+
+"Ми теж колись робили ___. Ось чому перестали.",
+
+"Одна фраза клієнта повністю змінила наш підхід до ___.",
+
+"Як би ми зробили ___, якби починали сьогодні з нуля?",
+
+"Що ми перевіряємо перед тим, як ___?",
+
+"Ось як насправді виглядає процес ___.",
+
+"Від запиту «___» до результату — показуємо весь шлях.",
+
+"Що відбувається між «до» і «після»?",
+
+"Ви бачите результат. А ми бачимо ще ___ етапів до нього.",
+
+"Один робочий день навколо ___.",
+
+"Сьогодні покажемо те, що зазвичай залишається за кадром.",
+
+"Ось момент, на якому найчастіше вирішується результат ___.",
+
+"Чому ми зробили саме так, а не ___?",
+
+"Як обрати ___ і не помилитися?",
+
+"Кому насправді потрібен ___?",
+
+"Перед покупкою ___ поставте собі ці три питання.",
+
+"___ підійде вам, якщо ___.",
+
+"Коли дорожчий ___ справді має сенс?",
+
+"Два схожі ___ — але для абсолютно різних задач.",
+
+"На що дивитися в першу чергу, коли обираєте ___?",
+
+"Одна характеристика ___, яку часто ігнорують.",
+
+"Чому в ___ є саме ця деталь?",
+
+"Що ви насправді отримуєте разом із ___?",
+
+"Що входить у ___ і за що ви насправді платите?",
+
+"Як зрозуміти, який ___ потрібен саме вам?",
+
+"Не купуйте ___, поки не визначили ось це.",
+
+"Один ___ — три абсолютно різні сценарії використання.",
+
+"Покажемо ___ не в каталозі, а в реальній роботі.",
+
+"Що буде, якщо використати ___ ось так?",
+
+"Перевіримо ___ в реальних умовах.",
+
+"Чим на практиці відрізняється ___ від ___?",
+
+"Одна функція ___, про яку варто знати.",
+
+"Що всередині ___ і навіщо потрібна кожна частина?",
+
+"Якщо у вас ___, почніть не з ___.",
+
+"Що робити, якщо ___ уже сталося?",
+
+"З чого почати, якщо ви хочете ___?",
+
+"Пʼять питань, які варто поставити перед ___.",
+
+"Три речі, які впливають на ___ сильніше, ніж здається.",
+
+"Коли ___ вам взагалі не потрібен?",
+
+"Що зазвичай не враховують перед ___?",
+
+"Якби бюджет на ___ був обмежений, ось з чого ми б почали.",
+
+"Якби на ___ був лише один день, що ми зробили б у першу чергу?",
+
+"Одна порада про ___, яку хочеться дати кожному, хто тільки починає."
+
+];
+
+let lastIndex = -1;
+
+
+/* RANDOM HOOK */
+
+function generateHook() {
+
+  let index;
+
+  do {
+
+    index =
+      Math.floor(
+        Math.random() * hooks.length
+      );
+
+  } while (
+    index === lastIndex &&
+    hooks.length > 1
+  );
+
+  lastIndex = index;
+
+  const hook =
+    document.getElementById("hook");
+
+  hook.classList.remove("hook-change");
+
+  void hook.offsetWidth;
+
+  hook.textContent =
+    hooks[index];
+
+  hook.classList.add("hook-change");
+
+
+  document.getElementById("counter")
+    .innerHTML =
+    '<span class="mini-dot"></span>' +
+    'ХУК ' +
+    (index + 1) +
+    ' ІЗ ' +
+    hooks.length;
+}
+
+
+/* FIRST HOOK */
+
+generateHook();
+
+</script>
+
+</body>
+</html>
