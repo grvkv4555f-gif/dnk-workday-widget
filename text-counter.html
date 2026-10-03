@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --green: #00f500;
+  --text: #111111;
+  --muted: #777777;
+  --bg: #f7f7f5;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(0,245,0,.08), transparent 28%),
+    radial-gradient(circle at 90% 80%, rgba(0,245,0,.05), transparent 30%),
+    var(--bg);
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+}
+
+.app {
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  padding: 22px;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .8px;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 16px rgba(0,245,0,.55);
+}
+
+/* GLASS */
+
+.glass {
+  background: rgba(255,255,255,.64);
+  border: 1px solid rgba(255,255,255,.9);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,1);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+/* MAIN CARD */
+
+.card {
+  border-radius: 28px;
+  padding: 26px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #8b8b8b;
+  margin-bottom: 9px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -.7px;
+}
+
+.description {
+  margin-top: 8px;
+  margin-bottom: 22px;
+
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* TEXTAREA */
+
+.text-wrap {
+  position: relative;
+}
+
+textarea {
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+
+  border: 0;
+  outline: none;
+
+  border-radius: 21px;
+
+  background: rgba(255,255,255,.72);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 8px 25px rgba(0,0,0,.045);
+
+  padding: 18px;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #111;
+}
+
+textarea::placeholder {
+  color: #aaaaaa;
+}
+
+textarea:focus {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 10px 28px rgba(0,0,0,.06),
+    0 0 0 3px rgba(0,245,0,.06);
+}
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  margin-top: 13px;
+}
+
+.stat {
+  min-width: 0;
+  background: rgba(255,255,255,.72);
+
+  border-radius: 18px;
+
+  padding: 15px 8px;
+
+  text-align: center;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    0 7px 20px rgba(0,0,0,.04);
+}
+
+.number {
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -.5px;
+}
+
+.label {
+  margin-top: 7px;
+
+  font-size: 8px;
+  line-height: 1.2;
+
+  font-weight: 900;
+  letter-spacing: .65px;
+
+  color: #858585;
+}
+
+/* BUTTON */
+
+.clear {
+  width: 100%;
+
+  border: 0;
+  border-radius: 18px;
+
+  background: #111111;
+  color: white;
+
+  padding: 17px 18px;
+  margin-top: 14px;
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .3px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 12px 25px rgba(0,0,0,.12),
+    0 0 24px rgba(0,245,0,.05);
+
+  transition: .2s ease;
+}
+
+.clear:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 15px 30px rgba(0,0,0,.15),
+    0 0 25px rgba(0,245,0,.08);
+}
+
+.clear:active {
+  transform: scale(.99);
+}
+
+/* LITTLE GREEN ACCENT */
+
+.green-line {
+  width: 32px;
+  height: 4px;
+
+  background: var(--green);
+
+  border-radius: 100px;
+
+  margin-top: 16px;
+
+  box-shadow: 0 0 14px rgba(0,245,0,.25);
+}
+
+/* MOBILE / NARROW NOTION EMBED */
+
+@media (max-width: 520px) {
+
+  .app {
+    padding: 14px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  textarea {
+    min-height: 160px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat {
+    padding: 14px 7px;
+  }
+
+  .number {
+    font-size: 24px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <div class="title">📝 ЛІЧИЛЬНИК ТЕКСТУ</div>
+    <div class="status-dot"></div>
+  </div>
+
+  <div class="card glass">
+
+    <div class="eyebrow">
+      ШВИДКА ПЕРЕВІРКА
+    </div>
+
+    <h1>
+      Встав текст сюди
+    </h1>
+
+    <div class="description">
+      Порахуємо все автоматично.
+    </div>
+
+    <div class="text-wrap">
+
+      <textarea
+        id="text"
+        placeholder="Починай писати або встав готовий текст..."
+      ></textarea>
+
+    </div>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="number" id="characters">0</div>
+        <div class="label">СИМВОЛИ</div>
+      </div>
+
+      <div class="stat">
+        <div class="number" id="noSpaces">0</div>
+        <div class="label">БЕЗ ПРОБІЛІВ</div>
+      </div>
+
+      <div class="stat">
+        <div class="number" id="words">0</div>
+        <div class="label">СЛОВА</div>
+      </div>
+
+      <div class="stat">
+        <div class="number" id="sentences">0</div>
+        <div class="label">РЕЧЕННЯ</div>
+      </div>
+
+    </div>
+
+    <button class="clear" onclick="clearText()">
+      ✕ ОЧИСТИТИ ТЕКСТ
+    </button>
+
+    <div class="green-line"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const text = document.getElementById("text");
+
+const characters = document.getElementById("characters");
+const noSpaces = document.getElementById("noSpaces");
+const words = document.getElementById("words");
+const sentences = document.getElementById("sentences");
+
+
+function updateCounter() {
+
+  const value = text.value;
+
+  /* Усі символи */
+  characters.textContent = value.length;
+
+  /* Символи без пробілів */
+  noSpaces.textContent =
+    value.replace(/\s/g, "").length;
+
+  /* Слова */
+  const trimmed = value.trim();
+
+  if (trimmed === "") {
+    words.textContent = 0;
+  } else {
+    words.textContent =
+      trimmed.split(/\s+/).length;
+  }
+
+  /* Речення */
+  if (trimmed === "") {
+
+    sentences.textContent = 0;
+
+  } else {
+
+    const matches =
+      trimmed.match(/[^.!?…]+[.!?…]+|[^.!?…]+$/g);
+
+    sentences.textContent =
+      matches ? matches.length : 0;
+  }
+}
+
+
+function clearText() {
+
+  text.value = "";
+
+  updateCounter();
+
+  text.focus();
+}
+
+
+text.addEventListener(
+  "input",
+  updateCounter
+);
+
+updateCounter();
+
+</script>
+
+</body>
+</html>
