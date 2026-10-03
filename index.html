@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #ffffff;
+  color: #080808;
+}
+
+.widget {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 20px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.percent {
+  color: #00F500;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.bar {
+  width: 100%;
+  height: 18px;
+  border: 2px solid #080808;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  width: 0%;
+  background: #00F500;
+  transition: width 0.5s ease;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.remaining {
+  font-weight: 700;
+}
+
+.time {
+  color: #777;
+}
+
+.finished {
+  color: #00F500;
+  font-weight: 700;
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+  <div class="top">
+    <div class="title">РОБОЧИЙ ДЕНЬ</div>
+    <div class="percent" id="percent">0%</div>
+  </div>
+
+  <div class="bar">
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <div class="bottom">
+    <div class="remaining" id="remaining">Завантаження...</div>
+    <div class="time">09:00 — 18:00</div>
+  </div>
+
+</div>
+
+<script>
+function updateWidget() {
+  const now = new Date();
+
+  const day = now.getDay();
+
+  const start = new Date(now);
+  start.setHours(9, 0, 0, 0);
+
+  const end = new Date(now);
+  end.setHours(18, 0, 0, 0);
+
+  const progress = document.getElementById("progress");
+  const percent = document.getElementById("percent");
+  const remaining = document.getElementById("remaining");
+
+  if (day === 0 || day === 6) {
+    progress.style.width = "100%";
+    percent.textContent = "💚";
+    remaining.innerHTML =
+      '<span class="finished">ВИХІДНИЙ. ВІДПОЧИВАЄМО 😌</span>';
+    return;
+  }
+
+  if (now < start) {
+    progress.style.width = "0%";
+    percent.textContent = "0%";
+    remaining.textContent = "РОБОЧИЙ ДЕНЬ ЩЕ НЕ ПОЧАВСЯ";
+    return;
+  }
+
+  if (now >= end) {
+    progress.style.width = "100%";
+    percent.textContent = "100%";
+    remaining.innerHTML =
+      '<span class="finished">ВСЕ НА СЬОГОДНІ 💚</span>';
+    return;
+  }
+
+  const total = end - start;
+  const passed = now - start;
+
+  const value = (passed / total) * 100;
+
+  progress.style.width = value + "%";
+  percent.textContent = Math.floor(value) + "%";
+
+  const left = end - now;
+
+  const hours = Math.floor(left / 3600000);
+  const minutes = Math.floor((left % 3600000) / 60000);
+  const seconds = Math.floor((left % 60000) / 1000);
+
+  remaining.textContent =
+    "ДО КІНЦЯ: " +
+    String(hours).padStart(2, "0") + ":" +
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
+}
+
+updateWidget();
+setInterval(updateWidget, 1000);
+</script>
+
+</body>
+</html>
