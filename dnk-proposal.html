@@ -1,0 +1,2422 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DNK Digital Agency — Commercial Proposal</title>
+
+<style>
+
+/* =========================================================
+   BASE
+========================================================= */
+
+:root{
+  --bg:#070807;
+  --bg2:#0b0d0b;
+  --green:#19ff38;
+  --white:#f5f5f2;
+  --muted:#8c918c;
+  --line:rgba(255,255,255,.12);
+  --glass:rgba(255,255,255,.055);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:Arial, Helvetica, sans-serif;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+
+  background-image:
+  linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+
+  background-size:80px 80px;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+section{
+  position:relative;
+}
+
+.container{
+  width:min(1380px,calc(100% - 80px));
+  margin:auto;
+}
+
+.green{
+  color:var(--green);
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.eyebrow{
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--green);
+  margin-bottom:28px;
+}
+
+.section-title{
+  font-size:clamp(58px,8vw,140px);
+  line-height:.82;
+  letter-spacing:-.07em;
+  font-weight:700;
+}
+
+.section-title.small{
+  font-size:clamp(52px,6vw,100px);
+}
+
+.section-number{
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.14em;
+}
+
+.glow{
+  position:absolute;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+  background:rgba(25,255,56,.13);
+  filter:blur(150px);
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav{
+  position:fixed;
+  z-index:100;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+
+  width:min(1380px,calc(100% - 60px));
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:20px 28px;
+
+  border:1px solid var(--line);
+  border-radius:24px;
+
+  background:rgba(7,8,7,.68);
+  backdrop-filter:blur(22px);
+}
+
+.logo{
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:-.08em;
+}
+
+.logo span{
+  color:var(--green);
+}
+
+.nav-right{
+  display:flex;
+  gap:35px;
+  align-items:center;
+  font-size:12px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.status-dot{
+  width:9px;
+  height:9px;
+  background:var(--green);
+  border-radius:50%;
+  box-shadow:0 0 20px var(--green);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  padding:150px 0 65px;
+}
+
+.hero .glow{
+  right:-200px;
+  bottom:-280px;
+}
+
+.hero-top{
+  position:absolute;
+  top:150px;
+  left:0;
+  width:100%;
+}
+
+.hero-meta{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.hero-title{
+  width:100%;
+  font-size:clamp(78px,13.3vw,230px);
+  line-height:.74;
+  letter-spacing:-.085em;
+  font-weight:800;
+}
+
+.hero-title .line{
+  overflow:hidden;
+  display:block;
+}
+
+.hero-title .inner{
+  display:block;
+  animation:heroIn 1.2s cubic-bezier(.16,1,.3,1) both;
+}
+
+.hero-title .line:nth-child(2) .inner{
+  animation-delay:.13s;
+}
+
+@keyframes heroIn{
+  from{
+    transform:translateY(115%);
+    filter:blur(15px);
+    opacity:0;
+  }
+  to{
+    transform:translateY(0);
+    filter:blur(0);
+    opacity:1;
+  }
+}
+
+.hero-bottom{
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:end;
+}
+
+.hero-copy{
+  max-width:510px;
+  color:#b8bcb8;
+  font-size:18px;
+  line-height:1.55;
+}
+
+.hero-tags{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.tag{
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:12px 18px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  background:rgba(255,255,255,.025);
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+  padding:20px 0;
+}
+
+.marquee-track{
+  display:flex;
+  width:max-content;
+  gap:40px;
+  animation:marquee 25s linear infinite;
+  color:var(--green);
+  font-size:13px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+@keyframes marquee{
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about{
+  padding:170px 0;
+}
+
+.about .glow{
+  left:-400px;
+  top:200px;
+}
+
+.about-head{
+  display:grid;
+  grid-template-columns:1fr 3fr;
+  gap:50px;
+}
+
+.about-title{
+  font-size:clamp(65px,10vw,170px);
+  line-height:.8;
+  letter-spacing:-.08em;
+}
+
+.about-copy{
+  margin-top:100px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+}
+
+.about-copy p{
+  font-size:clamp(20px,2vw,31px);
+  line-height:1.3;
+}
+
+.about-copy .secondary{
+  color:#8e938e;
+  font-size:18px;
+  line-height:1.6;
+}
+
+
+/* =========================================================
+   NICHES / SERVICES
+========================================================= */
+
+.info-grid{
+  margin-top:120px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.info-panel{
+  min-height:360px;
+  padding:38px;
+  border:1px solid var(--line);
+  border-radius:34px;
+  background:var(--glass);
+  backdrop-filter:blur(15px);
+  position:relative;
+  overflow:hidden;
+}
+
+.info-panel::after{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:rgba(25,255,56,.1);
+  filter:blur(80px);
+  right:-100px;
+  bottom:-100px;
+}
+
+.panel-label{
+  color:var(--green);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.panel-list{
+  margin-top:70px;
+  font-size:clamp(23px,2.4vw,40px);
+  line-height:1.12;
+  letter-spacing:-.035em;
+}
+
+
+/* =========================================================
+   NUMBERS
+========================================================= */
+
+.numbers{
+  padding:80px 0 180px;
+}
+
+.numbers-title{
+  margin-bottom:80px;
+}
+
+.number-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);
+}
+
+.metric{
+  min-height:280px;
+  padding:35px 25px;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.metric:nth-child(3n){
+  border-right:0;
+}
+
+.metric-value{
+  font-size:clamp(62px,7vw,125px);
+  letter-spacing:-.07em;
+  line-height:.8;
+}
+
+.metric-label{
+  color:var(--muted);
+  max-width:230px;
+  line-height:1.4;
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+.team{
+  padding:170px 0;
+  background:#efefeb;
+  color:#090a09;
+  border-radius:55px 55px 0 0;
+}
+
+.team .eyebrow{
+  color:#0aa725;
+}
+
+.team-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:40px;
+}
+
+.team-note{
+  max-width:380px;
+  font-size:18px;
+  line-height:1.5;
+  color:#666;
+}
+
+.team-grid{
+  margin-top:100px;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:12px;
+}
+
+.person{
+  border:1px solid rgba(0,0,0,.13);
+  border-radius:30px;
+  padding:28px;
+  min-height:270px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  background:rgba(255,255,255,.45);
+  transition:.35s ease;
+}
+
+.person:hover{
+  transform:translateY(-8px);
+  background:#fff;
+}
+
+.person.large{
+  grid-column:span 4;
+}
+
+.person.medium{
+  grid-column:span 3;
+}
+
+.person.smm{
+  grid-column:span 6;
+  background:#0b0d0b;
+  color:white;
+}
+
+.person-index{
+  font-size:11px;
+  color:#8c8c8c;
+}
+
+.person-name{
+  font-size:32px;
+  letter-spacing:-.04em;
+}
+
+.person-role{
+  font-size:13px;
+  color:#777;
+  margin-top:8px;
+}
+
+.person.smm .person-role{
+  color:#aaa;
+}
+
+.avatar-row{
+  display:flex;
+  margin-bottom:35px;
+}
+
+.avatar{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  border:2px solid #0b0d0b;
+  background:linear-gradient(135deg,#ddd,#999);
+  margin-right:-10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#111;
+  font-weight:700;
+}
+
+.person.smm .avatar{
+  border-color:#0b0d0b;
+  background:var(--green);
+}
+
+
+/* =========================================================
+   CLIENTS
+========================================================= */
+
+.clients{
+  padding:170px 0;
+}
+
+.clients-intro{
+  margin-top:70px;
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:100px;
+}
+
+.clients-big{
+  font-size:clamp(28px,3.5vw,55px);
+  line-height:1.08;
+  letter-spacing:-.045em;
+}
+
+.clients-small{
+  color:#999;
+  font-size:18px;
+  line-height:1.55;
+}
+
+.logo-cloud{
+  margin-top:100px;
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+
+.client-logo{
+  min-height:150px;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:700;
+  color:#d8d8d4;
+  transition:.3s;
+}
+
+.client-logo:nth-child(4n){
+  border-right:0;
+}
+
+.client-logo:hover{
+  color:var(--green);
+  background:rgba(25,255,56,.035);
+}
+
+
+/* =========================================================
+   JOURNEY
+========================================================= */
+
+.journey{
+  padding:170px 0 220px;
+  overflow:hidden;
+}
+
+.journey .glow{
+  right:-350px;
+  top:200px;
+}
+
+.journey-list{
+  margin-top:110px;
+}
+
+.journey-step{
+  display:grid;
+  grid-template-columns:110px 1fr 1fr;
+  gap:40px;
+  padding:35px 0;
+  border-top:1px solid var(--line);
+  align-items:center;
+  transition:.35s;
+}
+
+.journey-step:last-child{
+  border-bottom:1px solid var(--line);
+}
+
+.journey-step:hover{
+  padding-left:20px;
+}
+
+.journey-num{
+  color:var(--green);
+  font-size:14px;
+}
+
+.journey-name{
+  font-size:clamp(27px,3vw,47px);
+  letter-spacing:-.04em;
+}
+
+.journey-desc{
+  color:#999;
+  max-width:500px;
+  line-height:1.5;
+}
+
+.journey-footer{
+  margin-top:80px;
+  max-width:820px;
+  font-size:clamp(28px,3vw,50px);
+  line-height:1.1;
+}
+
+
+/* =========================================================
+   PACKAGES
+========================================================= */
+
+.packages{
+  padding:170px 0;
+  background:#101210;
+}
+
+.packages-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:40px;
+}
+
+.packages-header p{
+  max-width:350px;
+  color:#999;
+  line-height:1.5;
+}
+
+.package-stack{
+  margin-top:100px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.package{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:36px;
+  padding:38px;
+  min-height:440px;
+  background:#0b0d0b;
+  overflow:hidden;
+  transition:.4s cubic-bezier(.16,1,.3,1);
+}
+
+.package:hover{
+  border-color:rgba(25,255,56,.45);
+  transform:translateY(-5px);
+}
+
+.package.featured{
+  background:var(--green);
+  color:#061006;
+}
+
+.package-top{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.package-no{
+  font-size:12px;
+  letter-spacing:.12em;
+}
+
+.package-title{
+  margin-top:80px;
+  font-size:clamp(45px,6vw,92px);
+  line-height:.9;
+  letter-spacing:-.065em;
+  max-width:950px;
+}
+
+.package-content{
+  margin-top:70px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+}
+
+.package-services{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px 30px;
+}
+
+.package-services div{
+  padding:13px 0;
+  border-bottom:1px solid currentColor;
+  font-size:14px;
+}
+
+.package-meta{
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-end;
+  gap:50px;
+}
+
+.package-meta strong{
+  font-size:45px;
+  letter-spacing:-.05em;
+}
+
+.package-meta span{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+
+
+/* =========================================================
+   COMPACT SERVICES
+========================================================= */
+
+.extra-services{
+  padding:170px 0;
+}
+
+.extra-grid{
+  margin-top:90px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.extra-card{
+  min-height:420px;
+  padding:35px;
+  border:1px solid var(--line);
+  border-radius:32px;
+  background:var(--glass);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:.35s;
+}
+
+.extra-card:hover{
+  transform:translateY(-7px);
+  background:rgba(25,255,56,.05);
+}
+
+.extra-title{
+  font-size:clamp(35px,4vw,65px);
+  line-height:.95;
+  letter-spacing:-.05em;
+}
+
+.extra-list{
+  margin-top:40px;
+  color:#a7aba7;
+  line-height:1.8;
+}
+
+.extra-bottom{
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid var(--line);
+  padding-top:20px;
+  margin-top:50px;
+  font-size:12px;
+  text-transform:uppercase;
+}
+
+
+/* =========================================================
+   ADS
+========================================================= */
+
+.ads{
+  padding:170px 0;
+  background:#efefeb;
+  color:#080908;
+}
+
+.ads .eyebrow{
+  color:#0aa725;
+}
+
+.ads-grid{
+  margin-top:90px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.ad-card{
+  border:1px solid rgba(0,0,0,.15);
+  border-radius:30px;
+  padding:30px;
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  background:rgba(255,255,255,.55);
+  transition:.35s;
+}
+
+.ad-card:hover{
+  background:#fff;
+  transform:translateY(-7px);
+}
+
+.ad-card:nth-child(2){
+  background:#0b0d0b;
+  color:white;
+}
+
+.ad-no{
+  font-size:11px;
+  opacity:.55;
+}
+
+.ad-title{
+  margin-top:60px;
+  font-size:38px;
+  line-height:1;
+  letter-spacing:-.05em;
+}
+
+.ad-list{
+  margin-top:40px;
+  font-size:14px;
+  line-height:1.65;
+  opacity:.7;
+}
+
+.ad-bottom{
+  display:flex;
+  justify-content:space-between;
+  padding-top:20px;
+  border-top:1px solid currentColor;
+  opacity:.7;
+  font-size:12px;
+}
+
+
+/* =========================================================
+   CONTEXT
+========================================================= */
+
+.context{
+  padding:170px 0;
+}
+
+.context-row{
+  margin-top:100px;
+  border-top:1px solid var(--line);
+}
+
+.context-item{
+  padding:40px 0;
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:80px 1fr 220px;
+  align-items:center;
+  gap:40px;
+}
+
+.context-name{
+  font-size:clamp(27px,3vw,48px);
+  letter-spacing:-.04em;
+}
+
+.context-meta{
+  color:#888;
+  text-align:right;
+}
+
+
+/* =========================================================
+   TIKTOK
+========================================================= */
+
+.tiktok{
+  padding:170px 0;
+  overflow:hidden;
+}
+
+.tiktok .glow{
+  left:25%;
+  top:300px;
+}
+
+.tiktok-cards{
+  margin-top:100px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.tiktok-card{
+  min-height:570px;
+  border-radius:34px;
+  padding:32px;
+  border:1px solid var(--line);
+  background:#0c0e0c;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:.4s;
+}
+
+.tiktok-card:hover{
+  transform:translateY(-10px) rotate(-1deg);
+}
+
+.tiktok-card:nth-child(2){
+  transform:translateY(45px);
+  background:var(--green);
+  color:#071007;
+}
+
+.tiktok-card:nth-child(2):hover{
+  transform:translateY(35px) rotate(1deg);
+}
+
+.video-count{
+  font-size:clamp(85px,9vw,150px);
+  line-height:.75;
+  letter-spacing:-.08em;
+}
+
+.video-label{
+  font-size:18px;
+  margin-top:15px;
+}
+
+.tiktok-list{
+  font-size:13px;
+  line-height:1.75;
+  opacity:.72;
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final{
+  min-height:100vh;
+  padding:160px 0 50px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+
+.final .glow{
+  width:900px;
+  height:900px;
+  right:-200px;
+  top:10%;
+}
+
+.final-title{
+  font-size:clamp(72px,12vw,200px);
+  line-height:.78;
+  letter-spacing:-.085em;
+}
+
+.final-title span{
+  color:var(--green);
+}
+
+.final-bottom{
+  margin-top:100px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:end;
+}
+
+.socials{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.social{
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:14px 20px;
+  font-size:12px;
+  text-transform:uppercase;
+}
+
+.final-meta{
+  text-align:right;
+  color:#888;
+  font-size:11px;
+  line-height:1.7;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+
+/* =========================================================
+   SAFE ANIMATIONS
+   IMPORTANT: content remains visible without JS
+========================================================= */
+
+.reveal{
+  transition:
+    opacity .8s cubic-bezier(.16,1,.3,1),
+    transform .8s cubic-bezier(.16,1,.3,1),
+    filter .8s cubic-bezier(.16,1,.3,1);
+}
+
+.js-ready .reveal{
+  opacity:0;
+  transform:translateY(35px);
+  filter:blur(5px);
+}
+
+.js-ready .reveal.visible{
+  opacity:1;
+  transform:none;
+  filter:none;
+}
+
+.word-pop span{
+  display:inline-block;
+  transition:
+    transform .7s cubic-bezier(.16,1,.3,1),
+    opacity .7s ease;
+}
+
+.js-ready .word-pop span{
+  transform:translateY(35px);
+  opacity:0;
+}
+
+.js-ready .word-pop.visible span{
+  transform:translateY(0);
+  opacity:1;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+  .container{
+    width:calc(100% - 36px);
+  }
+
+  .nav{
+    width:calc(100% - 24px);
+    top:12px;
+    padding:16px 18px;
+  }
+
+  .nav-right{
+    gap:12px;
+  }
+
+  .nav-right span:last-child{
+    display:none;
+  }
+
+  .hero{
+    padding-top:130px;
+  }
+
+  .hero-top{
+    top:115px;
+  }
+
+  .hero-bottom,
+  .about-head,
+  .about-copy,
+  .clients-intro,
+  .package-content,
+  .final-bottom{
+    grid-template-columns:1fr;
+  }
+
+  .hero-tags{
+    justify-content:flex-start;
+  }
+
+  .info-grid,
+  .extra-grid{
+    grid-template-columns:1fr;
+  }
+
+  .number-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .metric:nth-child(3n){
+    border-right:1px solid var(--line);
+  }
+
+  .team-grid{
+    grid-template-columns:1fr;
+  }
+
+  .person.large,
+  .person.medium,
+  .person.smm{
+    grid-column:auto;
+  }
+
+  .logo-cloud{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .client-logo:nth-child(4n){
+    border-right:1px solid var(--line);
+  }
+
+  .journey-step{
+    grid-template-columns:50px 1fr;
+  }
+
+  .journey-desc{
+    grid-column:2;
+  }
+
+  .package-services{
+    grid-template-columns:1fr;
+  }
+
+  .package-meta{
+    justify-content:flex-start;
+  }
+
+  .ads-grid,
+  .tiktok-cards{
+    grid-template-columns:1fr;
+  }
+
+  .tiktok-card:nth-child(2){
+    transform:none;
+  }
+
+  .context-item{
+    grid-template-columns:45px 1fr;
+  }
+
+  .context-meta{
+    grid-column:2;
+    text-align:left;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+
+<nav class="nav">
+  <div class="logo">D<span>N</span>K®</div>
+
+  <div class="nav-right">
+    <div class="status-dot"></div>
+    <span>Digital Agency</span>
+    <span>Kyiv / Ukraine</span>
+  </div>
+</nav>
+
+
+<!-- =====================================================
+     01 HERO
+===================================================== -->
+
+<section class="hero">
+
+  <div class="glow"></div>
+
+  <div class="hero-top">
+    <div class="container hero-meta">
+      <span>01 / Commercial proposal</span>
+      <span>2026</span>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="eyebrow">
+      Social media • Content • Performance
+    </div>
+
+    <h1 class="hero-title">
+
+      <span class="line">
+        <span class="inner">КОМЕРЦІЙНА</span>
+      </span>
+
+      <span class="line">
+        <span class="inner green">ПРОПОЗИЦІЯ</span>
+      </span>
+
+    </h1>
+
+    <div class="hero-bottom">
+
+      <p class="hero-copy">
+        DNK Digital Agency — команда, яка бере на себе
+        digital-просування бренду від стратегії та контенту
+        до реклами, продакшну й аналітики.
+      </p>
+
+      <div class="hero-tags">
+        <span class="tag">SMM</span>
+        <span class="tag">Content</span>
+        <span class="tag">Performance</span>
+        <span class="tag">Production</span>
+        <span class="tag">AI</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>DNK DIGITAL AGENCY ✦</span>
+    <span>SOCIAL MEDIA ✦</span>
+    <span>CONTENT ✦</span>
+    <span>PERFORMANCE ✦</span>
+    <span>PRODUCTION ✦</span>
+    <span>DNK DIGITAL AGENCY ✦</span>
+    <span>SOCIAL MEDIA ✦</span>
+    <span>CONTENT ✦</span>
+    <span>PERFORMANCE ✦</span>
+    <span>PRODUCTION ✦</span>
+  </div>
+</div>
+
+
+<!-- =====================================================
+     02 ABOUT
+===================================================== -->
+
+<section class="about">
+
+  <div class="glow"></div>
+
+  <div class="container">
+
+    <div class="about-head reveal">
+
+      <div>
+        <div class="section-number">02 / ABOUT</div>
+      </div>
+
+      <h2 class="about-title">
+        ПРО<br>
+        <span class="green">DNK.</span>
+      </h2>
+
+    </div>
+
+
+    <div class="about-copy">
+
+      <p class="reveal">
+        DNK Digital Agency — digital-агенція повного циклу,
+        яка працює з брендами у різних нішах:
+        від медицини та beauty до e-commerce,
+        ритейлу й B2B.
+      </p>
+
+      <p class="secondary reveal">
+        Ми беремо на себе весь цикл роботи з digital-просуванням
+        під ключ: від стратегії та створення контенту
+        до реклами, продакшну й аналітики.
+      </p>
+
+    </div>
+
+
+    <div class="info-grid">
+
+      <article class="info-panel reveal">
+        <div class="panel-label">Кейси в нішах</div>
+
+        <div class="panel-list">
+          Медицина · косметологія · beauty ·
+          медичне обладнання · e-commerce ·
+          ритейл · освіта · IT · HoReCa ·
+          юридичні послуги · професійна косметика ·
+          товари для хобі та спорту
+        </div>
+      </article>
+
+
+      <article class="info-panel reveal">
+        <div class="panel-label">Наші послуги</div>
+
+        <div class="panel-list">
+          SMM-просування · Стратегія ·
+          Фото- та відеозйомка ·
+          Таргетована реклама ·
+          Контекстна реклама · TikTok ·
+          AI-контент · Threads
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     NUMBERS
+===================================================== -->
+
+<section class="numbers">
+
+  <div class="container">
+
+    <div class="numbers-title">
+      <div class="eyebrow">DNK Digital Agency у цифрах</div>
+
+      <h2 class="section-title small reveal">
+        ЦИФРИ ГОВОРЯТЬ
+        <span class="green">ГОЛОСНІШЕ.</span>
+      </h2>
+    </div>
+
+
+    <div class="number-grid">
+
+      <div class="metric reveal">
+        <div class="metric-value">40+</div>
+        <div class="metric-label">кейсів</div>
+      </div>
+
+      <div class="metric reveal">
+        <div class="metric-value">20+</div>
+        <div class="metric-label">ніш</div>
+      </div>
+
+      <div class="metric reveal">
+        <div class="metric-value">8+</div>
+        <div class="metric-label">років досвіду</div>
+      </div>
+
+      <div class="metric reveal">
+        <div class="metric-value">1,5M</div>
+        <div class="metric-label">переглядів профілю</div>
+      </div>
+
+      <div class="metric reveal">
+        <div class="metric-value">$1,5</div>
+        <div class="metric-label">ціна ліда</div>
+      </div>
+
+      <div class="metric reveal">
+        <div class="metric-value">800K+</div>
+        <div class="metric-label">переглядів відео за місяць</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     03 TEAM
+===================================================== -->
+
+<section class="team">
+
+  <div class="container">
+
+    <div class="eyebrow">03 / Team</div>
+
+    <div class="team-head">
+
+      <h2 class="section-title small reveal">
+        ХТО ПРАЦЮВАТИМЕ<br>
+        НАД ВАШИМ ПРОЄКТОМ?
+      </h2>
+
+      <p class="team-note reveal">
+        За кожним напрямом стоїть окремий спеціаліст.
+        Разом — одна команда, яка веде проєкт.
+      </p>
+
+    </div>
+
+
+    <div class="team-grid">
+
+      <article class="person large reveal">
+        <span class="person-index">01</span>
+        <div>
+          <div class="person-name">Анастасія</div>
+          <div class="person-role">CEO · Стратегія та розвиток агенції</div>
+        </div>
+      </article>
+
+
+      <article class="person large reveal">
+        <span class="person-index">02</span>
+        <div>
+          <div class="person-name">Анна</div>
+          <div class="person-role">Project Manager · Координація команди та проєктів</div>
+        </div>
+      </article>
+
+
+      <article class="person smm reveal">
+
+        <span class="person-index">03 / SMM TEAM</span>
+
+        <div>
+
+          <div class="avatar-row">
+            <div class="avatar">С</div>
+            <div class="avatar">Н</div>
+            <div class="avatar">С</div>
+            <div class="avatar">Д</div>
+          </div>
+
+          <div class="person-name">
+            Світлана · Надя · Софія · Дарія
+          </div>
+
+          <div class="person-role">
+            Стратегія · контент · ведення
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="person medium reveal">
+        <span class="person-index">04</span>
+        <div>
+          <div class="person-name">Єгор</div>
+          <div class="person-role">Дизайнер · Візуал і креативи</div>
+        </div>
+      </article>
+
+
+      <article class="person medium reveal">
+        <span class="person-index">05</span>
+        <div>
+          <div class="person-name">Анна</div>
+          <div class="person-role">Таргетолог · Реклама, аналітика, оптимізація</div>
+        </div>
+      </article>
+
+
+      <article class="person medium reveal">
+        <span class="person-index">06</span>
+        <div>
+          <div class="person-name">Катерина · Марія</div>
+          <div class="person-role">Фото / відео · Зйомка контенту</div>
+        </div>
+      </article>
+
+
+      <article class="person medium reveal">
+        <span class="person-index">07</span>
+        <div>
+          <div class="person-name">Нікіта</div>
+          <div class="person-role">Монтаж · Відео та креативи</div>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     04 CLIENTS
+===================================================== -->
+
+<section class="clients">
+
+  <div class="container">
+
+    <div class="eyebrow">04 / Clients</div>
+
+    <h2 class="section-title reveal">
+      НАШІ<br>
+      <span class="green">КЛІЄНТИ.</span>
+    </h2>
+
+
+    <div class="clients-intro">
+
+      <p class="clients-big reveal">
+        Бренди та компанії з різними продуктами,
+        послугами й чеком — від доступних товарів
+        до складного обладнання вартістю €50 000+.
+      </p>
+
+      <p class="clients-small reveal">
+        Їх обʼєднує бажання рости, ставати впізнаванішими,
+        залучати нових клієнтів, збільшувати продажі
+        та виходити на нові ринки.
+        <br><br>
+        <span class="green">
+          Складність продукту для нас не обмеження.
+        </span>
+        <br>
+        Ми знаємо, як пояснити, зацікавити й продати.
+      </p>
+
+    </div>
+
+
+    <div class="logo-cloud">
+
+      <div class="client-logo reveal">ФЛАГМАН</div>
+      <div class="client-logo reveal">НОВОПЕЧЕРСЬКА ШКОЛА</div>
+      <div class="client-logo reveal">МВК МАШ</div>
+      <div class="client-logo reveal">DUSO</div>
+
+      <div class="client-logo reveal">ПРИХОДЬКО ТА ПАРТНЕРИ</div>
+      <div class="client-logo reveal">GRACE</div>
+      <div class="client-logo reveal">ADONIS</div>
+      <div class="client-logo reveal">FRESHBAZA</div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     05 JOURNEY
+===================================================== -->
+
+<section class="journey">
+
+  <div class="glow"></div>
+
+  <div class="container">
+
+    <div class="eyebrow">05 / Workflow</div>
+
+    <h2 class="section-title small reveal">
+      ШЛЯХ ВАШОГО<br>
+      ПРОЄКТУ В <span class="green">DNK.</span>
+    </h2>
+
+
+    <div class="journey-list">
+
+      <div class="journey-step reveal">
+        <div class="journey-num">01</div>
+        <div class="journey-name">Бриф та знайомство</div>
+        <div class="journey-desc">
+          Занурюємося в бізнес, продукт, аудиторію та задачі.
+        </div>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-num">02</div>
+        <div class="journey-name">Аналіз та стратегія</div>
+        <div class="journey-desc">
+          Аналізуємо ринок і конкурентів, визначаємо напрям просування.
+        </div>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-num">03</div>
+        <div class="journey-name">Планування</div>
+        <div class="journey-desc">
+          Формуємо контент-план, рубрики, формати та задачі на місяць.
+        </div>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-num">04</div>
+        <div class="journey-name">Реалізація</div>
+        <div class="journey-desc">
+          Створюємо контент, запускаємо рекламу та ведемо проєкт.
+        </div>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-num">05</div>
+        <div class="journey-name">Аналітика та оптимізація</div>
+        <div class="journey-desc">
+          Аналізуємо показники і коригуємо роботу на основі результатів.
+        </div>
+      </div>
+
+      <div class="journey-step reveal">
+        <div class="journey-num">06</div>
+        <div class="journey-name">Звітність</div>
+        <div class="journey-desc">
+          Підбиваємо результати місяця та визначаємо наступні кроки.
+        </div>
+      </div>
+
+    </div>
+
+
+    <p class="journey-footer reveal">
+      Ви завжди знаєте, що відбувається з проєктом,
+      над чим працює команда і який результат ми отримуємо.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     06 SMM PACKAGES
+===================================================== -->
+
+<section class="packages">
+
+  <div class="container">
+
+    <div class="packages-header">
+
+      <div>
+        <div class="eyebrow">06 / SMM</div>
+
+        <h2 class="section-title small reveal">
+          ПАКЕТИ<br>
+          <span class="green">SMM.</span>
+        </h2>
+      </div>
+
+      <p class="reveal">
+        Обираємо формат роботи залежно від того,
+        які задачі команда має закривати всередині проєкту.
+      </p>
+
+    </div>
+
+
+    <div class="package-stack">
+
+      <article class="package featured reveal">
+
+        <div class="package-top">
+          <span class="package-no">PACKAGE 01</span>
+          <span>01 MONTH</span>
+        </div>
+
+        <h3 class="package-title">
+          КОМПЛЕКСНЕ ВЕДЕННЯ
+        </h3>
+
+        <div class="package-content">
+
+          <div class="package-services">
+            <div>SMM під ключ</div>
+            <div>Стратегія</div>
+            <div>Зйомка контенту</div>
+            <div>Таргетована реклама</div>
+            <div>Робота з блогерами та UGC</div>
+            <div>AI-ролики</div>
+            <div>Аналітика</div>
+          </div>
+
+          <div class="package-meta">
+            <span>Вартість</span>
+            <strong>$</strong>
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="package reveal">
+
+        <div class="package-top">
+          <span class="package-no">PACKAGE 02</span>
+          <span>01 MONTH</span>
+        </div>
+
+        <h3 class="package-title">
+          ВЕДЕННЯ<br>
+          ЗІ ЗЙОМКАМИ
+        </h3>
+
+        <div class="package-content">
+
+          <div class="package-services">
+            <div>SMM під ключ</div>
+            <div>Стратегія</div>
+            <div>Зйомка контенту</div>
+            <div>Робота з блогерами та UGC</div>
+            <div>AI-ролики</div>
+            <div>Аналітика</div>
+          </div>
+
+          <div class="package-meta">
+            <span>Без таргету · Вартість</span>
+            <strong>$</strong>
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="package reveal">
+
+        <div class="package-top">
+          <span class="package-no">PACKAGE 03</span>
+          <span>01 MONTH</span>
+        </div>
+
+        <h3 class="package-title">
+          ВЕДЕННЯ<br>
+          БЕЗ ЗЙОМОК
+        </h3>
+
+        <div class="package-content">
+
+          <div class="package-services">
+            <div>SMM під ключ</div>
+            <div>Стратегія</div>
+            <div>Блогери та UGC</div>
+            <div>AI-ролики</div>
+            <div>Аналітика</div>
+            <div>Без таргетованої реклами</div>
+          </div>
+
+          <div class="package-meta">
+            <span>Контент надає власник · Вартість</span>
+            <strong>$</strong>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     07 EXTRA
+===================================================== -->
+
+<section class="extra-services">
+
+  <div class="container">
+
+    <div class="eyebrow">07 / Additional formats</div>
+
+    <h2 class="section-title small reveal">
+      ОКРЕМІ<br>
+      <span class="green">НАПРЯМИ.</span>
+    </h2>
+
+
+    <div class="extra-grid">
+
+      <article class="extra-card reveal">
+
+        <div>
+          <div class="panel-label">Package 04</div>
+
+          <h3 class="extra-title">
+            Розробка<br>стратегії
+          </h3>
+
+          <div class="extra-list">
+            Розробка стратегії<br>
+            Контент-план<br>
+            Презентація стратегії
+          </div>
+        </div>
+
+        <div class="extra-bottom">
+          <span>3 weeks</span>
+          <span>Вартість $</span>
+        </div>
+
+      </article>
+
+
+      <article class="extra-card reveal">
+
+        <div>
+          <div class="panel-label">Package 05</div>
+
+          <h3 class="extra-title">
+            Зйомка<br>відео-контенту
+          </h3>
+
+          <div class="extra-list">
+            Написання сценаріїв<br>
+            Погодження<br>
+            Організація зйомки<br>
+            Фото- та відеозйомка<br>
+            Монтаж
+          </div>
+        </div>
+
+        <div class="extra-bottom">
+          <span>3 weeks</span>
+          <span>Вартість $</span>
+        </div>
+
+      </article>
+
+
+      <article class="extra-card reveal">
+
+        <div>
+          <div class="panel-label">Package 06</div>
+
+          <h3 class="extra-title">
+            Створення<br>роликів в ШІ
+          </h3>
+
+          <div class="extra-list">
+            Написання сценаріїв<br>
+            Генерація зображень<br>
+            Анімація<br>
+            Озвучка<br>
+            Монтаж
+          </div>
+        </div>
+
+        <div class="extra-bottom">
+          <span>1 week</span>
+          <span>Вартість $</span>
+        </div>
+
+      </article>
+
+
+      <article class="extra-card reveal">
+
+        <div>
+          <div class="panel-label">Package 07</div>
+
+          <h3 class="extra-title">
+            Ведення<br>Threads
+          </h3>
+
+          <div class="extra-list">
+            Розробка контент-плану<br>
+            Адаптація контенту під Threads<br>
+            Актуальні теми та інфоприводи<br>
+            Аналітика результатів
+          </div>
+        </div>
+
+        <div class="extra-bottom">
+          <span>1 month</span>
+          <span>Вартість $</span>
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     08 TARGET
+===================================================== -->
+
+<section class="ads">
+
+  <div class="container">
+
+    <div class="eyebrow">08 / Performance</div>
+
+    <h2 class="section-title small reveal">
+      ПАКЕТИ ТАРГЕТОВАНОЇ<br>
+      РЕКЛАМИ
+    </h2>
+
+
+    <div class="ads-grid">
+
+      <article class="ad-card reveal">
+
+        <div>
+
+          <div class="ad-no">PACKAGE 01</div>
+
+          <h3 class="ad-title">
+            Пакет<br>з креативами
+          </h3>
+
+          <div class="ad-list">
+            Аналіз бізнесу, аудиторії та конкурентів<br>
+            Аналіз цільової аудиторії<br>
+            Формування оферів і рекламних гіпотез<br>
+            Визначення цілей та рекламного бюджету<br>
+            Планування структури рекламних кампаній
+          </div>
+
+        </div>
+
+        <div class="ad-bottom">
+          <span>1 month</span>
+          <span>$</span>
+        </div>
+
+      </article>
+
+
+      <article class="ad-card reveal">
+
+        <div>
+
+          <div class="ad-no">PACKAGE 02</div>
+
+          <h3 class="ad-title">
+            Пакет<br>без креативів
+          </h3>
+
+          <div class="ad-list">
+            Аналіз та налаштування рекламного кабінету<br>
+            Розробка рекламних креативів<br>
+            Запуск і ведення рекламних кампаній<br>
+            Оптимізація, аналітика та звітність
+          </div>
+
+        </div>
+
+        <div class="ad-bottom">
+          <span>1 month</span>
+          <span>$</span>
+        </div>
+
+      </article>
+
+
+      <article class="ad-card reveal">
+
+        <div>
+
+          <div class="ad-no">PACKAGE 03</div>
+
+          <h3 class="ad-title">
+            Пакет з<br>SMM-веденням
+          </h3>
+
+          <div class="ad-list">
+            Аналіз та налаштування рекламного кабінету<br>
+            Запуск і ведення рекламних кампаній<br>
+            Оптимізація<br>
+            Аналітика та звітність
+          </div>
+
+        </div>
+
+        <div class="ad-bottom">
+          <span>1 month</span>
+          <span>$</span>
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     09 CONTEXT ADS
+===================================================== -->
+
+<section class="context">
+
+  <div class="container">
+
+    <div class="eyebrow">09 / Google Ads</div>
+
+    <h2 class="section-title small reveal">
+      КОНТЕКСТНА<br>
+      <span class="green">РЕКЛАМА.</span>
+    </h2>
+
+
+    <div class="context-row">
+
+      <div class="context-item reveal">
+        <div class="green">01</div>
+        <div class="context-name">Налаштування усіх каналів</div>
+        <div class="context-meta">1 MONTH · $</div>
+      </div>
+
+      <div class="context-item reveal">
+        <div class="green">02</div>
+        <div class="context-name">Ведення під ключ</div>
+        <div class="context-meta">1 MONTH · $</div>
+      </div>
+
+      <div class="context-item reveal">
+        <div class="green">03</div>
+        <div class="context-name">
+          SMM + таргетована реклама
+        </div>
+        <div class="context-meta">1 MONTH · $</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     10 TIKTOK
+===================================================== -->
+
+<section class="tiktok">
+
+  <div class="glow"></div>
+
+  <div class="container">
+
+    <div class="eyebrow">10 / TikTok</div>
+
+    <h2 class="section-title small reveal">
+      ВЕДЕННЯ TIKTOK<br>
+      <span class="green">ПІД КЛЮЧ.</span>
+    </h2>
+
+
+    <div class="tiktok-cards">
+
+      <article class="tiktok-card reveal">
+
+        <div>
+          <div class="video-count">15</div>
+          <div class="video-label">роликів / місяць</div>
+        </div>
+
+        <div class="tiktok-list">
+          Стратегія ведення TikTok<br>
+          Контент-план<br>
+          Розробка ідей та сценаріїв<br>
+          Організація зйомки<br>
+          Монтаж 15 роликів<br>
+          Публікація контенту<br>
+          Аналітика результатів
+        </div>
+
+        <div class="extra-bottom">
+          <span>Package 01</span>
+          <span>$</span>
+        </div>
+
+      </article>
+
+
+      <article class="tiktok-card reveal">
+
+        <div>
+          <div class="video-count">20</div>
+          <div class="video-label">роликів / місяць</div>
+        </div>
+
+        <div class="tiktok-list">
+          Стратегія ведення TikTok<br>
+          Контент-план<br>
+          Розробка ідей та сценаріїв<br>
+          Організація зйомки<br>
+          Монтаж 20 роликів<br>
+          Публікація контенту<br>
+          Аналітика результатів
+        </div>
+
+        <div class="extra-bottom">
+          <span>Package 02</span>
+          <span>$</span>
+        </div>
+
+      </article>
+
+
+      <article class="tiktok-card reveal">
+
+        <div>
+          <div class="video-count">30</div>
+          <div class="video-label">роликів / місяць</div>
+        </div>
+
+        <div class="tiktok-list">
+          Стратегія ведення TikTok<br>
+          Контент-план<br>
+          Розробка ідей та сценаріїв<br>
+          Організація зйомки<br>
+          Монтаж 30 роликів<br>
+          Публікація контенту<br>
+          Аналітика результатів
+        </div>
+
+        <div class="extra-bottom">
+          <span>Package 03</span>
+          <span>$</span>
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     11 FINAL
+===================================================== -->
+
+<section class="final">
+
+  <div class="glow"></div>
+
+  <div class="container">
+
+    <div class="eyebrow">11 / Let's work together</div>
+
+    <h2 class="final-title word-pop">
+      ВАШ БРЕНД<br>
+      МОЖЕ <span>БІЛЬШЕ.</span>
+    </h2>
+
+    <div class="final-bottom">
+
+      <div>
+
+        <p style="
+          font-size:clamp(25px,3vw,48px);
+          margin-bottom:35px;
+          letter-spacing:-.04em;
+        ">
+          Давайте покажемо це разом.
+        </p>
+
+        <div class="socials">
+          <div class="social">Instagram ↗</div>
+          <div class="social">TikTok ↗</div>
+          <div class="social">Threads ↗</div>
+          <div class="social">Phone ↗</div>
+          <div class="social">Email ↗</div>
+        </div>
+
+      </div>
+
+
+      <div class="final-meta">
+        DNK DIGITAL AGENCY<br>
+        KYIV / UKRAINE<br>
+        COMMERCIAL PROPOSAL / 2026
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   SAFE SCROLL REVEAL
+========================================================= */
+
+document.documentElement.classList.add("js-ready");
+
+const revealItems =
+  document.querySelectorAll(".reveal");
+
+const revealObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add("visible");
+
+          revealObserver.unobserve(
+            entry.target
+          );
+
+        }
+
+      });
+
+    },
+    {
+      threshold:.08
+    }
+  );
+
+revealItems.forEach(item => {
+
+  const rect =
+    item.getBoundingClientRect();
+
+  if(rect.top < window.innerHeight){
+
+    item.classList.add("visible");
+
+  }else{
+
+    revealObserver.observe(item);
+
+  }
+
+});
+
+
+/* =========================================================
+   FINAL TEXT WORD ANIMATION
+========================================================= */
+
+const wordPop =
+  document.querySelector(".word-pop");
+
+if(wordPop){
+
+  const original =
+    wordPop.innerHTML;
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if(entry.isIntersecting){
+
+            wordPop.classList.add("visible");
+            observer.disconnect();
+
+          }
+
+        });
+
+      },
+      {
+        threshold:.2
+      }
+    );
+
+  observer.observe(wordPop);
+
+}
+
+
+/* =========================================================
+   MOUSE GLOW
+========================================================= */
+
+const glows =
+  document.querySelectorAll(".glow");
+
+window.addEventListener(
+  "mousemove",
+  e => {
+
+    const x =
+      (e.clientX / window.innerWidth - .5) * 30;
+
+    const y =
+      (e.clientY / window.innerHeight - .5) * 30;
+
+    glows.forEach((glow,index) => {
+
+      const strength =
+        index % 2 === 0 ? 1 : -.6;
+
+      glow.style.transform =
+        `translate(${x * strength}px,${y * strength}px)`;
+
+    });
+
+  }
+);
+
+
+/* =========================================================
+   PACKAGE TILT
+========================================================= */
+
+const interactiveCards =
+  document.querySelectorAll(
+    ".package, .extra-card, .ad-card, .tiktok-card"
+  );
+
+interactiveCards.forEach(card => {
+
+  card.addEventListener(
+    "mousemove",
+    e => {
+
+      const rect =
+        card.getBoundingClientRect();
+
+      const x =
+        (e.clientX - rect.left) /
+        rect.width - .5;
+
+      const y =
+        (e.clientY - rect.top) /
+        rect.height - .5;
+
+      card.style.transform =
+        `perspective(1200px)
+         rotateX(${y * -2}deg)
+         rotateY(${x * 2}deg)
+         translateY(-4px)`;
+
+    }
+  );
+
+  card.addEventListener(
+    "mouseleave",
+    () => {
+
+      card.style.transform = "";
+
+    }
+  );
+
+});
+
+</script>
+
+</body>
+</html>
