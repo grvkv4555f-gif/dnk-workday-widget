@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111;
+}
+
+.widget {
+  width: 100%;
+  max-width: 760px;
+  padding: 24px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #00f500;
+  box-shadow: 0 0 14px rgba(0,245,0,.5);
+}
+
+textarea {
+  width: 100%;
+  height: 220px;
+  resize: none;
+  border: 2px solid #111;
+  border-left: 8px solid #00f500;
+  border-radius: 16px;
+  padding: 22px;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1.5;
+  outline: none;
+  background: #fff;
+}
+
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(0,245,0,.15);
+}
+
+textarea::placeholder {
+  color: #999;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.stat {
+  border: 2px solid #111;
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-align: center;
+}
+
+.number {
+  display: block;
+  font-size: 26px;
+  font-weight: 900;
+  color: #00d900;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.clear {
+  width: 100%;
+  margin-top: 10px;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px;
+  background: #00f500;
+  color: #111;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.clear:hover {
+  filter: brightness(.95);
+}
+
+@media (max-width: 600px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+  <div class="top">
+    <div class="title">📝 DNK TEXT COUNTER</div>
+    <div class="dot"></div>
+  </div>
+
+  <textarea
+    id="text"
+    placeholder="Встав текст сюди..."
+    oninput="countText()"
+  ></textarea>
+
+  <div class="stats">
+
+    <div class="stat">
+      <span class="number" id="chars">0</span>
+      <span class="label">Символи</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" id="charsNoSpaces">0</span>
+      <span class="label">Без пробілів</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" id="words">0</span>
+      <span class="label">Слова</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" id="sentences">0</span>
+      <span class="label">Речення</span>
+    </div>
+
+  </div>
+
+  <button class="clear" onclick="clearText()">✕ ОЧИСТИТИ ТЕКСТ</button>
+
+</div>
+
+<script>
+function countText() {
+  const text = document.getElementById("text").value;
+
+  document.getElementById("chars").textContent = text.length;
+
+  document.getElementById("charsNoSpaces").textContent =
+    text.replace(/\s/g, "").length;
+
+  const words = text.trim()
+    ? text.trim().split(/\s+/).length
+    : 0;
+
+  document.getElementById("words").textContent = words;
+
+  const sentences = text.trim()
+    ? (text.match(/[.!?]+(?=\s|$)/g) || []).length
+    : 0;
+
+  document.getElementById("sentences").textContent = sentences;
+}
+
+function clearText() {
+  document.getElementById("text").value = "";
+  countText();
+}
+</script>
+
+</body>
+</html>
