@@ -1653,5 +1653,1717 @@ dnkCounters.forEach((counter) => {
 });
 
 </script>
+
+   <!-- =========================================================
+     SECTIONS 03–05
+     TEAM / CLIENTS / PROJECT JOURNEY
+========================================================= -->
+
+<style>
+
+/* =========================================================
+   SHARED
+========================================================= */
+
+.dnk-section-kicker{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.42);
+}
+
+.dnk-kicker-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#fff;
+}
+
+.dnk-mini-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#19ff36;
+  box-shadow:0 0 16px rgba(25,255,54,.9);
+}
+
+.dnk-big-heading{
+  margin:0;
+  font-size:clamp(62px,9vw,150px);
+  line-height:.84;
+  letter-spacing:-.075em;
+  font-weight:700;
+}
+
+.dnk-outline-word{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.55);
+}
+
+.dnk-acid{
+  color:#19ff36;
+}
+
+.dnk-section-reveal{
+  opacity:0;
+  transform:translateY(55px);
+  transition:
+    opacity .9s cubic-bezier(.16,1,.3,1),
+    transform .9s cubic-bezier(.16,1,.3,1);
+}
+
+.dnk-section-reveal.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+
+/* =========================================================
+   03 — TEAM
+========================================================= */
+
+.dnk-team{
+  position:relative;
+  padding:150px 6vw 170px;
+  background:#080808;
+  color:#fff;
+  overflow:hidden;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.dnk-team::after{
+  content:"";
+  position:absolute;
+  width:650px;
+  height:650px;
+  right:-380px;
+  top:280px;
+  border-radius:50%;
+  background:#19ff36;
+  opacity:.12;
+  filter:blur(150px);
+  pointer-events:none;
+}
+
+.team-title-wrap{
+  margin-top:90px;
+  margin-bottom:120px;
+}
+
+.team-title-small{
+  display:block;
+  margin-bottom:15px;
+  font-size:clamp(25px,3vw,50px);
+  line-height:1;
+  letter-spacing:-.04em;
+  color:rgba(255,255,255,.45);
+}
+
+.team-title-main{
+  max-width:1250px;
+}
+
+
+/* TEAM MAP */
+
+.team-map{
+  position:relative;
+  max-width:1400px;
+  margin:0 auto;
+}
+
+.team-level{
+  position:relative;
+  display:flex;
+  justify-content:center;
+}
+
+.team-level + .team-level{
+  margin-top:80px;
+}
+
+.team-level::before{
+  content:"";
+  position:absolute;
+  width:1px;
+  height:80px;
+  left:50%;
+  top:-80px;
+  background:linear-gradient(
+    to bottom,
+    rgba(25,255,54,0),
+    rgba(25,255,54,.65)
+  );
+}
+
+.team-level:first-child::before{
+  display:none;
+}
+
+
+/* PERSON CARD */
+
+.person-card{
+  position:relative;
+  width:min(100%,390px);
+  padding:18px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:30px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.07),
+      rgba(255,255,255,.015)
+    );
+  backdrop-filter:blur(20px);
+  transition:
+    transform .45s cubic-bezier(.16,1,.3,1),
+    border-color .45s ease;
+}
+
+.person-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(25,255,54,.5);
+}
+
+.person-photo{
+  position:relative;
+  height:300px;
+  border-radius:21px;
+  overflow:hidden;
+  background:
+    radial-gradient(
+      circle at 65% 30%,
+      rgba(25,255,54,.24),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #151515,
+      #050505
+    );
+}
+
+.person-photo::before{
+  content:"PHOTO";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:10px;
+  letter-spacing:.22em;
+  color:rgba(255,255,255,.2);
+}
+
+.person-photo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.65),
+      transparent 55%
+    );
+}
+
+.person-info{
+  padding:22px 5px 5px;
+}
+
+.person-index{
+  display:block;
+  margin-bottom:20px;
+  font-size:10px;
+  letter-spacing:.15em;
+  color:#19ff36;
+}
+
+.person-name{
+  margin:0 0 8px;
+  font-size:30px;
+  line-height:1;
+  letter-spacing:-.04em;
+}
+
+.person-role{
+  margin:0 0 20px;
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.45);
+}
+
+.person-job{
+  margin:0;
+  font-size:14px;
+  line-height:1.5;
+  color:rgba(255,255,255,.72);
+}
+
+
+/* CEO + PM */
+
+.team-ceo .person-card{
+  width:420px;
+}
+
+.team-pm .person-card{
+  width:420px;
+}
+
+
+/* BRANCH */
+
+.team-branch{
+  position:relative;
+  display:grid;
+  grid-template-columns:
+    minmax(0,1.4fr)
+    repeat(3,minmax(0,1fr));
+  gap:15px;
+  margin-top:110px;
+}
+
+.team-branch::before{
+  content:"";
+  position:absolute;
+  top:-55px;
+  left:12%;
+  right:12%;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(25,255,54,.7),
+    transparent
+  );
+}
+
+.team-branch > *::before{
+  content:"";
+  position:absolute;
+  width:1px;
+  height:55px;
+  top:-55px;
+  left:50%;
+  background:rgba(25,255,54,.45);
+}
+
+.team-branch .person-card{
+  width:auto;
+}
+
+.team-branch .person-photo{
+  height:230px;
+}
+
+
+/* SMM GROUP */
+
+.smm-group{
+  position:relative;
+  padding:18px;
+  border-radius:30px;
+  border:1px solid rgba(25,255,54,.4);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25,255,54,.1),
+      rgba(255,255,255,.02)
+    );
+}
+
+.smm-label{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:5px 5px 20px;
+  font-size:10px;
+  letter-spacing:.15em;
+  color:#19ff36;
+}
+
+.smm-photos{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.smm-avatar{
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.18);
+  background:
+    radial-gradient(
+      circle at 65% 25%,
+      rgba(25,255,54,.2),
+      transparent 38%
+    ),
+    #151515;
+  display:grid;
+  place-items:center;
+  font-size:9px;
+  color:rgba(255,255,255,.25);
+}
+
+.smm-content{
+  padding:25px 5px 5px;
+}
+
+.smm-content h3{
+  margin:0 0 10px;
+  font-size:30px;
+  letter-spacing:-.04em;
+}
+
+.smm-names{
+  margin-bottom:22px;
+  font-size:13px;
+  line-height:1.5;
+  color:rgba(255,255,255,.62);
+}
+
+.smm-job{
+  font-size:14px;
+  color:rgba(255,255,255,.75);
+}
+
+
+/* PRODUCTION */
+
+.production-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:15px;
+}
+
+.production-card{
+  position:relative;
+  padding:28px;
+  min-height:210px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:28px;
+  background:#0c0c0c;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.production-card-number{
+  font-size:10px;
+  color:#19ff36;
+  letter-spacing:.14em;
+}
+
+.production-card h3{
+  margin:0 0 8px;
+  font-size:34px;
+  letter-spacing:-.04em;
+}
+
+.production-card p{
+  margin:0;
+  font-size:13px;
+  color:rgba(255,255,255,.5);
+}
+
+
+/* =========================================================
+   04 — CLIENTS
+========================================================= */
+
+.dnk-clients{
+  position:relative;
+  padding:150px 0 160px;
+  background:#f0f0ed;
+  color:#080808;
+  overflow:hidden;
+}
+
+.clients-inner{
+  padding:0 6vw;
+}
+
+.dnk-clients .dnk-section-kicker{
+  color:rgba(0,0,0,.4);
+}
+
+.dnk-clients .dnk-kicker-right{
+  color:#080808;
+}
+
+.clients-title{
+  margin-top:90px;
+  max-width:1200px;
+}
+
+.clients-title .dnk-big-heading{
+  color:#080808;
+}
+
+
+/* MARQUEE */
+
+.clients-marquee{
+  margin-top:110px;
+  border-top:1px solid rgba(0,0,0,.15);
+  border-bottom:1px solid rgba(0,0,0,.15);
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.clients-marquee-track{
+  display:inline-flex;
+  align-items:center;
+  padding:24px 0;
+  animation:clientsMarquee 25s linear infinite;
+}
+
+.clients-marquee span{
+  font-size:clamp(45px,6vw,95px);
+  line-height:1;
+  letter-spacing:-.05em;
+  font-weight:700;
+}
+
+.clients-marquee b{
+  margin:0 30px;
+  color:#19ff36;
+  -webkit-text-stroke:1px #080808;
+}
+
+@keyframes clientsMarquee{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+
+/* CLIENT COPY */
+
+.clients-copy-grid{
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:70px;
+  padding:100px 6vw;
+}
+
+.clients-copy-side{
+  font-size:10px;
+  letter-spacing:.16em;
+  color:rgba(0,0,0,.45);
+}
+
+.clients-copy-main{
+  max-width:900px;
+}
+
+.clients-copy-main p{
+  margin:0;
+  font-size:clamp(26px,3vw,45px);
+  line-height:1.15;
+  letter-spacing:-.035em;
+}
+
+
+/* LOGOS */
+
+.logo-wall{
+  margin:0 6vw;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(0,0,0,.15);
+  border-left:1px solid rgba(0,0,0,.15);
+}
+
+.logo-cell{
+  min-height:180px;
+  padding:25px;
+  border-right:1px solid rgba(0,0,0,.15);
+  border-bottom:1px solid rgba(0,0,0,.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:17px;
+  font-weight:700;
+  letter-spacing:-.02em;
+  transition:
+    background .35s ease,
+    color .35s ease;
+}
+
+.logo-cell:hover{
+  background:#19ff36;
+}
+
+
+/* CLIENT STATEMENT */
+
+.client-statement{
+  padding:170px 6vw 30px;
+}
+
+.statement-small{
+  margin-bottom:35px;
+  font-size:11px;
+  letter-spacing:.15em;
+  color:rgba(0,0,0,.4);
+}
+
+.statement-line{
+  font-size:clamp(55px,9vw,150px);
+  line-height:.84;
+  letter-spacing:-.075em;
+  font-weight:700;
+}
+
+.statement-line.green{
+  color:#19ff36;
+  text-shadow:
+    -1px -1px 0 #080808,
+    1px -1px 0 #080808,
+    -1px 1px 0 #080808,
+    1px 1px 0 #080808;
+}
+
+.statement-bottom{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:60px;
+}
+
+.statement-bottom p{
+  max-width:600px;
+  margin:0;
+  font-size:22px;
+  line-height:1.4;
+}
+
+
+/* =========================================================
+   05 — JOURNEY
+========================================================= */
+
+.dnk-journey{
+  position:relative;
+  padding:150px 6vw 180px;
+  background:#080808;
+  color:#fff;
+  overflow:hidden;
+}
+
+.journey-head{
+  margin-top:90px;
+  display:grid;
+  grid-template-columns:2.2fr 1fr;
+  gap:80px;
+  align-items:end;
+}
+
+.journey-head p{
+  margin:0 0 8px;
+  font-size:16px;
+  line-height:1.6;
+  color:rgba(255,255,255,.5);
+}
+
+
+/* JOURNEY LIST */
+
+.journey-layout{
+  position:relative;
+  margin-top:140px;
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:60px;
+}
+
+.journey-progress-wrap{
+  position:relative;
+}
+
+.journey-progress{
+  position:sticky;
+  top:130px;
+  height:65vh;
+  min-height:450px;
+  display:flex;
+  justify-content:center;
+}
+
+.journey-track{
+  position:relative;
+  width:1px;
+  height:100%;
+  background:rgba(255,255,255,.12);
+}
+
+.journey-track-fill{
+  position:absolute;
+  left:0;
+  top:0;
+  width:1px;
+  height:0%;
+  background:#19ff36;
+  box-shadow:0 0 18px rgba(25,255,54,.7);
+}
+
+.journey-track::before,
+.journey-track::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#19ff36;
+}
+
+.journey-track::before{
+  top:0;
+}
+
+.journey-track::after{
+  bottom:0;
+}
+
+
+/* STEPS */
+
+.journey-steps{
+  position:relative;
+}
+
+.journey-step{
+  position:relative;
+  min-height:340px;
+  padding:45px 0 80px;
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:40px;
+  border-top:1px solid rgba(255,255,255,.12);
+  opacity:.28;
+  transform:translateX(20px);
+  transition:
+    opacity .5s ease,
+    transform .5s cubic-bezier(.16,1,.3,1);
+}
+
+.journey-step.active{
+  opacity:1;
+  transform:translateX(0);
+}
+
+.journey-step:last-child{
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.journey-number{
+  font-size:13px;
+  letter-spacing:.15em;
+  color:#19ff36;
+}
+
+.journey-content h3{
+  margin:0 0 25px;
+  font-size:clamp(40px,5vw,80px);
+  line-height:.9;
+  letter-spacing:-.06em;
+  font-weight:600;
+}
+
+.journey-content p{
+  max-width:650px;
+  margin:0;
+  font-size:17px;
+  line-height:1.6;
+  color:rgba(255,255,255,.5);
+}
+
+.journey-status{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:40px;
+  padding:9px 13px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:100px;
+  font-size:9px;
+  letter-spacing:.13em;
+  color:rgba(255,255,255,.35);
+}
+
+.journey-step.active .journey-status{
+  border-color:rgba(25,255,54,.4);
+  color:#19ff36;
+}
+
+.journey-status-dot{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:currentColor;
+}
+
+
+/* JOURNEY END */
+
+.journey-end{
+  margin-top:100px;
+  padding:60px;
+  border-radius:35px;
+  background:#19ff36;
+  color:#050505;
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:50px;
+}
+
+.journey-end-label{
+  font-size:10px;
+  letter-spacing:.15em;
+}
+
+.journey-end p{
+  max-width:950px;
+  margin:0;
+  font-size:clamp(28px,3.5vw,55px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+  .team-branch{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .team-branch::before,
+  .team-branch > *::before{
+    display:none;
+  }
+
+  .logo-wall{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:760px){
+
+  .dnk-team,
+  .dnk-journey{
+    padding:100px 24px;
+  }
+
+  .clients-inner,
+  .clients-copy-grid,
+  .client-statement{
+    padding-left:24px;
+    padding-right:24px;
+  }
+
+  .team-title-wrap{
+    margin-top:60px;
+    margin-bottom:80px;
+  }
+
+  .team-ceo .person-card,
+  .team-pm .person-card{
+    width:100%;
+  }
+
+  .team-branch{
+    grid-template-columns:1fr;
+  }
+
+  .production-row{
+    grid-template-columns:1fr;
+  }
+
+  .clients-copy-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .logo-wall{
+    margin-left:24px;
+    margin-right:24px;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .logo-cell{
+    min-height:120px;
+    font-size:13px;
+  }
+
+  .journey-head{
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+
+  .journey-layout{
+    grid-template-columns:30px 1fr;
+    gap:20px;
+  }
+
+  .journey-step{
+    grid-template-columns:1fr;
+    gap:20px;
+    min-height:300px;
+  }
+
+  .journey-end{
+    padding:35px;
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     03 / TEAM
+========================================================= -->
+
+<section class="dnk-team" id="team">
+
+  <div class="dnk-section-kicker dnk-section-reveal">
+
+    <span>03 / TEAM</span>
+
+    <div class="dnk-kicker-right">
+      <span class="dnk-mini-dot"></span>
+      PEOPLE BEHIND DNK
+    </div>
+
+  </div>
+
+
+  <div class="team-title-wrap dnk-section-reveal">
+
+    <span class="team-title-small">
+      ХТО ПРАЦЮВАТИМЕ
+    </span>
+
+    <h2 class="dnk-big-heading team-title-main">
+      НАД ВАШИМ
+      <span class="dnk-acid">ПРОЄКТОМ?</span>
+    </h2>
+
+  </div>
+
+
+  <div class="team-map">
+
+
+    <!-- CEO -->
+
+    <div class="team-level team-ceo">
+
+      <article class="person-card dnk-section-reveal">
+
+        <div class="person-photo"></div>
+
+        <div class="person-info">
+
+          <span class="person-index">
+            01 / CEO
+          </span>
+
+          <h3 class="person-name">
+            АНАСТАСІЯ
+          </h3>
+
+          <p class="person-role">
+            CEO
+          </p>
+
+          <p class="person-job">
+            Стратегія та розвиток агенції
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- PM -->
+
+    <div class="team-level team-pm">
+
+      <article class="person-card dnk-section-reveal">
+
+        <div class="person-photo"></div>
+
+        <div class="person-info">
+
+          <span class="person-index">
+            02 / PROJECT MANAGER
+          </span>
+
+          <h3 class="person-name">
+            АННА
+          </h3>
+
+          <p class="person-role">
+            PROJECT-MANAGER
+          </p>
+
+          <p class="person-job">
+            Координація команди та проєктів
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- TEAM BRANCH -->
+
+    <div class="team-branch">
+
+
+      <!-- SMM -->
+
+      <div class="smm-group dnk-section-reveal">
+
+        <div class="smm-label">
+
+          <span>03 / SMM TEAM</span>
+
+          <span>01 SPECIALIST / PROJECT</span>
+
+        </div>
+
+
+        <div class="smm-photos">
+
+          <div class="smm-avatar">PHOTO</div>
+          <div class="smm-avatar">PHOTO</div>
+          <div class="smm-avatar">PHOTO</div>
+          <div class="smm-avatar">PHOTO</div>
+
+        </div>
+
+
+        <div class="smm-content">
+
+          <h3>SMM-СПЕЦІАЛІСТ</h3>
+
+          <div class="smm-names">
+            Світлана · Надя · Софія · Дарія
+          </div>
+
+          <div class="smm-job">
+            Стратегія, контент, ведення
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DESIGN -->
+
+      <article class="person-card dnk-section-reveal">
+
+        <div class="person-photo"></div>
+
+        <div class="person-info">
+
+          <span class="person-index">
+            04 / DESIGN
+          </span>
+
+          <h3 class="person-name">
+            ЄГОР
+          </h3>
+
+          <p class="person-role">
+            ДИЗАЙНЕР
+          </p>
+
+          <p class="person-job">
+            Візуал і креативи
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- TARGET -->
+
+      <article class="person-card dnk-section-reveal">
+
+        <div class="person-photo"></div>
+
+        <div class="person-info">
+
+          <span class="person-index">
+            05 / PERFORMANCE
+          </span>
+
+          <h3 class="person-name">
+            АННА
+          </h3>
+
+          <p class="person-role">
+            ТАРГЕТОЛОГ
+          </p>
+
+          <p class="person-job">
+            Реклама, аналітика, оптимізація
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- EDIT -->
+
+      <article class="person-card dnk-section-reveal">
+
+        <div class="person-photo"></div>
+
+        <div class="person-info">
+
+          <span class="person-index">
+            06 / EDIT
+          </span>
+
+          <h3 class="person-name">
+            НІКІТА
+          </h3>
+
+          <p class="person-role">
+            МОНТАЖ
+          </p>
+
+          <p class="person-job">
+            Монтаж відео та креативів
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- PRODUCTION -->
+
+    <div class="production-row">
+
+      <div class="production-card dnk-section-reveal">
+
+        <span class="production-card-number">
+          07 / PHOTO & VIDEO
+        </span>
+
+        <div>
+
+          <h3>
+            КАТЕРИНА
+          </h3>
+
+          <p>
+            Фото / відео · Зйомка контенту
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="production-card dnk-section-reveal">
+
+        <span class="production-card-number">
+          08 / PHOTO & VIDEO
+        </span>
+
+        <div>
+
+          <h3>
+            МАРІЯ
+          </h3>
+
+          <p>
+            Фото / відео · Зйомка контенту
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     04 / CLIENTS
+========================================================= -->
+
+<section class="dnk-clients" id="clients">
+
+
+  <div class="clients-inner">
+
+    <div class="dnk-section-kicker dnk-section-reveal">
+
+      <span>04 / CLIENTS</span>
+
+      <div class="dnk-kicker-right">
+        <span class="dnk-mini-dot"></span>
+        BRANDS WE WORK WITH
+      </div>
+
+    </div>
+
+
+    <div class="clients-title dnk-section-reveal">
+
+      <h2 class="dnk-big-heading">
+        НАШІ
+        <span class="dnk-acid">
+          КЛІЄНТИ
+        </span>
+      </h2>
+
+    </div>
+
+  </div>
+
+
+  <!-- MOVING TEXT -->
+
+  <div class="clients-marquee">
+
+    <div class="clients-marquee-track">
+
+      <span>OUR CLIENTS</span><b>✦</b>
+      <span>OUR CLIENTS</span><b>✦</b>
+      <span>OUR CLIENTS</span><b>✦</b>
+      <span>OUR CLIENTS</span><b>✦</b>
+
+      <span>OUR CLIENTS</span><b>✦</b>
+      <span>OUR CLIENTS</span><b>✦</b>
+      <span>OUR CLIENTS</span><b>✦</b>
+      <span>OUR CLIENTS</span><b>✦</b>
+
+    </div>
+
+  </div>
+
+
+  <div class="clients-copy-grid">
+
+    <div class="clients-copy-side dnk-section-reveal">
+      DNK® / CLIENT PROFILE
+    </div>
+
+    <div class="clients-copy-main dnk-section-reveal">
+
+      <p>
+        Наші клієнти — це бренди та компанії
+        з різними продуктами, послугами й чеком:
+        від доступних товарів до складного обладнання
+        вартістю <strong>€50 000+</strong>.
+        Їх обʼєднує бажання рости, ставати
+        впізнаванішими, залучати нових клієнтів,
+        збільшувати продажі та виходити
+        на нові ринки.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- LOGO WALL -->
+
+  <div class="logo-wall dnk-section-reveal">
+
+    <div class="logo-cell">
+      ФЛАГМАН
+    </div>
+
+    <div class="logo-cell">
+      НОВОПЕЧЕРСЬКА ШКОЛА
+    </div>
+
+    <div class="logo-cell">
+      МВК МАШ
+    </div>
+
+    <div class="logo-cell">
+      DUSO
+    </div>
+
+    <div class="logo-cell">
+      ПРИХОДЬКО ТА ПАРТНЕРИ
+    </div>
+
+    <div class="logo-cell">
+      GRACE
+    </div>
+
+    <div class="logo-cell">
+      ADONIS
+    </div>
+
+    <div class="logo-cell">
+      FRESHBAZA
+    </div>
+
+  </div>
+
+
+  <!-- STATEMENT -->
+
+  <div class="client-statement">
+
+    <div class="statement-small dnk-section-reveal">
+      DNK / APPROACH
+    </div>
+
+
+    <div class="dnk-section-reveal">
+
+      <div class="statement-line">
+        СКЛАДНІСТЬ
+      </div>
+
+      <div class="statement-line">
+        ПРОДУКТУ ДЛЯ НАС
+      </div>
+
+      <div class="statement-line green">
+        НЕ ОБМЕЖЕННЯ
+      </div>
+
+    </div>
+
+
+    <div class="statement-bottom dnk-section-reveal">
+
+      <p>
+        Ми знаємо, як пояснити,
+        зацікавити й продати.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     05 / PROJECT JOURNEY
+========================================================= -->
+
+<section class="dnk-journey" id="journey">
+
+
+  <div class="dnk-section-kicker dnk-section-reveal">
+
+    <span>05 / PROCESS</span>
+
+    <div class="dnk-kicker-right">
+      <span class="dnk-mini-dot"></span>
+      FROM BRIEF TO RESULT
+    </div>
+
+  </div>
+
+
+  <div class="journey-head">
+
+    <h2 class="dnk-big-heading dnk-section-reveal">
+
+      ШЛЯХ ВАШОГО
+      <span class="dnk-acid">
+        ПРОЄКТУ
+      </span>
+      В DNK
+
+    </h2>
+
+
+    <p class="dnk-section-reveal">
+      Від першого знайомства з бізнесом
+      до аналітики результатів і наступних кроків.
+    </p>
+
+  </div>
+
+
+  <div class="journey-layout">
+
+
+    <!-- PROGRESS -->
+
+    <div class="journey-progress-wrap">
+
+      <div class="journey-progress">
+
+        <div class="journey-track">
+
+          <div class="journey-track-fill"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- STEPS -->
+
+    <div class="journey-steps">
+
+
+      <article class="journey-step active">
+
+        <div class="journey-number">
+          01
+        </div>
+
+        <div class="journey-content">
+
+          <h3>
+            БРИФ ТА
+            ЗНАЙОМСТВО
+          </h3>
+
+          <p>
+            Занурюємося в бізнес, продукт,
+            аудиторію та задачі.
+          </p>
+
+          <div class="journey-status">
+            <span class="journey-status-dot"></span>
+            START
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="journey-step">
+
+        <div class="journey-number">
+          02
+        </div>
+
+        <div class="journey-content">
+
+          <h3>
+            АНАЛІЗ ТА
+            СТРАТЕГІЯ
+          </h3>
+
+          <p>
+            Аналізуємо ринок і конкурентів,
+            визначаємо напрям просування.
+          </p>
+
+          <div class="journey-status">
+            <span class="journey-status-dot"></span>
+            STRATEGY
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="journey-step">
+
+        <div class="journey-number">
+          03
+        </div>
+
+        <div class="journey-content">
+
+          <h3>
+            ПЛАНУВАННЯ
+          </h3>
+
+          <p>
+            Формуємо контент-план, рубрики,
+            формати та задачі на місяць.
+          </p>
+
+          <div class="journey-status">
+            <span class="journey-status-dot"></span>
+            PLAN
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="journey-step">
+
+        <div class="journey-number">
+          04
+        </div>
+
+        <div class="journey-content">
+
+          <h3>
+            РЕАЛІЗАЦІЯ
+          </h3>
+
+          <p>
+            Створюємо контент, запускаємо рекламу
+            та ведемо проєкт.
+          </p>
+
+          <div class="journey-status">
+            <span class="journey-status-dot"></span>
+            PRODUCTION
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="journey-step">
+
+        <div class="journey-number">
+          05
+        </div>
+
+        <div class="journey-content">
+
+          <h3>
+            АНАЛІТИКА ТА
+            ОПТИМІЗАЦІЯ
+          </h3>
+
+          <p>
+            Аналізуємо показники і коригуємо
+            роботу на основі результатів.
+          </p>
+
+          <div class="journey-status">
+            <span class="journey-status-dot"></span>
+            OPTIMIZATION
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="journey-step">
+
+        <div class="journey-number">
+          06
+        </div>
+
+        <div class="journey-content">
+
+          <h3>
+            ЗВІТНІСТЬ
+          </h3>
+
+          <p>
+            Підбиваємо результати місяця
+            та визначаємо наступні кроки.
+          </p>
+
+          <div class="journey-status">
+            <span class="journey-status-dot"></span>
+            NEXT STEP
+          </div>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+
+  <div class="journey-end dnk-section-reveal">
+
+    <div class="journey-end-label">
+      DNK / TRANSPARENCY
+    </div>
+
+    <p>
+      Ви завжди знаєте, що відбувається
+      з проєктом, над чим працює команда
+      і який результат ми отримуємо.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     JS — SECTIONS 03–05
+========================================================= -->
+
+<script>
+
+/* REVEAL */
+
+const sectionRevealElements =
+  document.querySelectorAll(
+    '.dnk-section-reveal'
+  );
+
+const sectionRevealObserver =
+  new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add(
+            'is-visible'
+          );
+
+          sectionRevealObserver.unobserve(
+            entry.target
+          );
+
+        }
+
+      });
+
+    },
+    {
+      threshold:.12
+    }
+  );
+
+sectionRevealElements.forEach((element) => {
+  sectionRevealObserver.observe(element);
+});
+
+
+/* =========================================================
+   JOURNEY SCROLL
+========================================================= */
+
+const journeySection =
+  document.querySelector('.dnk-journey');
+
+const journeySteps =
+  document.querySelectorAll('.journey-step');
+
+const journeyFill =
+  document.querySelector('.journey-track-fill');
+
+
+function updateJourney(){
+
+  if(!journeySection) return;
+
+  const sectionRect =
+    journeySection.getBoundingClientRect();
+
+  const viewportHeight =
+    window.innerHeight;
+
+  const totalScrollable =
+    sectionRect.height - viewportHeight;
+
+  const travelled =
+    -sectionRect.top;
+
+  let progress =
+    travelled / totalScrollable;
+
+  progress =
+    Math.max(0,Math.min(1,progress));
+
+
+  if(journeyFill){
+
+    journeyFill.style.height =
+      `${progress * 100}%`;
+
+  }
+
+
+  journeySteps.forEach((step) => {
+
+    const rect =
+      step.getBoundingClientRect();
+
+    const trigger =
+      viewportHeight * .55;
+
+    if(
+      rect.top < trigger &&
+      rect.bottom > trigger * .35
+    ){
+
+      journeySteps.forEach((item) => {
+        item.classList.remove('active');
+      });
+
+      step.classList.add('active');
+
+    }
+
+  });
+
+}
+
+
+window.addEventListener(
+  'scroll',
+  updateJourney,
+  {passive:true}
+);
+
+window.addEventListener(
+  'resize',
+  updateJourney
+);
+
+updateJourney();
+
+</script>
 </body>
 </html>
