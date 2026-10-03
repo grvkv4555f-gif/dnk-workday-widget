@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111;
+}
+
+.widget {
+  width: 100%;
+  max-width: 760px;
+  margin: auto;
+  padding: 22px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  background: #00f500;
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(0,245,0,.5);
+}
+
+.networks {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.network {
+  border: 2px solid #111;
+  background: #fff;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.network.active {
+  background: #00f500;
+}
+
+.formats {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.format {
+  border: 2px solid #111;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.format:hover,
+.format.active {
+  border-color: #00f500;
+  box-shadow: inset 5px 0 0 #00f500;
+}
+
+.result {
+  border: 2px solid #111;
+  border-left: 8px solid #00f500;
+  border-radius: 15px;
+  padding: 20px;
+  min-height: 150px;
+}
+
+.result-label {
+  font-size: 11px;
+  font-weight: 900;
+  color: #777;
+  margin-bottom: 7px;
+}
+
+.result-name {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 14px;
+}
+
+.size {
+  font-size: 32px;
+  font-weight: 900;
+  color: #00d900;
+}
+
+.ratio {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.note {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #555;
+}
+
+@media(max-width:500px) {
+  .widget { padding: 14px; }
+
+  .networks {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .network {
+    width: 100%;
+  }
+
+  .formats {
+    grid-template-columns: 1fr;
+  }
+
+  .size {
+    font-size: 27px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+  <div class="header">
+    <div class="title">📐 DNK CONTENT SIZES</div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="networks" id="networks"></div>
+
+  <div class="formats" id="formats"></div>
+
+  <div class="result" id="result">
+    <div class="result-label">ОБЕРИ ФОРМАТ</div>
+    <div class="result-name">Тут зʼявиться потрібний розмір 👀</div>
+  </div>
+
+</div>
+
+<script>
+
+const data = {
+
+Instagram: [
+  {
+    name: "Пост / карусель — вертикальний",
+    size: "1080 × 1350 px",
+    ratio: "4:5",
+    note: "Основний вертикальний формат для стрічки."
+  },
+  {
+    name: "Пост / карусель — квадрат",
+    size: "1080 × 1080 px",
+    ratio: "1:1",
+    note: "Класичний квадратний формат."
+  },
+  {
+    name: "Stories",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Важливий текст і CTA не став близько до верхнього та нижнього краю."
+  },
+  {
+    name: "Reels",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Повноекранне вертикальне відео. Основний текст краще тримати ближче до центру."
+  },
+  {
+    name: "Обкладинка Reels",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Памʼятай: у різних частинах Instagram обкладинка може кадруватися."
+  }
+],
+
+Facebook: [
+  {
+    name: "Пост — квадрат",
+    size: "1080 × 1080 px",
+    ratio: "1:1",
+    note: "Універсальний формат для стрічки."
+  },
+  {
+    name: "Пост — вертикальний",
+    size: "1080 × 1350 px",
+    ratio: "4:5",
+    note: "Займає більше площі екрана у мобільній стрічці."
+  },
+  {
+    name: "Stories",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Вертикальний повноекранний формат."
+  },
+  {
+    name: "Reels",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Вертикальне відео."
+  },
+  {
+    name: "Cover",
+    size: "851 × 315 px",
+    ratio: "≈ 2.7:1",
+    note: "Обкладинка сторінки може відображатися по-різному на desktop і mobile — ключові елементи тримай ближче до центру."
+  }
+],
+
+TikTok: [
+  {
+    name: "Відео",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Основний вертикальний формат TikTok."
+  },
+  {
+    name: "Фото / карусель",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Вертикальні зображення найкраще використовують площу екрана."
+  },
+  {
+    name: "Обкладинка",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Не став ключовий текст близько до країв — превʼю може кадруватися."
+  }
+],
+
+LinkedIn: [
+  {
+    name: "Пост — вертикальний",
+    size: "1080 × 1350 px",
+    ratio: "4:5",
+    note: "Зручний вертикальний формат для контенту у стрічці."
+  },
+  {
+    name: "Пост — квадрат",
+    size: "1080 × 1080 px",
+    ratio: "1:1",
+    note: "Універсальний квадратний формат."
+  },
+  {
+    name: "Зображення для посилання",
+    size: "1200 × 627 px",
+    ratio: "1.91:1",
+    note: "Рекомендоване співвідношення для custom image у пості з URL."
+  },
+  {
+    name: "Карусель / PDF",
+    size: "1080 × 1350 px",
+    ratio: "4:5",
+    note: "Зручно для органічних document-каруселей."
+  },
+  {
+    name: "Company Page Cover",
+    size: "1512 × 256 px",
+    ratio: "≈ 5.9:1",
+    note: "Рекомендований LinkedIn розмір обкладинки сторінки компанії."
+  }
+],
+
+YouTube: [
+  {
+    name: "Відео",
+    size: "1920 × 1080 px",
+    ratio: "16:9",
+    note: "Стандартний Full HD формат відео."
+  },
+  {
+    name: "Thumbnail відео",
+    size: "3840 × 2160 px",
+    ratio: "16:9",
+    note: "Поточна рекомендація YouTube для максимально якісної власної обкладинки."
+  },
+  {
+    name: "Shorts",
+    size: "1080 × 1920 px",
+    ratio: "9:16",
+    note: "Вертикальний формат Shorts."
+  },
+  {
+    name: "Thumbnail Shorts",
+    size: "2160 × 3840 px",
+    ratio: "9:16",
+    note: "Рекомендована YouTube роздільна здатність власної обкладинки Shorts."
+  },
+  {
+    name: "Banner каналу",
+    size: "2560 × 1440 px",
+    ratio: "16:9",
+    note: "Safe area для тексту та логотипа: приблизно 1235 × 338 px."
+  }
+]
+
+};
+
+const networkContainer = document.getElementById("networks");
+const formatsContainer = document.getElementById("formats");
+const result = document.getElementById("result");
+
+let activeNetwork = "Instagram";
+
+function renderNetworks() {
+
+  networkContainer.innerHTML = "";
+
+  Object.keys(data).forEach(network => {
+
+    const button = document.createElement("button");
+
+    button.className =
+      "network" + (network === activeNetwork ? " active" : "");
+
+    button.textContent = network;
+
+    button.onclick = () => {
+      activeNetwork = network;
+      renderNetworks();
+      renderFormats();
+      resetResult();
+    };
+
+    networkContainer.appendChild(button);
+  });
+}
+
+function renderFormats() {
+
+  formatsContainer.innerHTML = "";
+
+  data[activeNetwork].forEach((item,index) => {
+
+    const button = document.createElement("button");
+
+    button.className = "format";
+    button.textContent = item.name;
+
+    button.onclick = () => {
+
+      document
+        .querySelectorAll(".format")
+        .forEach(x => x.classList.remove("active"));
+
+      button.classList.add("active");
+
+      showResult(item);
+    };
+
+    formatsContainer.appendChild(button);
+  });
+}
+
+function showResult(item) {
+
+  result.innerHTML = `
+    <div class="result-label">РЕКОМЕНДОВАНИЙ РОЗМІР</div>
+    <div class="result-name">${item.name}</div>
+    <div class="size">${item.size}</div>
+    <div class="ratio">Співвідношення: ${item.ratio}</div>
+    <div class="note">${item.note}</div>
+  `;
+}
+
+function resetResult() {
+
+  result.innerHTML = `
+    <div class="result-label">${activeNetwork.toUpperCase()}</div>
+    <div class="result-name">Обери потрібний формат 👆</div>
+  `;
+}
+
+renderNetworks();
+renderFormats();
+resetResult();
+
+</script>
+
+</body>
+</html>
