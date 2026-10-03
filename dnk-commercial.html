@@ -855,6 +855,803 @@ window.addEventListener(
 
 </script>
 
+<!-- =========================================================
+     SECTION 02 — ABOUT DNK
+========================================================= -->
 
+<style>
+
+.about-dnk{
+  position:relative;
+  padding:150px 6vw 130px;
+  background:#080808;
+  color:#fff;
+  overflow:hidden;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.about-dnk::before{
+  content:"";
+  position:absolute;
+  width:650px;
+  height:650px;
+  left:-350px;
+  top:450px;
+  border-radius:50%;
+  background:rgba(25,255,54,.14);
+  filter:blur(140px);
+  pointer-events:none;
+}
+
+.about-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:90px;
+  font-size:11px;
+  letter-spacing:.16em;
+  color:rgba(255,255,255,.45);
+}
+
+.about-label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#fff;
+}
+
+.about-dot{
+  width:7px;
+  height:7px;
+  background:#19ff36;
+  border-radius:50%;
+  box-shadow:0 0 15px #19ff36;
+}
+
+
+/* BIG TITLE */
+
+.about-headline{
+  margin-bottom:110px;
+}
+
+.about-title{
+  font-size:clamp(58px,9.2vw,155px);
+  line-height:.86;
+  letter-spacing:-.07em;
+  font-weight:700;
+}
+
+.about-title.outline{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.55);
+}
+
+
+/* DESCRIPTION */
+
+.about-description{
+  display:grid;
+  grid-template-columns:1fr 3fr;
+  gap:60px;
+  padding:70px 0;
+  border-top:1px solid rgba(255,255,255,.12);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.about-side{
+  font-size:11px;
+  letter-spacing:.16em;
+  color:rgba(255,255,255,.35);
+}
+
+.about-copy{
+  max-width:950px;
+}
+
+.about-main-text{
+  margin:0 0 42px;
+  font-size:clamp(28px,3vw,48px);
+  line-height:1.12;
+  letter-spacing:-.035em;
+}
+
+.about-secondary-text{
+  max-width:680px;
+  margin:0;
+  font-size:17px;
+  line-height:1.6;
+  color:rgba(255,255,255,.55);
+}
+
+
+/* INFO CARDS */
+
+.about-info{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:18px;
+  margin-top:18px;
+}
+
+.about-card{
+  position:relative;
+  padding:35px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:28px;
+  background:rgba(255,255,255,.025);
+  backdrop-filter:blur(16px);
+  overflow:hidden;
+
+  transition:
+    transform .5s cubic-bezier(.16,1,.3,1),
+    border-color .5s ease,
+    background .5s ease;
+}
+
+.about-card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(25,255,54,.45);
+  background:rgba(25,255,54,.035);
+}
+
+.about-card-head{
+  display:flex;
+  justify-content:space-between;
+  padding-bottom:35px;
+  font-size:11px;
+  letter-spacing:.15em;
+  color:rgba(255,255,255,.45);
+}
+
+
+/* TAGS */
+
+.dnk-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.dnk-tags span{
+  padding:11px 15px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:100px;
+  font-size:10px;
+  letter-spacing:.08em;
+  transition:.3s ease;
+}
+
+.dnk-tags span:hover{
+  background:#19ff36;
+  border-color:#19ff36;
+  color:#050505;
+}
+
+
+/* SERVICES */
+
+.dnk-services div{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  font-size:13px;
+}
+
+.dnk-services div:last-child{
+  border-bottom:0;
+}
+
+.dnk-services b{
+  color:#19ff36;
+  font-weight:400;
+  transition:transform .3s ease;
+}
+
+.dnk-services div:hover b{
+  transform:translate(4px,-4px);
+}
+
+
+/* NUMBERS */
+
+.dnk-numbers{
+  padding-top:160px;
+}
+
+.numbers-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:55px;
+}
+
+.numbers-head span{
+  font-size:11px;
+  letter-spacing:.16em;
+  color:rgba(255,255,255,.4);
+}
+
+.numbers-head h2{
+  margin:0;
+  font-size:clamp(60px,9vw,145px);
+  line-height:.8;
+  letter-spacing:-.07em;
+}
+
+.main-numbers{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.metric-card{
+  position:relative;
+  min-height:350px;
+  padding:30px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:28px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.07),
+      rgba(255,255,255,.015)
+    );
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  overflow:hidden;
+
+  transition:
+    transform .5s cubic-bezier(.16,1,.3,1),
+    border-color .5s ease;
+}
+
+.metric-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(25,255,54,.45);
+}
+
+.metric-card::after{
+  content:"";
+  position:absolute;
+  width:230px;
+  height:230px;
+  right:-130px;
+  top:-130px;
+  background:#19ff36;
+  filter:blur(100px);
+  opacity:0;
+  transition:opacity .5s ease;
+}
+
+.metric-card:hover::after{
+  opacity:.2;
+}
+
+.metric-card.acid{
+  background:#19ff36;
+  border-color:#19ff36;
+  color:#050505;
+}
+
+.metric-card.acid::after{
+  display:none;
+}
+
+.metric-value{
+  font-size:clamp(90px,10vw,160px);
+  line-height:.8;
+  font-weight:700;
+  letter-spacing:-.085em;
+}
+
+.metric-label{
+  font-size:11px;
+  letter-spacing:.16em;
+}
+
+
+/* PERFORMANCE */
+
+.performance-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  margin-top:80px;
+  background:rgba(255,255,255,.12);
+  border-top:1px solid rgba(255,255,255,.12);
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+
+.performance-item{
+  min-height:300px;
+  padding:30px;
+  background:#080808;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:background .4s ease;
+}
+
+.performance-item:hover{
+  background:#0d0d0d;
+}
+
+.performance-number{
+  font-size:10px;
+  letter-spacing:.12em;
+  color:rgba(255,255,255,.3);
+}
+
+.performance-big{
+  font-size:clamp(58px,7vw,110px);
+  line-height:.85;
+  font-weight:700;
+  letter-spacing:-.07em;
+}
+
+.performance-big span{
+  color:#19ff36;
+}
+
+.performance-name{
+  font-size:11px;
+  letter-spacing:.13em;
+  color:rgba(255,255,255,.45);
+}
+
+
+/* SCROLL ANIMATION */
+
+.dnk-reveal{
+  opacity:0;
+  transform:translateY(45px);
+  transition:
+    opacity .9s cubic-bezier(.16,1,.3,1),
+    transform .9s cubic-bezier(.16,1,.3,1);
+}
+
+.dnk-reveal.dnk-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.dnk-title-reveal{
+  opacity:0;
+  transform:translateY(75px);
+  filter:blur(12px);
+  transition:
+    opacity 1.1s cubic-bezier(.16,1,.3,1),
+    transform 1.1s cubic-bezier(.16,1,.3,1),
+    filter 1.1s ease;
+}
+
+.dnk-title-reveal.dnk-visible{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .about-dnk{
+    padding:100px 24px;
+  }
+
+  .about-top{
+    margin-bottom:60px;
+  }
+
+  .about-description{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .about-info{
+    grid-template-columns:1fr;
+  }
+
+  .main-numbers{
+    grid-template-columns:1fr;
+  }
+
+  .performance-row{
+    grid-template-columns:1fr;
+  }
+
+  .numbers-head{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:30px;
+  }
+
+  .metric-card{
+    min-height:280px;
+  }
+
+}
+
+</style>
+
+
+<section class="about-dnk" id="about">
+
+  <div class="about-top dnk-reveal">
+
+    <span>02 / DNK DIGITAL AGENCY</span>
+
+    <div class="about-label">
+      <span class="about-dot"></span>
+      ПРО АГЕНЦІЮ
+    </div>
+
+  </div>
+
+
+  <div class="about-headline">
+
+    <div class="about-title dnk-title-reveal">
+      DIGITAL-АГЕНЦІЯ
+    </div>
+
+    <div class="about-title outline dnk-title-reveal">
+      ПОВНОГО ЦИКЛУ
+    </div>
+
+  </div>
+
+
+  <div class="about-description">
+
+    <div class="about-side dnk-reveal">
+      DNK® / ABOUT
+    </div>
+
+
+    <div class="about-copy dnk-reveal">
+
+      <p class="about-main-text">
+        DNK Digital Agency — digital-агенція повного циклу,
+        яка працює з брендами у різних нішах, від медицини
+        та beauty до e-commerce, ритейлу й B2B.
+      </p>
+
+      <p class="about-secondary-text">
+        Ми беремо на себе весь цикл роботи з digital-просуванням
+        під ключ: від стратегії та створення контенту до реклами,
+        продакшну й аналітики.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="about-info">
+
+    <div class="about-card dnk-reveal">
+
+      <div class="about-card-head">
+        <span>01</span>
+        <span>КЕЙСИ В НІШАХ</span>
+      </div>
+
+
+      <div class="dnk-tags">
+
+        <span>МЕДИЦИНА</span>
+        <span>КОСМЕТОЛОГІЯ</span>
+        <span>BEAUTY</span>
+        <span>МЕДИЧНЕ ОБЛАДНАННЯ</span>
+        <span>E-COMMERCE</span>
+        <span>РИТЕЙЛ</span>
+        <span>ОСВІТА</span>
+        <span>IT</span>
+        <span>HORECA</span>
+        <span>ЮРИДИЧНІ ПОСЛУГИ</span>
+        <span>ПРОФЕСІЙНА КОСМЕТИКА</span>
+        <span>ТОВАРИ ДЛЯ ХОБІ ТА СПОРТУ</span>
+
+      </div>
+
+    </div>
+
+
+    <div class="about-card dnk-reveal">
+
+      <div class="about-card-head">
+        <span>02</span>
+        <span>НАШІ ПОСЛУГИ</span>
+      </div>
+
+
+      <div class="dnk-services">
+
+        <div>
+          <span>SMM-ПРОСУВАННЯ</span>
+          <b>↗</b>
+        </div>
+
+        <div>
+          <span>СТРАТЕГІЯ</span>
+          <b>↗</b>
+        </div>
+
+        <div>
+          <span>ФОТО- ТА ВІДЕОЗЙОМКА</span>
+          <b>↗</b>
+        </div>
+
+        <div>
+          <span>ТАРГЕТОВАНА РЕКЛАМА</span>
+          <b>↗</b>
+        </div>
+
+        <div>
+          <span>КОНТЕКСТНА РЕКЛАМА</span>
+          <b>↗</b>
+        </div>
+
+        <div>
+          <span>TIKTOK</span>
+          <b>↗</b>
+        </div>
+
+        <div>
+          <span>AI-КОНТЕНТ</span>
+          <b>↗</b>
+        </div>
+
+        <div>
+          <span>THREADS</span>
+          <b>↗</b>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="dnk-numbers">
+
+    <div class="numbers-head dnk-reveal">
+
+      <span>DNK DIGITAL AGENCY / PERFORMANCE</span>
+
+      <h2>У ЦИФРАХ</h2>
+
+    </div>
+
+
+    <div class="main-numbers">
+
+      <div class="metric-card dnk-reveal">
+
+        <div class="metric-value">
+          <span class="dnk-counter" data-target="40">0</span>+
+        </div>
+
+        <div class="metric-label">
+          КЕЙСІВ
+        </div>
+
+      </div>
+
+
+      <div class="metric-card dnk-reveal">
+
+        <div class="metric-value">
+          <span class="dnk-counter" data-target="20">0</span>+
+        </div>
+
+        <div class="metric-label">
+          НІШ
+        </div>
+
+      </div>
+
+
+      <div class="metric-card acid dnk-reveal">
+
+        <div class="metric-value">
+          <span class="dnk-counter" data-target="8">0</span>+
+        </div>
+
+        <div class="metric-label">
+          РОКІВ ДОСВІДУ
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="performance-row">
+
+      <div class="performance-item dnk-reveal">
+
+        <div class="performance-number">
+          01 / REACH
+        </div>
+
+        <div class="performance-big">
+          1,5 <span>МЛН</span>
+        </div>
+
+        <div class="performance-name">
+          ПЕРЕГЛЯДІВ ПРОФІЛЮ
+        </div>
+
+      </div>
+
+
+      <div class="performance-item dnk-reveal">
+
+        <div class="performance-number">
+          02 / LEADS
+        </div>
+
+        <div class="performance-big">
+          1,5<span>$</span>
+        </div>
+
+        <div class="performance-name">
+          ЦІНА ЛІДА
+        </div>
+
+      </div>
+
+
+      <div class="performance-item dnk-reveal">
+
+        <div class="performance-number">
+          03 / VIDEO
+        </div>
+
+        <div class="performance-big">
+          800K<span>+</span>
+        </div>
+
+        <div class="performance-name">
+          ПЕРЕГЛЯДІВ ВІДЕО ЗА МІСЯЦЬ
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* ==========================================
+   DNK SECTION — SCROLL REVEAL
+========================================== */
+
+const dnkRevealItems =
+  document.querySelectorAll(
+    '.dnk-reveal, .dnk-title-reveal'
+  );
+
+const dnkRevealObserver =
+  new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add(
+            'dnk-visible'
+          );
+
+          dnkRevealObserver.unobserve(
+            entry.target
+          );
+
+        }
+
+      });
+
+    },
+    {
+      threshold:0.15
+    }
+  );
+
+dnkRevealItems.forEach((item) => {
+  dnkRevealObserver.observe(item);
+});
+
+
+/* ==========================================
+   NUMBER COUNTER
+========================================== */
+
+const dnkCounters =
+  document.querySelectorAll('.dnk-counter');
+
+const dnkCounterObserver =
+  new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if(!entry.isIntersecting) return;
+
+        const counter = entry.target;
+        const target =
+          Number(counter.dataset.target);
+
+        const duration = 1400;
+        const startTime = performance.now();
+
+
+        function animateCounter(time){
+
+          const progress =
+            Math.min(
+              (time - startTime) / duration,
+              1
+            );
+
+          const eased =
+            1 - Math.pow(1 - progress, 3);
+
+          counter.textContent =
+            Math.floor(target * eased);
+
+
+          if(progress < 1){
+
+            requestAnimationFrame(
+              animateCounter
+            );
+
+          }else{
+
+            counter.textContent = target;
+
+          }
+
+        }
+
+
+        requestAnimationFrame(
+          animateCounter
+        );
+
+        dnkCounterObserver.unobserve(
+          counter
+        );
+
+      });
+
+    },
+    {
+      threshold:0.6
+    }
+  );
+
+
+dnkCounters.forEach((counter) => {
+
+  dnkCounterObserver.observe(counter);
+
+});
+
+</script>
 </body>
 </html>
