@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZURA — Контент-план</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green: #00f500;
+      --black: #111111;
+      --gray: #8f8f8f;
+      --bg: #f7f7f5;
+      --glass: rgba(255, 255, 255, 0.72);
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(0,245,0,.09), transparent 35%),
+        radial-gradient(circle at 95% 90%, rgba(0,245,0,.05), transparent 30%),
+        var(--bg);
+      color: var(--black);
+      padding: 16px;
+    }
+
+    .widget {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding: 0 4px;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      font-weight: 850;
+      letter-spacing: 2px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px rgba(0,245,0,.45);
+    }
+
+    .sync {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      color: #a0a0a0;
+    }
+
+    /* MAIN CARD */
+
+    .card {
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 28px;
+      padding: 22px;
+      box-shadow:
+        0 18px 45px rgba(0,0,0,.07),
+        inset 0 1px 0 rgba(255,255,255,1);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+
+    /* PROJECT */
+
+    .project {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .logo-box {
+      width: 74px;
+      height: 74px;
+      flex: 0 0 74px;
+      border-radius: 21px;
+      background: rgba(255,255,255,.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px;
+      box-shadow:
+        0 10px 28px rgba(0,0,0,.055),
+        inset 0 1px 0 white;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 850;
+      color: #999;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      font-size: 31px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 7px;
+    }
+
+    .period {
+      color: #777;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* COUNTER */
+
+    .counter-card {
+      background: rgba(255,255,255,.66);
+      border: 1px solid rgba(255,255,255,.92);
+      border-radius: 23px;
+      padding: 20px;
+      box-shadow:
+        0 12px 30px rgba(0,0,0,.045),
+        inset 0 1px 0 white;
+    }
+
+    .counter-label {
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 2px;
+      color: #999;
+      margin-bottom: 6px;
+    }
+
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 15px;
+    }
+
+    .number-wrap {
+      display: flex;
+      align-items: flex-end;
+      line-height: 1;
+    }
+
+    #count {
+      font-size: 58px;
+      font-weight: 900;
+      letter-spacing: -4px;
+    }
+
+    .target {
+      font-size: 30px;
+      font-weight: 850;
+      color: #aaa;
+      margin-left: 8px;
+      margin-bottom: 5px;
+    }
+
+    #percent {
+      color: #858585;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+
+    /* PROGRESS */
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.07);
+      overflow: hidden;
+      margin-top: 13px;
+    }
+
+    #bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      box-shadow: 0 0 14px rgba(0,245,0,.35);
+      transition: width .35s ease;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 9px;
+      color: #8d8d8d;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    /* BUTTONS */
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 19px;
+      height: 54px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+
+    button:active {
+      transform: scale(.98);
+    }
+
+    #minus {
+      background: rgba(255,255,255,.60);
+      color: #aaa;
+      box-shadow:
+        0 10px 25px rgba(0,0,0,.035),
+        inset 0 1px 0 white;
+    }
+
+    #minus.active {
+      color: #333;
+    }
+
+    #plus {
+      background: #111;
+      color: white;
+      box-shadow: 0 12px 25px rgba(0,0,0,.12);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 13px;
+      padding: 0 2px;
+      color: #999;
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: 1px;
+    }
+
+    /* TOAST */
+
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translate(-50%, 20px);
+      background: #111;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 750;
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+      z-index: 999;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 10px;
+      }
+
+      .card {
+        padding: 17px;
+        border-radius: 24px;
+      }
+
+      .logo-box {
+        width: 64px;
+        height: 64px;
+        flex-basis: 64px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      #count {
+        font-size: 50px;
+      }
+
+      .target {
+        font-size: 26px;
+      }
+
+      .counter-card {
+        padding: 17px;
+      }
+
+      button {
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="widget">
+
+  <div class="top">
+    <div class="top-left">
+      КОНТЕНТ-ПЛАН
+      <span class="dot"></span>
+    </div>
+
+    <div class="sync" id="syncText">
+      СИНХРОНІЗАЦІЯ...
+    </div>
+  </div>
+
+  <div class="card">
+
+    <div class="project">
+
+      <div class="logo-box">
+        <img src="azura-logo.png" alt="AZURA">
+      </div>
+
+      <div>
+        <div class="eyebrow">КІЛЬКІСТЬ ДОПИСІВ</div>
+        <h1>AZURA</h1>
+        <div class="period" id="period"></div>
+      </div>
+
+    </div>
+
+    <div class="counter-card">
+
+      <div class="counter-label">ОПУБЛІКОВАНО</div>
+
+      <div class="counter-row">
+
+        <div class="number-wrap">
+          <span id="count">0</span>
+          <span class="target">/22</span>
+        </div>
+
+        <div id="percent">0% виконано</div>
+
+      </div>
+
+      <div class="progress">
+        <div id="bar"></div>
+      </div>
+
+      <div class="progress-info">
+        <span id="remaining">Залишилось 22</span>
+        <span id="status">ПОЧИНАЄМО</span>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <button id="minus">− 1 ДОПИС</button>
+      <button id="plus">+ 1 ДОПИС</button>
+    </div>
+
+    <div class="footer">
+      <span id="reportDate"></span>
+      <span id="periodStart"></span>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+
+<script type="module">
+
+  import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc
+  } from
+  "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyArvN4PkhrXrLwehOE9mrzO_IDKmpYoGu4",
+    authDomain: "anya-80fd6.firebaseapp.com",
+    projectId: "anya-80fd6",
+    storageBucket: "anya-80fd6.firebasestorage.app",
+    messagingSenderId: "457102538038",
+    appId: "1:457102538038:web:2665c576a846cc9b7c2f97",
+    measurementId: "G-228WKNGZEE"
+  };
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+
+  /* =========================
+     AZURA SETTINGS
+  ========================= */
+
+  const PROJECT_ID = "azura";
+  const TARGET = 22;
+
+  // AZURA:
+  // новий період починається 1 числа
+  // закінчується останнього числа місяця
+
+  const START_DAY = 1;
+
+
+  /* =========================
+     ELEMENTS
+  ========================= */
+
+  const countEl = document.getElementById("count");
+  const percentEl = document.getElementById("percent");
+  const barEl = document.getElementById("bar");
+  const remainingEl = document.getElementById("remaining");
+  const statusEl = document.getElementById("status");
+
+  const minusBtn = document.getElementById("minus");
+  const plusBtn = document.getElementById("plus");
+
+  const periodEl = document.getElementById("period");
+  const reportDateEl = document.getElementById("reportDate");
+  const periodStartEl = document.getElementById("periodStart");
+
+  const syncText = document.getElementById("syncText");
+  const toast = document.getElementById("toast");
+
+
+  let count = 0;
+  let saving = false;
+
+
+  /* =========================
+     DATE HELPERS
+  ========================= */
+
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
+
+
+  function formatDate(date) {
+    return `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}`;
+  }
+
+
+  function formatKey(date) {
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  }
+
+
+  function getPeriod() {
+
+    const now = new Date();
+
+    let start;
+    let end;
+
+    if (now.getDate() >= START_DAY) {
+
+      start = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        START_DAY
+      );
+
+      end = new Date(
+        now.getFullYear(),
+        now.getMonth() + 1,
+        START_DAY - 1
+      );
+
+    } else {
+
+      start = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        START_DAY
+      );
+
+      end = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        START_DAY - 1
+      );
+
+    }
+
+    return { start, end };
+  }
+
+
+  const currentPeriod = getPeriod();
+
+  const PERIOD_KEY = formatKey(currentPeriod.start);
+
+  const counterRef = doc(
+    db,
+    "counters",
+    `${PROJECT_ID}_${PERIOD_KEY}`
+  );
+
+
+  /* =========================
+     PERIOD UI
+  ========================= */
+
+  function renderPeriod() {
+
+    periodEl.textContent =
+      `${formatDate(currentPeriod.start)} — ${formatDate(currentPeriod.end)}`;
+
+    reportDateEl.textContent =
+      `ЗВІТ: ${formatDate(currentPeriod.end)}`;
+
+    periodStartEl.textContent =
+      `ПЕРІОД ${formatDate(currentPeriod.start)}`;
+  }
+
+
+  /* =========================
+     COUNTER UI
+  ========================= */
+
+  function render() {
+
+    if (count < 0) count = 0;
+    if (count > TARGET) count = TARGET;
+
+    const percent = Math.round((count / TARGET) * 100);
+    const remaining = TARGET - count;
+
+    countEl.textContent = count;
+
+    percentEl.textContent =
+      `${percent}% виконано`;
+
+    barEl.style.width =
+      `${percent}%`;
+
+    remainingEl.textContent =
+      remaining === 0
+        ? "План виконано"
+        : `Залишилось ${remaining}`;
+
+
+    if (count === 0) {
+      statusEl.textContent = "ПОЧИНАЄМО";
+    }
+
+    else if (percent < 50) {
+      statusEl.textContent = "В ПРОЦЕСІ";
+    }
+
+    else if (percent < 80) {
+      statusEl.textContent = "БІЛЬШЕ ПОЛОВИНИ";
+    }
+
+    else if (percent < 100) {
+      statusEl.textContent = "МАЙЖЕ ГОТОВО";
+    }
+
+    else {
+      statusEl.textContent = "ГОТОВО ✓";
+    }
+
+
+    if (count === 0) {
+      minusBtn.classList.remove("active");
+    } else {
+      minusBtn.classList.add("active");
+    }
+
+  }
+
+
+  /* =========================
+     TOAST
+  ========================= */
+
+  let toastTimer;
+
+  function showToast(text) {
+
+    clearTimeout(toastTimer);
+
+    toast.textContent = text;
+    toast.classList.add("show");
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 1700);
+  }
+
+
+  /* =========================
+     LOAD FIREBASE
+  ========================= */
+
+  async function loadCounter() {
+
+    try {
+
+      syncText.textContent = "СИНХРОНІЗАЦІЯ...";
+
+      const snapshot = await getDoc(counterRef);
+
+      if (snapshot.exists()) {
+
+        const data = snapshot.data();
+
+        count =
+          typeof data.count === "number"
+            ? data.count
+            : 0;
+
+      } else {
+
+        count = 0;
+
+        await setDoc(counterRef, {
+          project: PROJECT_ID,
+          period: PERIOD_KEY,
+          count: 0,
+          target: TARGET,
+          updatedAt: new Date().toISOString()
+        });
+
+      }
+
+      render();
+
+      syncText.textContent = "СИНХРОНІЗОВАНО";
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      syncText.textContent = "ПОМИЛКА СИНХРОНІЗАЦІЇ";
+
+      showToast("Не вдалося завантажити дані");
+    }
+
+  }
+
+
+  /* =========================
+     SAVE FIREBASE
+  ========================= */
+
+  async function saveCounter(newCount) {
+
+    if (saving) return;
+
+    saving = true;
+
+    const oldCount = count;
+
+    count = Math.max(
+      0,
+      Math.min(TARGET, newCount)
+    );
+
+    render();
+
+    syncText.textContent = "ЗБЕРІГАЄМО...";
+
+
+    try {
+
+      await setDoc(
+        counterRef,
+        {
+          project: PROJECT_ID,
+          period: PERIOD_KEY,
+          count: count,
+          target: TARGET,
+          updatedAt: new Date().toISOString()
+        },
+        { merge: true }
+      );
+
+      syncText.textContent = "СИНХРОНІЗОВАНО";
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      count = oldCount;
+
+      render();
+
+      syncText.textContent = "ПОМИЛКА";
+
+      showToast("Не вдалося зберегти зміну");
+
+    }
+
+    finally {
+
+      saving = false;
+
+    }
+
+  }
+
+
+  /* =========================
+     BUTTONS
+  ========================= */
+
+  plusBtn.addEventListener("click", () => {
+
+    if (count >= TARGET) return;
+
+    saveCounter(count + 1);
+
+  });
+
+
+  minusBtn.addEventListener("click", () => {
+
+    if (count <= 0) return;
+
+    saveCounter(count - 1);
+
+  });
+
+
+  /* =========================
+     START
+  ========================= */
+
+  renderPeriod();
+  render();
+  loadCounter();
+
+</script>
+
+</body>
+</html>
