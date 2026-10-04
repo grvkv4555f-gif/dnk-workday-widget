@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DNK — Планувальник публікацій</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --green:#00f500;
+  --black:#111111;
+  --gray:#8f8f8f;
+  --bg:#f7f7f5;
+  --glass:rgba(255,255,255,.72);
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+}
+
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(0,245,0,.09),transparent 35%),
+    radial-gradient(circle at 95% 90%,rgba(0,245,0,.05),transparent 30%),
+    var(--bg);
+  color:var(--black);
+  padding:16px;
+}
+
+.widget{
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+}
+
+/* HEADER */
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+  padding:0 4px;
+}
+
+.top-left{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:14px;
+  font-weight:850;
+  letter-spacing:1.7px;
+}
+
+.dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 14px rgba(0,245,0,.45);
+}
+
+.small-label{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.6px;
+  color:#a0a0a0;
+}
+
+/* MAIN CARD */
+
+.card{
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:28px;
+  padding:22px;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.07),
+    inset 0 1px 0 rgba(255,255,255,1);
+
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+/* INTRO */
+
+.eyebrow{
+  font-size:10px;
+  font-weight:850;
+  color:#999;
+  letter-spacing:2px;
+  margin-bottom:7px;
+}
+
+h1{
+  font-size:31px;
+  line-height:1.05;
+  font-weight:900;
+  letter-spacing:-1.2px;
+  margin-bottom:8px;
+}
+
+.description{
+  font-size:14px;
+  line-height:1.5;
+  color:#858585;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+/* INPUTS */
+
+.inputs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.input-box{
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:19px;
+  padding:14px 15px;
+
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.035),
+    inset 0 1px 0 white;
+}
+
+.input-box:first-child{
+  background:
+    radial-gradient(circle at 90% 10%,rgba(0,245,0,.10),transparent 55%),
+    rgba(255,255,255,.72);
+}
+
+.input-box label{
+  display:block;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:1.3px;
+  color:#999;
+  margin-bottom:6px;
+}
+
+.input-box input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+
+  font-family:inherit;
+  font-size:27px;
+  font-weight:900;
+  color:#111;
+}
+
+.input-box input::placeholder{
+  color:#d0d0d0;
+}
+
+/* DIVIDER */
+
+.divider{
+  height:1px;
+  background:rgba(0,0,0,.06);
+  margin:20px 0;
+}
+
+/* RESULT */
+
+.result{
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at 50% 0%,rgba(0,245,0,.10),transparent 55%),
+    rgba(255,255,255,.76);
+
+  border:1px solid rgba(255,255,255,.96);
+  border-radius:23px;
+  padding:24px 18px;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.045),
+    inset 0 1px 0 white;
+}
+
+.result-label{
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:1.7px;
+  color:#999;
+  margin-bottom:10px;
+}
+
+.result-number{
+  font-size:42px;
+  line-height:1.05;
+  font-weight:900;
+  letter-spacing:-1.8px;
+}
+
+.result-sub{
+  margin-top:9px;
+  font-size:12px;
+  font-weight:700;
+  color:#929292;
+}
+
+/* WEEK */
+
+.week-title{
+  margin-top:20px;
+  margin-bottom:10px;
+
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:1.6px;
+  color:#999;
+}
+
+.week{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+.day{
+  min-height:76px;
+  border-radius:18px;
+  background:rgba(255,255,255,.62);
+  border:1px solid rgba(255,255,255,.94);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  box-shadow:
+    0 7px 18px rgba(0,0,0,.025),
+    inset 0 1px 0 white;
+}
+
+.day-name{
+  font-size:9px;
+  font-weight:850;
+  color:#aaa;
+  letter-spacing:1px;
+  margin-bottom:8px;
+}
+
+.day-count{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#eeeeec;
+  color:#aaa;
+
+  font-size:12px;
+  font-weight:900;
+
+  transition:.2s ease;
+}
+
+.day.active .day-count{
+  background:var(--green);
+  color:#111;
+
+  box-shadow:
+    0 6px 18px rgba(0,245,0,.22);
+}
+
+.day.multiple .day-count{
+  background:#111;
+  color:#fff;
+}
+
+/* INFO */
+
+.info{
+  margin-top:14px;
+  padding:14px 16px;
+  border-radius:18px;
+
+  background:rgba(255,255,255,.52);
+
+  color:#929292;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.info strong{
+  color:#555;
+}
+
+/* WARNING */
+
+.warning{
+  display:none;
+
+  margin-top:10px;
+  padding:14px 16px;
+
+  border-radius:18px;
+
+  background:
+    radial-gradient(circle at 0% 0%,rgba(0,245,0,.08),transparent 60%),
+    rgba(255,255,255,.55);
+
+  color:#777;
+
+  font-size:11px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.warning.show{
+  display:block;
+}
+
+/* BUTTON */
+
+button{
+  width:100%;
+  height:52px;
+
+  border:0;
+  border-radius:19px;
+
+  background:#111;
+  color:white;
+
+  margin-top:14px;
+
+  font-family:inherit;
+  font-size:13px;
+  font-weight:850;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 12px 25px rgba(0,0,0,.12);
+
+  transition:transform .15s ease;
+}
+
+button:active{
+  transform:scale(.985);
+}
+
+/* EMPTY STATE */
+
+.empty{
+  color:#c7c7c7;
+}
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+  body{
+    padding:10px;
+  }
+
+  .card{
+    padding:17px;
+    border-radius:24px;
+  }
+
+  h1{
+    font-size:27px;
+  }
+
+  .description{
+    font-size:13px;
+  }
+
+  .input-box input{
+    font-size:24px;
+  }
+
+  .result-number{
+    font-size:34px;
+  }
+
+  .week{
+    gap:5px;
+  }
+
+  .day{
+    min-height:67px;
+    border-radius:15px;
+  }
+
+  .day-name{
+    font-size:8px;
+  }
+
+  .day-count{
+    width:25px;
+    height:25px;
+    font-size:11px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+  <div class="top">
+
+    <div class="top-left">
+      📅 ПЛАНУВАЛЬНИК
+      <span class="dot"></span>
+    </div>
+
+    <div class="small-label">
+      DNK TOOLBOX
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="eyebrow">
+      ТЕМП ПУБЛІКАЦІЙ
+    </div>
+
+    <h1>
+      Як часто потрібно постити?
+    </h1>
+
+    <div class="description">
+      Вкажи кількість дописів і тривалість контент-плану — інструмент порахує потрібний темп публікацій.
+    </div>
+
+
+    <div class="inputs">
+
+      <div class="input-box">
+
+        <label>
+          КІЛЬКІСТЬ ДОПИСІВ
+        </label>
+
+        <input
+          id="posts"
+          type="number"
+          min="1"
+          inputmode="numeric"
+          placeholder="15"
+        >
+
+      </div>
+
+
+      <div class="input-box">
+
+        <label>
+          ПЕРІОД У ДНЯХ
+        </label>
+
+        <input
+          id="days"
+          type="number"
+          min="1"
+          inputmode="numeric"
+          placeholder="30"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="divider"></div>
+
+
+    <div class="result">
+
+      <div class="result-label">
+        ПОТРІБНИЙ ТЕМП
+      </div>
+
+      <div
+        class="result-number empty"
+        id="result"
+      >
+        ВВЕДИ ДАНІ
+      </div>
+
+      <div
+        class="result-sub"
+        id="resultSub"
+      >
+        Постинг плануємо з понеділка по пʼятницю
+      </div>
+
+    </div>
+
+
+    <div class="week-title">
+      ПРИКЛАД РОЗПОДІЛУ НА ТИЖДЕНЬ
+    </div>
+
+
+    <div class="week">
+
+      <div class="day" id="day0">
+        <div class="day-name">ПН</div>
+        <div class="day-count">0</div>
+      </div>
+
+      <div class="day" id="day1">
+        <div class="day-name">ВТ</div>
+        <div class="day-count">0</div>
+      </div>
+
+      <div class="day" id="day2">
+        <div class="day-name">СР</div>
+        <div class="day-count">0</div>
+      </div>
+
+      <div class="day" id="day3">
+        <div class="day-name">ЧТ</div>
+        <div class="day-count">0</div>
+      </div>
+
+      <div class="day" id="day4">
+        <div class="day-name">ПТ</div>
+        <div class="day-count">0</div>
+      </div>
+
+    </div>
+
+
+    <div
+      class="warning"
+      id="warning"
+    >
+      При такому темпі в окремі робочі дні потрібно буде публікувати більше одного допису.
+    </div>
+
+
+    <div class="info">
+      <strong>Як рахуємо:</strong> визначаємо середню кількість дописів на тиждень і округлюємо її до цілого. Постинг — тільки <strong>ПН–ПТ</strong>.
+    </div>
+
+
+    <button id="clear">
+      × ОЧИСТИТИ ДАНІ
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const postsInput =
+  document.getElementById("posts");
+
+const daysInput =
+  document.getElementById("days");
+
+const result =
+  document.getElementById("result");
+
+const resultSub =
+  document.getElementById("resultSub");
+
+const warning =
+  document.getElementById("warning");
+
+const clearBtn =
+  document.getElementById("clear");
+
+
+const dayElements = [
+  document.getElementById("day0"),
+  document.getElementById("day1"),
+  document.getElementById("day2"),
+  document.getElementById("day3"),
+  document.getElementById("day4")
+];
+
+
+/* -------------------------------- */
+/* УКРАЇНСЬКЕ СЛОВО "ДОПИС"         */
+/* -------------------------------- */
+
+function postWord(number){
+
+  const n =
+    Math.abs(number);
+
+  const lastTwo =
+    n % 100;
+
+  const last =
+    n % 10;
+
+
+  if(
+    lastTwo >= 11 &&
+    lastTwo <= 14
+  ){
+    return "ДОПИСІВ";
+  }
+
+
+  if(last === 1){
+    return "ДОПИС";
+  }
+
+
+  if(
+    last >= 2 &&
+    last <= 4
+  ){
+    return "ДОПИСИ";
+  }
+
+
+  return "ДОПИСІВ";
+
+}
+
+
+/* -------------------------------- */
+/* ОЧИЩЕННЯ ТИЖНЯ                   */
+/* -------------------------------- */
+
+function resetWeek(){
+
+  dayElements.forEach(day => {
+
+    day.classList.remove(
+      "active",
+      "multiple"
+    );
+
+    const count =
+      day.querySelector(".day-count");
+
+    count.textContent = "0";
+
+  });
+
+}
+
+
+/* -------------------------------- */
+/* РОЗПОДІЛ ПО ПН–ПТ                */
+/* -------------------------------- */
+
+function renderWeek(postsPerWeek){
+
+  resetWeek();
+
+
+  if(postsPerWeek <= 0){
+    return;
+  }
+
+
+  /*
+    Спочатку рівномірно розподіляємо
+    дописи між 5 робочими днями.
+  */
+
+  const distribution =
+    [0,0,0,0,0];
+
+
+  /*
+    Для 1–5 дописів використовуємо
+    максимально рівномірний візуальний
+    розподіл по тижню.
+  */
+
+  const patterns = {
+
+    1:[2],
+
+    2:[0,3],
+
+    3:[0,2,4],
+
+    4:[0,1,3,4],
+
+    5:[0,1,2,3,4]
+
+  };
+
+
+  if(postsPerWeek <= 5){
+
+    patterns[postsPerWeek]
+      .forEach(index => {
+
+        distribution[index] = 1;
+
+      });
+
+  }else{
+
+    /*
+      Якщо більше 5 —
+      кожен день спочатку отримує
+      по одному допису.
+    */
+
+    for(let i = 0; i < 5; i++){
+      distribution[i] = 1;
+    }
+
+
+    let remaining =
+      postsPerWeek - 5;
+
+    let index = 0;
+
+
+    while(remaining > 0){
+
+      distribution[index]++;
+
+      remaining--;
+
+      index++;
+
+      if(index > 4){
+        index = 0;
+      }
+
+    }
+
+  }
+
+
+  distribution.forEach(
+    (count,index) => {
+
+      const day =
+        dayElements[index];
+
+      const countElement =
+        day.querySelector(".day-count");
+
+
+      countElement.textContent =
+        count;
+
+
+      if(count > 0){
+
+        day.classList.add(
+          "active"
+        );
+
+      }
+
+
+      if(count > 1){
+
+        day.classList.add(
+          "multiple"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* -------------------------------- */
+/* РОЗРАХУНОК                       */
+/* -------------------------------- */
+
+function calculate(){
+
+  const posts =
+    Number(postsInput.value);
+
+  const days =
+    Number(daysInput.value);
+
+
+  if(
+    !Number.isFinite(posts) ||
+    !Number.isFinite(days) ||
+    posts <= 0 ||
+    days <= 0
+  ){
+
+    result.textContent =
+      "ВВЕДИ ДАНІ";
+
+    result.classList.add(
+      "empty"
+    );
+
+    resultSub.textContent =
+      "Постинг плануємо з понеділка по пʼятницю";
+
+    warning.classList.remove(
+      "show"
+    );
+
+    resetWeek();
+
+    return;
+
+  }
+
+
+  /*
+    Скільки тижнів містить період
+  */
+
+  const weeks =
+    days / 7;
+
+
+  /*
+    Середня кількість дописів
+    на один тиждень
+  */
+
+  const exactPostsPerWeek =
+    posts / weeks;
+
+
+  /*
+    Округлюємо:
+    5.1 → 5
+    2.8 → 3
+    1.9 → 2
+  */
+
+  let postsPerWeek =
+    Math.round(
+      exactPostsPerWeek
+    );
+
+
+  /*
+    Якщо є хоча б один допис,
+    не показуємо 0 дописів/тиждень
+  */
+
+  if(
+    posts > 0 &&
+    postsPerWeek < 1
+  ){
+    postsPerWeek = 1;
+  }
+
+
+  result.classList.remove(
+    "empty"
+  );
+
+
+  result.textContent =
+    `≈ ${postsPerWeek} ${postWord(postsPerWeek)} НА ТИЖДЕНЬ`;
+
+
+  resultSub.textContent =
+    `Для плану: ${posts} ${postWord(posts).toLowerCase()} / ${days} днів`;
+
+
+  renderWeek(
+    postsPerWeek
+  );
+
+
+  if(postsPerWeek > 5){
+
+    warning.classList.add(
+      "show"
+    );
+
+  }else{
+
+    warning.classList.remove(
+      "show"
+    );
+
+  }
+
+}
+
+
+/* -------------------------------- */
+/* EVENTS                           */
+/* -------------------------------- */
+
+postsInput.addEventListener(
+  "input",
+  calculate
+);
+
+daysInput.addEventListener(
+  "input",
+  calculate
+);
+
+
+clearBtn.addEventListener(
+  "click",
+  () => {
+
+    postsInput.value = "";
+    daysInput.value = "";
+
+    calculate();
+
+    postsInput.focus();
+
+  }
+);
+
+
+calculate();
+
+</script>
+
+</body>
+</html>
