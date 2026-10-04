@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DNK — ER калькулятор</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --green:#00f500;
+  --black:#111111;
+  --gray:#8f8f8f;
+  --bg:#f7f7f5;
+  --glass:rgba(255,255,255,.72);
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+}
+
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(0,245,0,.09),transparent 35%),
+    radial-gradient(circle at 95% 90%,rgba(0,245,0,.05),transparent 30%),
+    var(--bg);
+  color:var(--black);
+  padding:16px;
+}
+
+.widget{
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+}
+
+/* HEADER */
+
+.top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+  padding:0 4px;
+}
+
+.top-left{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:14px;
+  font-weight:850;
+  letter-spacing:2px;
+}
+
+.dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 14px rgba(0,245,0,.45);
+}
+
+.small-label{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.6px;
+  color:#a0a0a0;
+}
+
+/* MAIN CARD */
+
+.card{
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:28px;
+  padding:22px;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.07),
+    inset 0 1px 0 rgba(255,255,255,1);
+
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+/* INTRO */
+
+.eyebrow{
+  font-size:10px;
+  font-weight:850;
+  color:#999;
+  letter-spacing:2px;
+  margin-bottom:7px;
+}
+
+h1{
+  font-size:31px;
+  line-height:1.05;
+  font-weight:900;
+  letter-spacing:-1.2px;
+  margin-bottom:8px;
+}
+
+.description{
+  font-size:14px;
+  line-height:1.5;
+  color:#858585;
+  font-weight:600;
+  margin-bottom:20px;
+}
+
+/* INPUTS */
+
+.inputs{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+}
+
+.input-box{
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:19px;
+  padding:14px 15px;
+
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.035),
+    inset 0 1px 0 white;
+}
+
+.input-box.interactions{
+  background:
+    radial-gradient(circle at 90% 10%,rgba(0,245,0,.10),transparent 55%),
+    rgba(255,255,255,.72);
+}
+
+.input-box label{
+  display:block;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:1.3px;
+  color:#999;
+  margin-bottom:6px;
+}
+
+.input-box input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+
+  font-family:inherit;
+  font-size:25px;
+  font-weight:900;
+  color:#111;
+}
+
+.input-box input::placeholder{
+  color:#d0d0d0;
+}
+
+/* DIVIDER */
+
+.divider{
+  height:1px;
+  background:rgba(0,0,0,.06);
+  margin:20px 0;
+}
+
+/* RESULTS */
+
+.results{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.result{
+  position:relative;
+  overflow:hidden;
+
+  background:rgba(255,255,255,.76);
+  border:1px solid rgba(255,255,255,.96);
+  border-radius:23px;
+  padding:20px;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.045),
+    inset 0 1px 0 white;
+}
+
+.result:first-child{
+  background:
+    radial-gradient(circle at 90% 10%,rgba(0,245,0,.12),transparent 45%),
+    rgba(255,255,255,.76);
+}
+
+.result-label{
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:1.4px;
+  color:#999;
+  margin-bottom:9px;
+}
+
+.result-number{
+  font-size:44px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-2px;
+  margin-bottom:12px;
+}
+
+.formula{
+  color:#8a8a8a;
+  font-size:11px;
+  line-height:1.45;
+  font-weight:650;
+}
+
+.formula strong{
+  color:#555;
+}
+
+/* INFO */
+
+.info{
+  margin-top:14px;
+  padding:14px 16px;
+  border-radius:18px;
+
+  background:rgba(255,255,255,.52);
+
+  color:#929292;
+  font-size:10px;
+  font-weight:700;
+  line-height:1.55;
+}
+
+.info strong{
+  color:#555;
+}
+
+/* BUTTON */
+
+button{
+  width:100%;
+  height:52px;
+
+  border:0;
+  border-radius:19px;
+
+  background:#111;
+  color:white;
+
+  margin-top:14px;
+
+  font-family:inherit;
+  font-size:13px;
+  font-weight:850;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 12px 25px rgba(0,0,0,.12);
+
+  transition:transform .15s ease;
+}
+
+button:active{
+  transform:scale(.985);
+}
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+  body{
+    padding:10px;
+  }
+
+  .card{
+    padding:17px;
+    border-radius:24px;
+  }
+
+  h1{
+    font-size:27px;
+  }
+
+  .inputs{
+    grid-template-columns:1fr;
+  }
+
+  .input-box input{
+    font-size:23px;
+  }
+
+  .results{
+    grid-template-columns:1fr;
+  }
+
+  .result-number{
+    font-size:40px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+  <div class="top">
+
+    <div class="top-left">
+      🧮 ER-КАЛЬКУЛЯТОР
+      <span class="dot"></span>
+    </div>
+
+    <div class="small-label">
+      DNK TOOLBOX
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="eyebrow">
+      ШВИДКИЙ РОЗРАХУНОК
+    </div>
+
+    <h1>
+      ER та ERR за кілька секунд
+    </h1>
+
+    <div class="description">
+      Внеси загальну кількість взаємодій, підписників та охоплення — обидва показники порахуються автоматично.
+    </div>
+
+
+    <div class="inputs">
+
+      <div class="input-box interactions">
+
+        <label>
+          ВЗАЄМОДІЇ
+        </label>
+
+        <input
+          id="interactions"
+          type="number"
+          min="0"
+          inputmode="numeric"
+          placeholder="0"
+        >
+
+      </div>
+
+
+      <div class="input-box">
+
+        <label>
+          ПІДПИСНИКИ
+        </label>
+
+        <input
+          id="followers"
+          type="number"
+          min="0"
+          inputmode="numeric"
+          placeholder="0"
+        >
+
+      </div>
+
+
+      <div class="input-box">
+
+        <label>
+          ОХОПЛЕННЯ
+        </label>
+
+        <input
+          id="reach"
+          type="number"
+          min="0"
+          inputmode="numeric"
+          placeholder="0"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="divider"></div>
+
+
+    <div class="results">
+
+
+      <div class="result">
+
+        <div class="result-label">
+          ER ЗА ПІДПИСНИКАМИ
+        </div>
+
+        <div
+          class="result-number"
+          id="er"
+        >
+          0%
+        </div>
+
+        <div class="formula">
+          <strong>ER =</strong>
+          взаємодії ÷ кількість підписників × 100%
+        </div>
+
+      </div>
+
+
+      <div class="result">
+
+        <div class="result-label">
+          ERR ЗА ОХОПЛЕННЯМ
+        </div>
+
+        <div
+          class="result-number"
+          id="err"
+        >
+          0%
+        </div>
+
+        <div class="formula">
+          <strong>ERR =</strong>
+          взаємодії ÷ охоплення × 100%
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="info">
+      <strong>Взаємодії</strong> — внеси однією цифрою загальну суму взаємодій, яку використовуєте у звіті.
+    </div>
+
+
+    <button id="clear">
+      × ОЧИСТИТИ ДАНІ
+    </button>
+
+
+  </div>
+
+</div>
+
+
+<script>
+
+const interactions =
+  document.getElementById("interactions");
+
+const followers =
+  document.getElementById("followers");
+
+const reach =
+  document.getElementById("reach");
+
+const erEl =
+  document.getElementById("er");
+
+const errEl =
+  document.getElementById("err");
+
+const clearBtn =
+  document.getElementById("clear");
+
+
+const inputs = [
+  interactions,
+  followers,
+  reach
+];
+
+
+function numberValue(input){
+
+  const value =
+    Number(input.value);
+
+  if(
+    !Number.isFinite(value) ||
+    value < 0
+  ){
+    return 0;
+  }
+
+  return value;
+
+}
+
+
+function formatPercent(value){
+
+  if(!Number.isFinite(value)){
+    return "0%";
+  }
+
+  return value.toLocaleString(
+    "uk-UA",
+    {
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    }
+  ) + "%";
+
+}
+
+
+function calculate(){
+
+  const interactionsValue =
+    numberValue(interactions);
+
+  const followersValue =
+    numberValue(followers);
+
+  const reachValue =
+    numberValue(reach);
+
+
+  /* ER ЗА ПІДПИСНИКАМИ */
+
+  const er =
+    followersValue > 0
+      ? (
+          interactionsValue /
+          followersValue
+        ) * 100
+      : 0;
+
+
+  /* ERR ЗА ОХОПЛЕННЯМ */
+
+  const err =
+    reachValue > 0
+      ? (
+          interactionsValue /
+          reachValue
+        ) * 100
+      : 0;
+
+
+  erEl.textContent =
+    formatPercent(er);
+
+  errEl.textContent =
+    formatPercent(err);
+
+}
+
+
+inputs.forEach(input => {
+
+  input.addEventListener(
+    "input",
+    calculate
+  );
+
+});
+
+
+clearBtn.addEventListener(
+  "click",
+  () => {
+
+    inputs.forEach(input => {
+      input.value = "";
+    });
+
+    calculate();
+
+    interactions.focus();
+
+  }
+);
+
+
+calculate();
+
+</script>
+
+</body>
+</html>
