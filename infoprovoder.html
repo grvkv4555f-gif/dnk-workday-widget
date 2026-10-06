@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>DNK Інфоприводер</title>
 
 <style>
@@ -17,9 +16,8 @@
   --green:#00f500;
   --red:#ff3b30;
   --orange:#ff9500;
-  --blue:#3478f6;
   --text:#111;
-  --muted:#8a8a8a;
+  --muted:#929292;
   --bg:#f7f7f5;
 }
 
@@ -28,21 +26,10 @@ html,body{
 }
 
 body{
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:
-    radial-gradient(
-      circle at 90% 0%,
-      rgba(0,245,0,.08),
-      transparent 28%
-    ),
+    radial-gradient(circle at 95% 0%,rgba(0,245,0,.08),transparent 30%),
     var(--bg);
-
   color:var(--text);
   padding:6px;
 }
@@ -53,68 +40,56 @@ body{
   margin:auto;
 }
 
-
-/* =========================
-   MAIN CARD
-========================= */
-
 .card{
-  overflow:hidden;
-
-  padding:12px;
-
-  border-radius:19px;
+  padding:11px 12px 9px;
+  border-radius:18px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.91),
-      rgba(255,255,255,.67)
+      rgba(255,255,255,.94),
+      rgba(255,255,255,.72)
     );
 
-  border:
-    1px solid rgba(255,255,255,.95);
+  border:1px solid rgba(255,255,255,.96);
 
   box-shadow:
     0 12px 30px rgba(0,0,0,.055),
-    inset 0 1px 0 rgba(255,255,255,.95);
+    inset 0 1px 0 white;
 
   backdrop-filter:blur(20px);
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 .header{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:8px;
 
-  padding:0 1px 9px;
+  padding-bottom:8px;
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:5px;
 
   font-size:8px;
   font-weight:950;
-  letter-spacing:.11em;
+  letter-spacing:.10em;
 }
 
-.live-dot{
+.dot{
   width:6px;
   height:6px;
-
   border-radius:50%;
 
   background:var(--green);
 
-  box-shadow:
-    0 0 8px rgba(0,245,0,.55);
+  box-shadow:0 0 8px rgba(0,245,0,.55);
 
   animation:pulse 2s infinite;
 }
@@ -127,20 +102,18 @@ body{
 }
 
 .today{
-  color:#999;
-
-  font-size:6.5px;
+  color:#aaa;
+  font-size:6px;
   font-weight:850;
   letter-spacing:.05em;
+  white-space:nowrap;
 }
 
 
-/* =========================
-   SECTION
-========================= */
+/* SECTION */
 
 .section{
-  margin-top:8px;
+  margin-top:7px;
 }
 
 .section:first-of-type{
@@ -149,151 +122,86 @@ body{
 
 .section-head{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
+  gap:8px;
 
   margin-bottom:5px;
 }
 
 .section-title{
-  display:flex;
-  align-items:center;
-  gap:5px;
-
   color:#777;
 
-  font-size:6.5px;
+  font-size:6px;
   font-weight:950;
-  letter-spacing:.1em;
+  letter-spacing:.09em;
 }
 
 .section-count{
   color:#aaa;
 
-  font-size:6px;
-  font-weight:850;
+  font-size:5.5px;
+  font-weight:900;
 }
 
 
-/* =========================
-   IMPORTANT EVENTS
-========================= */
+/* IMPORTANT */
 
 .important-list{
   display:grid;
-  gap:5px;
+  gap:4px;
 }
 
 .event{
   position:relative;
 
-  padding:8px 9px;
+  padding:7px 8px 7px 10px;
 
-  border-radius:12px;
+  border-radius:11px;
 
-  background:
-    rgba(255,255,255,.67);
+  background:rgba(255,255,255,.66);
 
-  border:
-    1px solid rgba(0,0,0,.035);
+  border:1px solid rgba(0,0,0,.03);
+
+  overflow:hidden;
 }
 
-.event.important{
-  background:
-    linear-gradient(
-      100deg,
-      rgba(255,59,48,.065),
-      rgba(255,255,255,.68) 55%
-    );
+.event::before{
+  content:"";
+
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:2px;
+
+  background:var(--red);
 }
 
-.event.super{
-  background:
-    linear-gradient(
-      100deg,
-      rgba(255,149,0,.08),
-      rgba(255,255,255,.70) 55%
-    );
-}
-
-
-/* MICRO THEME ACCENTS */
-
-.event.theme-fishing{
-  box-shadow:
-    inset 2px 0 0 #1594bf;
-}
-
-.event.theme-beauty{
-  box-shadow:
-    inset 2px 0 0 #d45ac6;
-}
-
-.event.theme-sewing{
-  box-shadow:
-    inset 2px 0 0 #7455e8;
-}
-
-.event.theme-mental{
-  box-shadow:
-    inset 2px 0 0 #4e83ef;
-}
-
-.event.theme-ukraine{
-  box-shadow:
-    inset 2px 0 0 #3478f6;
-}
-
-.event.theme-halloween{
-  box-shadow:
-    inset 2px 0 0 #ff8500;
-}
-
-.event.theme-shopping{
-  box-shadow:
-    inset 2px 0 0 #111;
-}
-
-.event.theme-family{
-  box-shadow:
-    inset 2px 0 0 #f08b45;
-}
-
-.event.theme-newyear,
-.event.theme-christmas{
-  box-shadow:
-    inset 2px 0 0 #00b95d;
-}
-
-.event.theme-social{
-  box-shadow:
-    inset 2px 0 0 #6269ed;
-}
-
-.event.theme-earth{
-  box-shadow:
-    inset 2px 0 0 #35a86c;
-}
-
-.event.theme-language{
-  box-shadow:
-    inset 2px 0 0 #dba000;
-}
-
-.event.theme-love{
-  box-shadow:
-    inset 2px 0 0 #ff5b8d;
-}
-
-.event.theme-memory{
-  box-shadow:
-    inset 2px 0 0 #777;
+.event.super::before{
+  background:var(--orange);
 }
 
 
-/* =========================
-   EVENT TOP
-========================= */
+/* THEMES */
+
+.event.fishing::before{background:#168ab6;}
+.event.beauty::before{background:#d75ac8;}
+.event.sewing::before{background:#7758df;}
+.event.mental::before{background:#4c82ef;}
+.event.ukraine::before{background:#3478f6;}
+.event.halloween::before{background:#ff8500;}
+.event.shopping::before{background:#111;}
+.event.family::before{background:#ef8d43;}
+.event.newyear::before{background:#00b85a;}
+.event.christmas::before{background:#00b85a;}
+.event.social::before{background:#6269ed;}
+.event.earth::before{background:#35a86c;}
+.event.language::before{background:#d9a000;}
+.event.love::before{background:#ff5b8d;}
+.event.memory::before{background:#777;}
+
 
 .event-top{
   display:flex;
@@ -305,113 +213,84 @@ body{
 .event-date{
   display:flex;
   align-items:center;
-  gap:5px;
-
-  min-width:0;
+  gap:4px;
 
   font-size:6.5px;
   font-weight:950;
-  letter-spacing:.05em;
+  letter-spacing:.04em;
 }
 
 .event-date .emoji{
-  font-size:11px;
-  line-height:1;
+  font-size:10px;
 }
 
-.reminder{
+.badge{
   flex-shrink:0;
 
   padding:3px 5px;
 
   border-radius:999px;
 
-  background:
-    rgba(255,59,48,.09);
+  background:rgba(255,59,48,.08);
 
   color:#d82b22;
 
-  font-size:5.5px;
+  font-size:5.3px;
   font-weight:950;
-  letter-spacing:.05em;
+  letter-spacing:.04em;
 }
 
-.event.super .reminder{
-  background:
-    rgba(255,149,0,.10);
-
-  color:#d87900;
+.super .badge{
+  background:rgba(255,149,0,.10);
+  color:#c97000;
 }
-
-
-/* =========================
-   EVENT NAME
-========================= */
 
 .event-name{
-  margin-top:4px;
+  margin-top:3px;
 
-  font-size:9.5px;
+  font-size:8.5px;
   line-height:1.18;
 
   font-weight:900;
-  letter-spacing:-.012em;
 }
-
-
-/* =========================
-   PROJECTS
-========================= */
 
 .projects{
-  display:flex;
-  align-items:flex-start;
-  gap:4px;
+  margin-top:4px;
 
-  margin-top:5px;
+  color:#777;
+
+  font-size:5.7px;
+  line-height:1.35;
+
+  font-weight:850;
 }
 
-.projects-label{
-  flex-shrink:0;
-
+.projects strong{
   color:#aaa;
 
-  font-size:5.5px;
-  font-weight:900;
+  font-size:5.2px;
   letter-spacing:.05em;
 }
 
-.projects-names{
-  color:#555;
 
-  font-size:6px;
-  line-height:1.3;
+/* TOMORROW */
 
-  font-weight:900;
-}
-
-
-/* =========================
-   TOMORROW
-========================= */
-
-.tomorrow-box{
+.tomorrow{
   padding:7px 8px;
 
-  border-radius:12px;
+  border-radius:11px;
 
-  background:
-    rgba(17,17,17,.028);
+  background:rgba(17,17,17,.025);
 }
 
 .tomorrow-date{
   margin-bottom:5px;
 
-  color:#888;
+  color:#999;
 
-  font-size:6px;
+  font-size:5.8px;
   font-weight:950;
-  letter-spacing:.08em;
+  letter-spacing:.07em;
 }
 
 .tomorrow-list{
@@ -421,11 +300,11 @@ body{
 
 .tomorrow-row{
   display:grid;
-  grid-template-columns:15px minmax(0,1fr);
-  align-items:start;
+  grid-template-columns:14px minmax(0,1fr);
   gap:3px;
+  align-items:start;
 
-  font-size:7.5px;
+  font-size:7.3px;
   line-height:1.25;
 
   font-weight:850;
@@ -433,116 +312,83 @@ body{
 
 .tomorrow-emoji{
   font-size:9px;
-  line-height:1.1;
+}
+
+.empty{
+  color:#aaa;
+
+  font-size:6.5px;
+  font-weight:800;
 }
 
 
-/* =========================
-   NEXT
-========================= */
+/* NEXT */
 
 .next{
   display:grid;
   grid-template-columns:auto minmax(0,1fr) auto;
   align-items:center;
-  gap:6px;
+  gap:5px;
 
   margin-top:7px;
+  padding-top:7px;
 
-  padding:7px 8px;
-
-  border-top:
-    1px solid rgba(0,0,0,.045);
+  border-top:1px solid rgba(0,0,0,.045);
 }
 
 .next-label{
   color:#aaa;
 
-  font-size:5.5px;
+  font-size:5.3px;
   font-weight:950;
-  letter-spacing:.08em;
+  letter-spacing:.07em;
 }
 
 .next-name{
   overflow:hidden;
-
-  text-overflow:ellipsis;
   white-space:nowrap;
+  text-overflow:ellipsis;
 
-  font-size:6.5px;
+  font-size:6.3px;
   font-weight:850;
 }
 
 .next-date{
   color:#888;
 
-  font-size:5.8px;
+  font-size:5.5px;
   font-weight:900;
-
   white-space:nowrap;
 }
 
 
-/* =========================
-   EMPTY
-========================= */
-
-.empty{
-  padding:7px 8px;
-
-  border-radius:11px;
-
-  background:
-    rgba(17,17,17,.025);
-
-  color:#999;
-
-  font-size:7px;
-  font-weight:800;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 .footer{
   display:flex;
   justify-content:space-between;
 
-  padding:7px 2px 0;
+  padding-top:7px;
 
-  color:#bbb;
+  color:#c1c1c1;
 
-  font-size:5px;
+  font-size:4.8px;
   font-weight:850;
   letter-spacing:.07em;
 }
 
 
-/* =========================
-   VERY SMALL EMBED
-========================= */
-
 @media(max-width:300px){
-
   body{
     padding:4px;
   }
 
   .card{
     padding:10px;
-    border-radius:17px;
   }
-
-  .event-name{
-    font-size:9px;
-  }
-
 }
 </style>
 </head>
-
 
 <body>
 
@@ -553,7 +399,7 @@ body{
     <div class="header">
 
       <div class="brand">
-        <span class="live-dot"></span>
+        <span class="dot"></span>
         📡 ІНФОПРИВОДЕР
       </div>
 
@@ -564,8 +410,6 @@ body{
 
     </div>
 
-
-    <!-- IMPORTANT -->
 
     <section
       class="section"
@@ -585,6 +429,7 @@ body{
 
       </div>
 
+
       <div
         class="important-list"
         id="importantList"
@@ -593,12 +438,7 @@ body{
     </section>
 
 
-    <!-- TOMORROW -->
-
-    <section
-      class="section"
-      id="tomorrowSection"
-    >
+    <section class="section">
 
       <div class="section-head">
 
@@ -613,10 +453,8 @@ body{
 
       </div>
 
-      <div
-        class="tomorrow-box"
-        id="tomorrowBox"
-      >
+
+      <div class="tomorrow">
 
         <div
           class="tomorrow-date"
@@ -632,8 +470,6 @@ body{
 
     </section>
 
-
-    <!-- NEXT -->
 
     <div
       class="next"
@@ -659,9 +495,13 @@ body{
 
     <div class="footer">
 
-      <span>DNK · CONTENT RADAR</span>
+      <span>
+        DNK · CONTENT RADAR
+      </span>
 
-      <span>AUTO</span>
+      <span>
+        AUTO
+      </span>
 
     </div>
 
@@ -672,11 +512,11 @@ body{
 
 <script>
 
-/* ==========================================================
-   SETTINGS
-========================================================== */
+/* ==========================================
+   BASIC DATE FUNCTIONS
+========================================== */
 
-const DAY = 86400000;
+const DAY = 24 * 60 * 60 * 1000;
 
 
 const MONTHS = [
@@ -706,16 +546,11 @@ const WEEKDAYS = [
 ];
 
 
-/* ==========================================================
-   DATE HELPERS
-========================================================== */
-
-function makeDate(
+function d(
   year,
   month,
   day
 ){
-
   return new Date(
     Date.UTC(
       year,
@@ -723,20 +558,19 @@ function makeDate(
       day
     )
   );
-
 }
 
 
-function kyivToday(){
+function getKyivToday(){
 
   const formatter =
     new Intl.DateTimeFormat(
-      "en-CA",
+      "en-US",
       {
         timeZone:"Europe/Kyiv",
         year:"numeric",
-        month:"2-digit",
-        day:"2-digit"
+        month:"numeric",
+        day:"numeric"
       }
     );
 
@@ -747,22 +581,66 @@ function kyivToday(){
     );
 
 
-  const get =
-    type =>
-      Number(
-        parts.find(
-          item =>
-            item.type === type
-        ).value
-      );
+  const year =
+    Number(
+      parts.find(
+        p => p.type === "year"
+      ).value
+    );
 
 
-  return makeDate(
-    get("year"),
-    get("month"),
-    get("day")
+  const month =
+    Number(
+      parts.find(
+        p => p.type === "month"
+      ).value
+    );
+
+
+  const day =
+    Number(
+      parts.find(
+        p => p.type === "day"
+      ).value
+    );
+
+
+  return d(
+    year,
+    month,
+    day
   );
+}
 
+
+function diffDays(
+  start,
+  end
+){
+  return Math.round(
+    (
+      end.getTime()
+      -
+      start.getTime()
+    )
+    /
+    DAY
+  );
+}
+
+
+function formatDate(
+  date
+){
+  return (
+    date.getUTCDate()
+    +
+    " "
+    +
+    MONTHS[
+      date.getUTCMonth()
+    ]
+  );
 }
 
 
@@ -774,1319 +652,1265 @@ function nthWeekday(
 ){
 
   const first =
-    makeDate(
+    d(
       year,
       month,
       1
     );
 
 
-  const shift =
+  const difference =
     (
-      weekday -
-      first.getUTCDay() +
+      weekday
+      -
+      first.getUTCDay()
+      +
       7
-    ) % 7;
+    )
+    % 7;
 
 
-  return makeDate(
-    year,
-    month,
-    1 +
-    shift +
+  const day =
+    1
+    +
+    difference
+    +
     (
       nth - 1
-    ) * 7
-  );
+    )
+    * 7;
 
+
+  return d(
+    year,
+    month,
+    day
+  );
 }
 
 
-function daysBetween(
-  start,
-  end
-){
-
-  return Math.round(
-    (
-      end - start
-    ) / DAY
-  );
-
-}
-
-
-function formatDate(
-  date
-){
-
-  return (
-    date.getUTCDate()
-    + " "
-    + MONTHS[
-        date.getUTCMonth()
-      ]
-  );
-
-}
-
-
-/* ==========================================================
-   EVENT BUILDERS
+/* ==========================================
+   EVENTS
 
    reminder:
-   10 = нагадуємо за 10 днів
-   3  = нагадуємо за 3 дні
-   1  = звичайний інфопривід
-========================================================== */
+   10 = показуємо за 10 днів
+   3  = показуємо за 3 дні
+   1  = показуємо за день
+========================================== */
 
-function fixed(
-  month,
-  day,
-  name,
-  emoji,
-  reminder=1,
-  theme="default",
-  projects=[]
-){
+const fixedEvents = [
 
-  return {
-    type:"fixed",
-    month,
-    day,
-    name,
-    emoji,
-    reminder,
-    theme,
-    projects
-  };
+/* UKRAINE */
 
+{
+  month:1,
+  day:1,
+  name:"Новий рік",
+  emoji:"🥂",
+  reminder:10,
+  theme:"newyear"
+},
+
+{
+  month:1,
+  day:22,
+  name:"День Соборності України",
+  emoji:"🇺🇦",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:2,
+  day:20,
+  name:"День Героїв Небесної Сотні",
+  emoji:"🕯️",
+  reminder:1,
+  theme:"memory"
+},
+
+{
+  month:2,
+  day:24,
+  name:"Річниця повномасштабного вторгнення РФ в Україну",
+  emoji:"🇺🇦",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:3,
+  day:14,
+  name:"День українського добровольця",
+  emoji:"🇺🇦",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:5,
+  day:8,
+  name:"День пам’яті та перемоги над нацизмом",
+  emoji:"🕯️",
+  reminder:1,
+  theme:"memory"
+},
+
+{
+  month:5,
+  day:9,
+  name:"День Європи",
+  emoji:"🇪🇺",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:5,
+  day:15,
+  name:"Міжнародний день сім’ї",
+  emoji:"👨‍👩‍👧",
+  reminder:1,
+  theme:"family"
+},
+
+{
+  month:6,
+  day:1,
+  name:"День захисту дітей",
+  emoji:"🧸",
+  reminder:1,
+  theme:"family"
+},
+
+{
+  month:6,
+  day:28,
+  name:"День Конституції України",
+  emoji:"🇺🇦",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:7,
+  day:15,
+  name:"День Української Державності",
+  emoji:"🇺🇦",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:8,
+  day:23,
+  name:"День Державного Прапора України",
+  emoji:"🇺🇦",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:8,
+  day:24,
+  name:"День Незалежності України",
+  emoji:"🇺🇦",
+  reminder:10,
+  theme:"ukraine"
+},
+
+{
+  month:8,
+  day:29,
+  name:"День пам’яті захисників України",
+  emoji:"🌻",
+  reminder:1,
+  theme:"memory"
+},
+
+{
+  month:9,
+  day:1,
+  name:"День знань",
+  emoji:"🎓",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:10,
+  day:1,
+  name:"День захисників і захисниць України",
+  emoji:"🇺🇦",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:10,
+  day:1,
+  name:"День українського козацтва",
+  emoji:"⚔️",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:10,
+  day:27,
+  name:"День української писемності та мови",
+  emoji:"✍️",
+  reminder:1,
+  theme:"language"
+},
+
+{
+  month:12,
+  day:6,
+  name:"День Збройних Сил України",
+  emoji:"🇺🇦",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:12,
+  day:6,
+  name:"День святого Миколая",
+  emoji:"🎁",
+  reminder:1,
+  theme:"christmas"
+},
+
+{
+  month:12,
+  day:25,
+  name:"Різдво Христове",
+  emoji:"🎄",
+  reminder:1,
+  theme:"christmas"
+},
+
+
+/* REDEFINE */
+
+{
+  month:6,
+  day:2,
+  name:"Всесвітній день дій щодо розладів харчової поведінки",
+  emoji:"🫶",
+  reminder:3,
+  theme:"mental",
+  projects:["REDEFINE"]
+},
+
+{
+  month:10,
+  day:10,
+  name:"Всесвітній день психічного здоров’я",
+  emoji:"🧠",
+  reminder:3,
+  theme:"mental",
+  projects:["REDEFINE"]
+},
+
+
+/* BEAUTY */
+
+{
+  month:4,
+  day:7,
+  name:"Всесвітній день здоров’я",
+  emoji:"💚",
+  reminder:3,
+  theme:"beauty",
+  projects:[
+    "DUSO",
+    "DUSO CONSULTING",
+    "ICOONE",
+    "ENDYMED",
+    "EPILAX",
+    "ORISING"
+  ]
+},
+
+{
+  month:9,
+  day:9,
+  name:"Міжнародний день краси",
+  emoji:"✨",
+  reminder:3,
+  theme:"beauty",
+  projects:[
+    "DUSO",
+    "DUSO CONSULTING",
+    "ICOONE",
+    "ENDYMED",
+    "EPILAX",
+    "ORISING"
+  ]
+},
+
+{
+  month:10,
+  day:10,
+  name:"День професіоналів індустрії краси",
+  emoji:"💆‍♀️",
+  reminder:3,
+  theme:"beauty",
+  projects:[
+    "DUSO",
+    "DUSO CONSULTING",
+    "ICOONE",
+    "ENDYMED",
+    "EPILAX",
+    "ORISING"
+  ]
+},
+
+{
+  month:9,
+  day:13,
+  name:"День перукаря",
+  emoji:"💇‍♀️",
+  reminder:3,
+  theme:"beauty",
+  projects:["ORISING"]
+},
+
+
+/* AMTEX */
+
+{
+  month:2,
+  day:28,
+  name:"Всесвітній день кравців",
+  emoji:"✂️",
+  reminder:3,
+  theme:"sewing",
+  projects:["AMTEX"]
+},
+
+{
+  month:6,
+  day:13,
+  name:"День швейної машини",
+  emoji:"🧵",
+  reminder:3,
+  theme:"sewing",
+  projects:["AMTEX"]
+},
+
+
+/* FISHING */
+
+{
+  month:3,
+  day:22,
+  name:"Всесвітній день водних ресурсів",
+  emoji:"💧",
+  reminder:3,
+  theme:"fishing",
+  projects:[
+    "CARP PRO",
+    "AZURA",
+    "AERODROM"
+  ]
+},
+
+{
+  month:6,
+  day:5,
+  name:"Всесвітній день довкілля",
+  emoji:"🌿",
+  reminder:3,
+  theme:"fishing",
+  projects:[
+    "CARP PRO",
+    "AZURA",
+    "AERODROM"
+  ]
+},
+
+{
+  month:6,
+  day:8,
+  name:"Всесвітній день океанів",
+  emoji:"🌊",
+  reminder:3,
+  theme:"fishing",
+  projects:[
+    "CARP PRO",
+    "AZURA",
+    "AERODROM"
+  ]
+},
+
+{
+  month:11,
+  day:21,
+  name:"Всесвітній день рибальства",
+  emoji:"🐟",
+  reminder:3,
+  theme:"fishing",
+  projects:[
+    "CARP PRO",
+    "AZURA",
+    "AERODROM"
+  ]
+},
+
+
+/* DNK */
+
+{
+  month:6,
+  day:30,
+  name:"День соціальних мереж",
+  emoji:"📱",
+  reminder:3,
+  theme:"social",
+  projects:["DNK AGENCY"]
+},
+
+{
+  month:8,
+  day:19,
+  name:"Всесвітній день фотографії",
+  emoji:"📸",
+  reminder:3,
+  theme:"social",
+  projects:["DNK AGENCY"]
+},
+
+
+/* GENERAL */
+
+{
+  month:1,
+  day:21,
+  name:"Міжнародний день обіймів",
+  emoji:"🫂",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:1,
+  day:24,
+  name:"Міжнародний день освіти",
+  emoji:"📚",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:1,
+  day:28,
+  name:"День захисту персональних даних",
+  emoji:"🔐",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:2,
+  day:4,
+  name:"Всесвітній день боротьби проти раку",
+  emoji:"🎗️",
+  reminder:1,
+  theme:"mental"
+},
+
+{
+  month:2,
+  day:14,
+  name:"День святого Валентина",
+  emoji:"❤️",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:2,
+  day:17,
+  name:"День спонтанного прояву доброти",
+  emoji:"💚",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:2,
+  day:21,
+  name:"Міжнародний день рідної мови",
+  emoji:"💬",
+  reminder:1,
+  theme:"language"
+},
+
+{
+  month:3,
+  day:1,
+  name:"Всесвітній день компліменту",
+  emoji:"💌",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:3,
+  day:3,
+  name:"Всесвітній день дикої природи",
+  emoji:"🦌",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:3,
+  day:8,
+  name:"Міжнародний жіночий день",
+  emoji:"🌷",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:3,
+  day:15,
+  name:"Всесвітній день захисту прав споживачів",
+  emoji:"🛒",
+  reminder:1,
+  theme:"shopping"
+},
+
+{
+  month:3,
+  day:20,
+  name:"Міжнародний день щастя",
+  emoji:"☀️",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:3,
+  day:21,
+  name:"Всесвітній день поезії",
+  emoji:"✍️",
+  reminder:1,
+  theme:"language"
+},
+
+{
+  month:3,
+  day:22,
+  name:"Всесвітній день водних ресурсів",
+  emoji:"💧",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:4,
+  day:1,
+  name:"День сміху",
+  emoji:"😂",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:4,
+  day:2,
+  name:"Міжнародний день дитячої книги",
+  emoji:"📖",
+  reminder:1,
+  theme:"language"
+},
+
+{
+  month:4,
+  day:7,
+  name:"Всесвітній день здоров’я",
+  emoji:"💚",
+  reminder:1,
+  theme:"mental"
+},
+
+{
+  month:4,
+  day:15,
+  name:"Всесвітній день мистецтва",
+  emoji:"🎨",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:4,
+  day:22,
+  name:"День Землі",
+  emoji:"🌍",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:4,
+  day:23,
+  name:"Всесвітній день книги",
+  emoji:"📚",
+  reminder:1,
+  theme:"language"
+},
+
+{
+  month:4,
+  day:29,
+  name:"Міжнародний день танцю",
+  emoji:"💃",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:5,
+  day:15,
+  name:"Міжнародний день сім’ї",
+  emoji:"👨‍👩‍👧",
+  reminder:1,
+  theme:"family"
+},
+
+{
+  month:5,
+  day:20,
+  name:"Всесвітній день бджіл",
+  emoji:"🐝",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:5,
+  day:21,
+  name:"Міжнародний день чаю",
+  emoji:"🍵",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:6,
+  day:1,
+  name:"День захисту дітей",
+  emoji:"🧸",
+  reminder:1,
+  theme:"family"
+},
+
+{
+  month:6,
+  day:5,
+  name:"Всесвітній день довкілля",
+  emoji:"🌿",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:6,
+  day:8,
+  name:"Всесвітній день океанів",
+  emoji:"🌊",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:6,
+  day:21,
+  name:"Міжнародний день йоги",
+  emoji:"🧘",
+  reminder:1,
+  theme:"mental"
+},
+
+{
+  month:6,
+  day:30,
+  name:"День соціальних мереж",
+  emoji:"📱",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:7,
+  day:7,
+  name:"Всесвітній день шоколаду",
+  emoji:"🍫",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:7,
+  day:17,
+  name:"Всесвітній день емодзі",
+  emoji:"😂",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:7,
+  day:30,
+  name:"Міжнародний день дружби",
+  emoji:"🫶",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:8,
+  day:8,
+  name:"Міжнародний день котів",
+  emoji:"🐈",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:8,
+  day:12,
+  name:"Міжнародний день молоді",
+  emoji:"⚡",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:8,
+  day:19,
+  name:"Всесвітній день фотографії",
+  emoji:"📸",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:9,
+  day:5,
+  name:"Міжнародний день благодійності",
+  emoji:"🤍",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:9,
+  day:8,
+  name:"Міжнародний день грамотності",
+  emoji:"📚",
+  reminder:1,
+  theme:"language"
+},
+
+{
+  month:9,
+  day:21,
+  name:"Міжнародний день миру",
+  emoji:"🕊️",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:9,
+  day:27,
+  name:"Всесвітній день туризму",
+  emoji:"✈️",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:10,
+  day:1,
+  name:"Міжнародний день кави",
+  emoji:"☕",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:10,
+  day:4,
+  name:"Всесвітній день тварин",
+  emoji:"🐾",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:10,
+  day:5,
+  name:"Всесвітній день учителя",
+  emoji:"👩‍🏫",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:10,
+  day:8,
+  name:"Всесвітній день восьминога",
+  emoji:"🐙",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:10,
+  day:10,
+  name:"Всесвітній день психічного здоров’я",
+  emoji:"🧠",
+  reminder:1,
+  theme:"mental"
+},
+
+{
+  month:10,
+  day:16,
+  name:"Всесвітній день продовольства",
+  emoji:"🍎",
+  reminder:1,
+  theme:"earth"
+},
+
+{
+  month:11,
+  day:13,
+  name:"Всесвітній день доброти",
+  emoji:"💚",
+  reminder:1,
+  theme:"love"
+},
+
+{
+  month:11,
+  day:19,
+  name:"Міжнародний чоловічий день",
+  emoji:"👨",
+  reminder:1,
+  theme:"family"
+},
+
+{
+  month:11,
+  day:20,
+  name:"Всесвітній день дитини",
+  emoji:"🧸",
+  reminder:1,
+  theme:"family"
+},
+
+{
+  month:12,
+  day:3,
+  name:"Міжнародний день людей з інвалідністю",
+  emoji:"🤍",
+  reminder:1,
+  theme:"social"
+},
+
+{
+  month:12,
+  day:5,
+  name:"Міжнародний день волонтера",
+  emoji:"🫶",
+  reminder:1,
+  theme:"ukraine"
+},
+
+{
+  month:12,
+  day:10,
+  name:"День прав людини",
+  emoji:"🤝",
+  reminder:1,
+  theme:"social"
 }
 
-
-function moving(
-  resolver,
-  name,
-  emoji,
-  reminder=1,
-  theme="default",
-  projects=[]
-){
-
-  return {
-    type:"moving",
-    resolver,
-    name,
-    emoji,
-    reminder,
-    theme,
-    projects
-  };
-
-}
+];
 
 
-/* ==========================================================
-   DATABASE
-========================================================== */
+/* ==========================================
+   MOVING EVENTS
+========================================== */
 
-const EVENTS = [
+function getMovingEvents(year){
 
-/* ==========================================================
-   UKRAINE
-========================================================== */
-
-fixed(
-  1,1,
-  "Новий рік",
-  "🥂",
-  10,
-  "newyear"
-),
-
-fixed(
-  1,22,
-  "День Соборності України",
-  "🇺🇦",
-  1,
-  "ukraine"
-),
-
-fixed(
-  2,20,
-  "День Героїв Небесної Сотні",
-  "🕯️",
-  1,
-  "memory"
-),
-
-fixed(
-  2,24,
-  "Річниця повномасштабного вторгнення РФ в Україну",
-  "🇺🇦",
-  1,
-  "ukraine"
-),
-
-fixed(
-  3,14,
-  "День українського добровольця",
-  "🇺🇦",
-  1,
-  "ukraine"
-),
-
-fixed(
-  5,8,
-  "День пам’яті та перемоги над нацизмом",
-  "🕯️",
-  1,
-  "memory"
-),
-
-fixed(
-  5,9,
-  "День Європи",
-  "🇪🇺",
-  1,
-  "ukraine"
-),
-
-fixed(
-  5,15,
-  "Міжнародний день сім’ї",
-  "👨‍👩‍👧",
-  1,
-  "family"
-),
-
-fixed(
-  6,1,
-  "День захисту дітей",
-  "🧸",
-  1,
-  "family"
-),
-
-fixed(
-  6,28,
-  "День Конституції України",
-  "🇺🇦",
-  1,
-  "ukraine"
-),
-
-fixed(
-  7,15,
-  "День Української Державності",
-  "🇺🇦",
-  1,
-  "ukraine"
-),
-
-fixed(
-  8,23,
-  "День Державного Прапора України",
-  "🇺🇦",
-  1,
-  "ukraine"
-),
-
-fixed(
-  8,24,
-  "День Незалежності України",
-  "🇺🇦",
-  10,
-  "ukraine"
-),
-
-fixed(
-  8,29,
-  "День пам’яті захисників України",
-  "🌻",
-  1,
-  "memory"
-),
-
-fixed(
-  9,1,
-  "День знань",
-  "🎓",
-  1,
-  "social"
-),
-
-fixed(
-  10,1,
-  "День захисників і захисниць України",
-  "🇺🇦",
-  1,
-  "ukraine"
-),
-
-fixed(
-  10,1,
-  "День українського козацтва",
-  "⚔️",
-  1,
-  "ukraine"
-),
-
-fixed(
-  10,27,
-  "День української писемності та мови",
-  "✍️",
-  1,
-  "language"
-),
-
-fixed(
-  12,6,
-  "День Збройних Сил України",
-  "🇺🇦",
-  1,
-  "ukraine"
-),
-
-fixed(
-  12,6,
-  "День святого Миколая",
-  "🎁",
-  1,
-  "christmas"
-),
-
-fixed(
-  12,25,
-  "Різдво Христове",
-  "🎄",
-  1,
-  "christmas"
-),
+  const result = [];
 
 
-/* ==========================================================
-   BIG CONTENT DATES — 10 DAYS
-========================================================== */
+  /* DAY OF VYSHYVANKA
+     third Thursday of May
+  */
 
-moving(
-
-  year =>
-    nthWeekday(
+  result.push({
+    date:nthWeekday(
       year,
       5,
       4,
       3
     ),
+    name:"День вишиванки",
+    emoji:"🇺🇦",
+    reminder:10,
+    theme:"ukraine"
+  });
 
-  "День вишиванки",
-  "🇺🇦",
-  10,
-  "ukraine"
 
-),
+  /* MOTHER'S DAY
+     second Sunday of May
+  */
 
-moving(
-
-  year =>
-    nthWeekday(
+  result.push({
+    date:nthWeekday(
       year,
       5,
       0,
       2
     ),
+    name:"День матері",
+    emoji:"💐",
+    reminder:10,
+    theme:"family"
+  });
 
-  "День матері",
-  "💐",
-  10,
-  "family"
 
-),
+  /* FATHER'S DAY
+     third Sunday of June
+  */
 
-moving(
-
-  year =>
-    nthWeekday(
+  result.push({
+    date:nthWeekday(
       year,
       6,
       0,
       3
     ),
-
-  "День батька",
-  "💙",
-  10,
-  "family"
-
-),
-
-fixed(
-  10,31,
-  "Halloween",
-  "🎃",
-  10,
-  "halloween"
-),
-
-moving(
-
-  year => {
-
-    const thanksgiving =
-      nthWeekday(
-        year,
-        11,
-        4,
-        4
-      );
+    name:"День батька",
+    emoji:"💙",
+    reminder:10,
+    theme:"family"
+  });
 
 
-    return new Date(
-      thanksgiving.getTime()
-      + DAY
-    );
+  /* FISHERMAN'S DAY UKRAINE
+     second Sunday of July
+  */
 
-  },
-
-  "Black Friday",
-  "🛍️",
-  10,
-  "shopping"
-
-),
-
-
-/* ==========================================================
-   REDEFINE
-========================================================== */
-
-fixed(
-  6,2,
-  "Всесвітній день дій щодо розладів харчової поведінки",
-  "🫶",
-  3,
-  "mental",
-  ["REDEFINE"]
-),
-
-fixed(
-  10,10,
-  "Всесвітній день психічного здоров’я",
-  "🧠",
-  3,
-  "mental",
-  ["REDEFINE"]
-),
-
-
-/* ==========================================================
-   FISHING
-========================================================== */
-
-moving(
-
-  year =>
-    nthWeekday(
+  result.push({
+    date:nthWeekday(
       year,
       7,
       0,
       2
     ),
-
-  "День рибалки України",
-  "🎣",
-  3,
-  "fishing",
-
-  [
-    "CARP PRO",
-    "AZURA",
-    "AERODROM"
-  ]
-
-),
-
-fixed(
-  3,22,
-  "Всесвітній день водних ресурсів",
-  "💧",
-  3,
-  "fishing",
-
-  [
-    "CARP PRO",
-    "AZURA",
-    "AERODROM"
-  ]
-),
-
-fixed(
-  6,5,
-  "Всесвітній день довкілля",
-  "🌿",
-  3,
-  "fishing",
-
-  [
-    "CARP PRO",
-    "AZURA",
-    "AERODROM"
-  ]
-),
-
-fixed(
-  6,8,
-  "Всесвітній день океанів",
-  "🌊",
-  3,
-  "fishing",
-
-  [
-    "CARP PRO",
-    "AZURA",
-    "AERODROM"
-  ]
-),
-
-fixed(
-  11,21,
-  "Всесвітній день рибальства",
-  "🐟",
-  3,
-  "fishing",
-
-  [
-    "CARP PRO",
-    "AZURA",
-    "AERODROM"
-  ]
-),
+    name:"День рибалки України",
+    emoji:"🎣",
+    reminder:3,
+    theme:"fishing",
+    projects:[
+      "CARP PRO",
+      "AZURA",
+      "AERODROM"
+    ]
+  });
 
 
-/* ==========================================================
-   AMTEX
-========================================================== */
+  /* LIGHT INDUSTRY WORKERS
+     second Sunday of June
+  */
 
-fixed(
-  2,28,
-  "Всесвітній день кравців",
-  "✂️",
-  3,
-  "sewing",
-  ["AMTEX"]
-),
-
-fixed(
-  6,13,
-  "День швейної машини",
-  "🧵",
-  3,
-  "sewing",
-  ["AMTEX"]
-),
-
-moving(
-
-  year =>
-    nthWeekday(
+  result.push({
+    date:nthWeekday(
       year,
       6,
       0,
       2
     ),
+    name:"День працівників легкої промисловості",
+    emoji:"🪡",
+    reminder:3,
+    theme:"sewing",
+    projects:[
+      "AMTEX"
+    ]
+  });
 
-  "День працівників легкої промисловості",
-  "🪡",
-  3,
-  "sewing",
-  ["AMTEX"]
 
-),
+  /* ENTREPRENEUR DAY
+     first Sunday of September
+  */
 
-moving(
-
-  year =>
-    nthWeekday(
+  result.push({
+    date:nthWeekday(
       year,
       9,
       0,
       1
     ),
-
-  "День підприємця",
-  "💼",
-  3,
-  "sewing",
-  ["AMTEX"]
-
-),
-
-
-/* ==========================================================
-   BEAUTY
-========================================================== */
-
-fixed(
-  4,7,
-  "Всесвітній день здоров’я",
-  "💚",
-  3,
-  "beauty",
-
-  [
-    "DUSO",
-    "DUSO CONSULTING",
-    "ICOONE",
-    "ENDYMED",
-    "EPILAX",
-    "ORISING"
-  ]
-),
-
-fixed(
-  9,9,
-  "Міжнародний день краси",
-  "✨",
-  3,
-  "beauty",
-
-  [
-    "DUSO",
-    "DUSO CONSULTING",
-    "ICOONE",
-    "ENDYMED",
-    "EPILAX",
-    "ORISING"
-  ]
-),
-
-fixed(
-  10,10,
-  "День професіоналів індустрії краси",
-  "💆‍♀️",
-  3,
-  "beauty",
-
-  [
-    "DUSO",
-    "DUSO CONSULTING",
-    "ICOONE",
-    "ENDYMED",
-    "EPILAX",
-    "ORISING"
-  ]
-),
-
-fixed(
-  9,13,
-  "День перукаря",
-  "💇‍♀️",
-  3,
-  "beauty",
-  ["ORISING"]
-),
-
-
-/* ==========================================================
-   DNK AGENCY
-========================================================== */
-
-fixed(
-  6,30,
-  "День соціальних мереж",
-  "📱",
-  3,
-  "social",
-  ["DNK AGENCY"]
-),
-
-fixed(
-  8,19,
-  "Всесвітній день фотографії",
-  "📸",
-  3,
-  "social",
-  ["DNK AGENCY"]
-),
-
-
-/* ==========================================================
-   GENERAL CONTENT OCCASIONS
-========================================================== */
-
-fixed(
-  1,21,
-  "Міжнародний день обіймів",
-  "🫂",
-  1,
-  "love"
-),
-
-fixed(
-  1,24,
-  "Міжнародний день освіти",
-  "📚",
-  1,
-  "social"
-),
-
-fixed(
-  1,28,
-  "День захисту персональних даних",
-  "🔐",
-  1,
-  "social"
-),
-
-fixed(
-  2,4,
-  "Всесвітній день боротьби проти раку",
-  "🎗️",
-  1,
-  "mental"
-),
-
-fixed(
-  2,14,
-  "День святого Валентина",
-  "❤️",
-  1,
-  "love"
-),
-
-fixed(
-  2,17,
-  "День спонтанного прояву доброти",
-  "💚",
-  1,
-  "love"
-),
-
-fixed(
-  2,21,
-  "Міжнародний день рідної мови",
-  "💬",
-  1,
-  "language"
-),
-
-fixed(
-  3,1,
-  "Всесвітній день компліменту",
-  "💌",
-  1,
-  "love"
-),
-
-fixed(
-  3,3,
-  "Всесвітній день дикої природи",
-  "🦌",
-  1,
-  "earth"
-),
-
-fixed(
-  3,8,
-  "Міжнародний жіночий день",
-  "🌷",
-  1,
-  "love"
-),
-
-fixed(
-  3,15,
-  "Всесвітній день захисту прав споживачів",
-  "🛒",
-  1,
-  "shopping"
-),
-
-fixed(
-  3,20,
-  "Міжнародний день щастя",
-  "☀️",
-  1,
-  "love"
-),
-
-fixed(
-  3,21,
-  "Всесвітній день поезії",
-  "✍️",
-  1,
-  "language"
-),
-
-fixed(
-  3,22,
-  "Всесвітній день водних ресурсів",
-  "💧",
-  1,
-  "earth"
-),
-
-fixed(
-  4,1,
-  "День сміху",
-  "😂",
-  1,
-  "social"
-),
-
-fixed(
-  4,2,
-  "Міжнародний день дитячої книги",
-  "📖",
-  1,
-  "language"
-),
-
-fixed(
-  4,7,
-  "Всесвітній день здоров’я",
-  "💚",
-  1,
-  "mental"
-),
-
-fixed(
-  4,15,
-  "Всесвітній день мистецтва",
-  "🎨",
-  1,
-  "social"
-),
-
-fixed(
-  4,22,
-  "День Землі",
-  "🌍",
-  1,
-  "earth"
-),
-
-fixed(
-  4,23,
-  "Всесвітній день книги",
-  "📚",
-  1,
-  "language"
-),
-
-fixed(
-  4,29,
-  "Міжнародний день танцю",
-  "💃",
-  1,
-  "social"
-),
-
-fixed(
-  5,15,
-  "Міжнародний день сім’ї",
-  "👨‍👩‍👧",
-  1,
-  "family"
-),
-
-fixed(
-  5,20,
-  "Всесвітній день бджіл",
-  "🐝",
-  1,
-  "earth"
-),
-
-fixed(
-  5,21,
-  "Міжнародний день чаю",
-  "🍵",
-  1,
-  "social"
-),
-
-fixed(
-  6,1,
-  "День захисту дітей",
-  "🧸",
-  1,
-  "family"
-),
-
-fixed(
-  6,5,
-  "Всесвітній день довкілля",
-  "🌿",
-  1,
-  "earth"
-),
-
-fixed(
-  6,8,
-  "Всесвітній день океанів",
-  "🌊",
-  1,
-  "earth"
-),
-
-fixed(
-  6,21,
-  "Міжнародний день йоги",
-  "🧘",
-  1,
-  "mental"
-),
-
-fixed(
-  6,30,
-  "День соціальних мереж",
-  "📱",
-  1,
-  "social"
-),
-
-fixed(
-  7,7,
-  "Всесвітній день шоколаду",
-  "🍫",
-  1,
-  "social"
-),
-
-fixed(
-  7,17,
-  "Всесвітній день емодзі",
-  "😂",
-  1,
-  "social"
-),
-
-fixed(
-  7,30,
-  "Міжнародний день дружби",
-  "🫶",
-  1,
-  "love"
-),
-
-fixed(
-  8,8,
-  "Міжнародний день котів",
-  "🐈",
-  1,
-  "social"
-),
-
-fixed(
-  8,12,
-  "Міжнародний день молоді",
-  "⚡",
-  1,
-  "social"
-),
-
-fixed(
-  8,19,
-  "Всесвітній день фотографії",
-  "📸",
-  1,
-  "social"
-),
-
-fixed(
-  9,5,
-  "Міжнародний день благодійності",
-  "🤍",
-  1,
-  "love"
-),
-
-fixed(
-  9,8,
-  "Міжнародний день грамотності",
-  "📚",
-  1,
-  "language"
-),
-
-fixed(
-  9,21,
-  "Міжнародний день миру",
-  "🕊️",
-  1,
-  "ukraine"
-),
-
-fixed(
-  9,27,
-  "Всесвітній день туризму",
-  "✈️",
-  1,
-  "social"
-),
-
-fixed(
-  10,1,
-  "Міжнародний день кави",
-  "☕",
-  1,
-  "social"
-),
-
-fixed(
-  10,4,
-  "Всесвітній день тварин",
-  "🐾",
-  1,
-  "earth"
-),
-
-fixed(
-  10,5,
-  "Всесвітній день учителя",
-  "👩‍🏫",
-  1,
-  "social"
-),
-
-fixed(
-  10,8,
-  "Всесвітній день восьминога",
-  "🐙",
-  1,
-  "earth"
-),
-
-fixed(
-  10,10,
-  "Всесвітній день психічного здоров’я",
-  "🧠",
-  1,
-  "mental"
-),
-
-fixed(
-  10,16,
-  "Всесвітній день продовольства",
-  "🍎",
-  1,
-  "earth"
-),
-
-fixed(
-  11,13,
-  "Всесвітній день доброти",
-  "💚",
-  1,
-  "love"
-),
-
-fixed(
-  11,19,
-  "Міжнародний чоловічий день",
-  "👨",
-  1,
-  "family"
-),
-
-fixed(
-  11,20,
-  "Всесвітній день дитини",
-  "🧸",
-  1,
-  "family"
-),
-
-fixed(
-  12,3,
-  "Міжнародний день людей з інвалідністю",
-  "🤍",
-  1,
-  "social"
-),
-
-fixed(
-  12,5,
-  "Міжнародний день волонтера",
-  "🫶",
-  1,
-  "ukraine"
-),
-
-fixed(
-  12,10,
-  "День прав людини",
-  "🤝",
-  1,
-  "social"
-);
-
-
-/* ==========================================================
-   BUILD EVENTS FOR CURRENT + NEXT YEAR
-========================================================== */
+    name:"День підприємця",
+    emoji:"💼",
+    reminder:3,
+    theme:"sewing",
+    projects:[
+      "AMTEX"
+    ]
+  });
+
+
+  /* BLACK FRIDAY
+     Friday after fourth Thursday of November
+  */
+
+  const thanksgiving =
+    nthWeekday(
+      year,
+      11,
+      4,
+      4
+    );
+
+
+  result.push({
+    date:new Date(
+      thanksgiving.getTime()
+      +
+      DAY
+    ),
+    name:"Black Friday",
+    emoji:"🛍️",
+    reminder:10,
+    theme:"shopping"
+  });
+
+
+  return result;
+}
+
+
+/* ==========================================
+   BUILD CALENDAR
+========================================== */
 
 function buildCalendar(){
 
   const today =
-    kyivToday();
+    getKyivToday();
 
 
-  const year =
+  const currentYear =
     today.getUTCFullYear();
 
 
-  const result = [];
+  const calendar = [];
 
 
   [
-    year,
-    year + 1
+    currentYear,
+    currentYear + 1
   ]
-  .forEach(
-    currentYear => {
-
-      EVENTS.forEach(
-        event => {
-
-          let date;
+  .forEach(year => {
 
 
-          if(
-            event.type === "fixed"
-          ){
+    fixedEvents.forEach(event => {
 
-            date =
-              makeDate(
-                currentYear,
-                event.month,
-                event.day
-              );
-
-          }
-
-          else{
-
-            date =
-              event.resolver(
-                currentYear
-              );
-
-          }
-
-
-          result.push({
-            ...event,
-            date
-          });
-
-        }
-      );
-
-    }
-  );
-
-
-  return result
-    .map(
-      event => ({
+      calendar.push({
         ...event,
 
-        days:
-          daysBetween(
-            today,
-            event.date
-          )
-      })
+        date:d(
+          year,
+          event.month,
+          event.day
+        )
+      });
+
+    });
+
+
+    getMovingEvents(year)
+      .forEach(event => {
+
+        calendar.push(event);
+
+      });
+
+  });
+
+
+  return calendar
+    .map(event => ({
+      ...event,
+
+      days:
+        diffDays(
+          today,
+          event.date
+        )
+    }))
+    .filter(event =>
+      event.days >= 0
     )
-    .filter(
-      event =>
-        event.days >= 0
-    )
-    .sort(
-      (a,b) => {
-
-        if(
-          a.date - b.date !== 0
-        ){
-
-          return (
-            a.date - b.date
-          );
-
-        }
-
-
-        return (
-          b.reminder -
-          a.reminder
-        );
-
-      }
-    );
-
-}
-
-
-/* ==========================================================
-   REMOVE DUPLICATE GENERAL VERSION
-
-   Якщо та сама назва/дата є як project event
-   і як general event — залишаємо project version.
-========================================================== */
-
-function cleanDuplicates(
-  events
-){
-
-  return events.filter(
-    (event,index,array) => {
-
-      const duplicates =
-        array.filter(
-          item =>
-            item.name === event.name
-            &&
-            item.date.getTime()
-              ===
-            event.date.getTime()
-        );
-
+    .sort((a,b) => {
 
       if(
-        duplicates.length === 1
+        a.date.getTime()
+        !==
+        b.date.getTime()
       ){
-
-        return true;
-
-      }
-
-
-      const projectVersion =
-        duplicates.find(
-          item =>
-            item.projects
-            &&
-            item.projects.length
-        );
-
-
-      if(projectVersion){
-
         return (
-          event === projectVersion
+          a.date.getTime()
+          -
+          b.date.getTime()
         );
-
       }
 
 
       return (
-        duplicates[0] === event
+        b.reminder
+        -
+        a.reminder
       );
 
-    }
-  );
+    });
 
 }
 
 
-/* ==========================================================
-   REMINDER TEXT
-========================================================== */
+/* ==========================================
+   DUPLICATES
 
-function reminderText(
-  event
-){
+   Якщо є project version тієї самої
+   події — general version прибираємо.
+========================================== */
+
+function removeDuplicates(calendar){
+
+  const result = [];
+
+
+  calendar.forEach(event => {
+
+    const same =
+      calendar.filter(other =>
+        other.name === event.name
+        &&
+        other.date.getTime()
+          ===
+        event.date.getTime()
+      );
+
+
+    if(same.length === 1){
+
+      result.push(event);
+
+      return;
+
+    }
+
+
+    const projectVersion =
+      same.find(item =>
+        Array.isArray(item.projects)
+        &&
+        item.projects.length > 0
+      );
+
+
+    if(projectVersion){
+
+      if(
+        event === projectVersion
+      ){
+        result.push(event);
+      }
+
+      return;
+
+    }
+
+
+    if(
+      event === same[0]
+    ){
+      result.push(event);
+    }
+
+  });
+
+
+  return result;
+}
+
+
+/* ==========================================
+   BADGE TEXT
+========================================== */
+
+function getBadge(event){
 
   if(event.days === 0){
-
     return "СЬОГОДНІ";
-
   }
-
 
   if(event.days === 1){
-
     return "ЗАВТРА";
-
   }
-
 
   if(event.days === 2){
-
     return "ЧЕРЕЗ 2 ДНІ";
-
   }
-
 
   if(event.days === 3){
-
     return "ЧЕРЕЗ 3 ДНІ";
-
   }
 
+  if(event.days === 4){
+    return "ЧЕРЕЗ 4 ДНІ";
+  }
 
   return (
     "ЧЕРЕЗ "
-    + event.days
-    + " ДНІВ"
+    +
+    event.days
+    +
+    " ДНІВ"
   );
 
 }
 
 
-/* ==========================================================
-   IMPORTANT EVENTS
+/* ==========================================
+   IMPORTANT
+========================================== */
 
-   Тільки 10-day та 3-day.
-   Всі активні показуємо.
-========================================================== */
+function renderImportant(calendar){
 
-function getImportant(
-  calendar
-){
-
-  return calendar.filter(
-    event =>
+  const important =
+    calendar.filter(event =>
       event.reminder > 1
       &&
       event.days <= event.reminder
-  );
+    );
 
-}
-
-
-/* ==========================================================
-   TOMORROW GENERAL
-
-   Тут показуємо саме звичайні події,
-   які завтра.
-
-   Важливі project / 10-day events уже є зверху.
-========================================================== */
-
-function getTomorrowGeneral(
-  calendar
-){
-
-  return calendar.filter(
-    event =>
-      event.days === 1
-      &&
-      event.reminder === 1
-  );
-
-}
-
-
-/* ==========================================================
-   RENDER IMPORTANT
-========================================================== */
-
-function renderImportant(
-  events
-){
 
   const section =
     document.getElementById(
@@ -2106,13 +1930,12 @@ function renderImportant(
     );
 
 
-  if(!events.length){
+  if(important.length === 0){
 
     section.style.display =
       "none";
 
-    return;
-
+    return important;
   }
 
 
@@ -2121,133 +1944,124 @@ function renderImportant(
 
 
   count.textContent =
-    events.length;
+    important.length;
 
 
   list.innerHTML = "";
 
 
-  events.forEach(
-    event => {
+  important.forEach(event => {
 
-      const item =
-        document.createElement(
-          "div"
-        );
-
-
-      item.className =
-        "event "
-        +
-        (
-          event.reminder === 10
-          ?
-          "super "
-          :
-          "important "
-        )
-        +
-        "theme-"
-        +
-        event.theme;
+    const item =
+      document.createElement(
+        "div"
+      );
 
 
-      let projectsHTML = "";
+    item.className =
+      "event "
+      +
+      (
+        event.reminder === 10
+        ? "super "
+        : ""
+      )
+      +
+      (
+        event.theme || ""
+      );
 
 
-      if(
-        event.projects
-        &&
-        event.projects.length
-      ){
-
-        projectsHTML = `
-
-          <div class="projects">
-
-            <div class="projects-label">
-              ДЛЯ:
-            </div>
-
-            <div class="projects-names">
-              ${event.projects.join(" · ")}
-            </div>
-
-          </div>
-
-        `;
-
-      }
+    let projectsHTML = "";
 
 
-      item.innerHTML = `
+    if(
+      Array.isArray(event.projects)
+      &&
+      event.projects.length > 0
+    ){
 
-        <div class="event-top">
+      projectsHTML = `
 
-          <div class="event-date">
+        <div class="projects">
 
-            <span class="emoji">
-              ${event.emoji}
-            </span>
+          <strong>
+            ДЛЯ:
+          </strong>
 
-            <span>
-              ${formatDate(event.date)}
-            </span>
-
-          </div>
-
-
-          <div class="reminder">
-            ${reminderText(event)}
-          </div>
+          ${event.projects.join(" · ")}
 
         </div>
-
-
-        <div class="event-name">
-          ${event.name}
-        </div>
-
-
-        ${projectsHTML}
 
       `;
 
-
-      list.appendChild(
-        item
-      );
-
     }
-  );
 
+
+    item.innerHTML = `
+
+      <div class="event-top">
+
+        <div class="event-date">
+
+          <span class="emoji">
+            ${event.emoji}
+          </span>
+
+          ${formatDate(event.date)}
+
+        </div>
+
+
+        <div class="badge">
+          ${getBadge(event)}
+        </div>
+
+      </div>
+
+
+      <div class="event-name">
+        ${event.name}
+      </div>
+
+
+      ${projectsHTML}
+
+    `;
+
+
+    list.appendChild(item);
+
+  });
+
+
+  return important;
 }
 
 
-/* ==========================================================
-   RENDER TOMORROW
-========================================================== */
+/* ==========================================
+   TOMORROW GENERAL
+========================================== */
 
-function renderTomorrow(
-  events,
-  tomorrow
-){
+function renderTomorrow(calendar){
 
-  const section =
-    document.getElementById(
-      "tomorrowSection"
+  const today =
+    getKyivToday();
+
+
+  const tomorrow =
+    new Date(
+      today.getTime()
+      +
+      DAY
     );
 
 
-  const list =
-    document.getElementById(
-      "tomorrowList"
-    );
-
-
-  const count =
-    document.getElementById(
-      "tomorrowCount"
+  const events =
+    calendar.filter(event =>
+      event.days === 1
+      &&
+      event.reminder === 1
     );
 
 
@@ -2256,15 +2070,31 @@ function renderTomorrow(
       "tomorrowDate"
     )
     .textContent =
-      formatDate(
-        tomorrow
-      );
+      formatDate(tomorrow);
 
 
-  if(!events.length){
+  document
+    .getElementById(
+      "tomorrowCount"
+    )
+    .textContent =
+      events.length
+      ?
+      events.length
+      :
+      "";
 
-    count.textContent = "";
 
+  const list =
+    document.getElementById(
+      "tomorrowList"
+    );
+
+
+  list.innerHTML = "";
+
+
+  if(events.length === 0){
 
     list.innerHTML = `
 
@@ -2274,105 +2104,102 @@ function renderTomorrow(
 
     `;
 
-    return;
-
+    return events;
   }
 
 
-  count.textContent =
-    events.length;
+  events.forEach(event => {
 
-
-  list.innerHTML = "";
-
-
-  events.forEach(
-    event => {
-
-      const row =
-        document.createElement(
-          "div"
-        );
-
-
-      row.className =
-        "tomorrow-row";
-
-
-      row.innerHTML = `
-
-        <div class="tomorrow-emoji">
-          ${event.emoji}
-        </div>
-
-        <div>
-          ${event.name}
-        </div>
-
-      `;
-
-
-      list.appendChild(
-        row
+    const row =
+      document.createElement(
+        "div"
       );
 
-    }
-  );
 
+    row.className =
+      "tomorrow-row";
+
+
+    row.innerHTML = `
+
+      <div class="tomorrow-emoji">
+        ${event.emoji}
+      </div>
+
+      <div>
+        ${event.name}
+      </div>
+
+    `;
+
+
+    list.appendChild(row);
+
+  });
+
+
+  return events;
 }
 
 
-/* ==========================================================
-   RENDER NEXT
-
-   Шукаємо найближчу подію,
-   яка НЕ показана в important
-   і НЕ показана в tomorrow.
-========================================================== */
+/* ==========================================
+   NEXT
+========================================== */
 
 function renderNext(
   calendar,
   important,
-  tomorrowGeneral
+  tomorrowEvents
 ){
 
   const used =
-    new Set(
-      [
-        ...important,
-        ...tomorrowGeneral
-      ]
-      .map(
-        event =>
-          event.name
-          +
-          "_"
-          +
-          event.date.getTime()
-      )
+    new Set();
+
+
+  important.forEach(event => {
+
+    used.add(
+      event.name
+      +
+      "|"
+      +
+      event.date.getTime()
     );
+
+  });
+
+
+  tomorrowEvents.forEach(event => {
+
+    used.add(
+      event.name
+      +
+      "|"
+      +
+      event.date.getTime()
+    );
+
+  });
 
 
   const next =
-    calendar.find(
-      event => {
+    calendar.find(event => {
 
-        const key =
-          event.name
-          +
-          "_"
-          +
-          event.date.getTime();
+      const key =
+        event.name
+        +
+        "|"
+        +
+        event.date.getTime();
 
 
-        return (
-          !used.has(key)
-          &&
-          event.days > 0
-        );
+      return (
+        event.days > 0
+        &&
+        !used.has(key)
+      );
 
-      }
-    );
+    });
 
 
   const block =
@@ -2387,7 +2214,6 @@ function renderNext(
       "none";
 
     return;
-
   }
 
 
@@ -2401,8 +2227,10 @@ function renderNext(
     )
     .textContent =
       next.emoji
-      + " "
-      + next.name;
+      +
+      " "
+      +
+      next.name;
 
 
   document
@@ -2410,20 +2238,20 @@ function renderNext(
       "nextDate"
     )
     .textContent =
-      formatDate(
-        next.date
-      );
+      formatDate(next.date);
 
 }
 
 
-/* ==========================================================
+/* ==========================================
    HEADER
-========================================================== */
+========================================== */
 
-function renderHeader(
-  today
-){
+function renderHeader(){
+
+  const today =
+    getKyivToday();
+
 
   document
     .getElementById(
@@ -2436,28 +2264,18 @@ function renderHeader(
       +
       " · "
       +
-      formatDate(
-        today
-      );
+      formatDate(today);
 
 }
 
 
-/* ==========================================================
-   INIT
-========================================================== */
+/* ==========================================
+   START
+========================================== */
 
-function init(){
+function start(){
 
-  const today =
-    kyivToday();
-
-
-  const tomorrow =
-    new Date(
-      today.getTime()
-      + DAY
-    );
+  renderHeader();
 
 
   let calendar =
@@ -2465,49 +2283,33 @@ function init(){
 
 
   calendar =
-    cleanDuplicates(
+    removeDuplicates(
       calendar
     );
 
 
   const important =
-    getImportant(
+    renderImportant(
       calendar
     );
 
 
-  const tomorrowGeneral =
-    getTomorrowGeneral(
+  const tomorrow =
+    renderTomorrow(
       calendar
     );
-
-
-  renderHeader(
-    today
-  );
-
-
-  renderImportant(
-    important
-  );
-
-
-  renderTomorrow(
-    tomorrowGeneral,
-    tomorrow
-  );
 
 
   renderNext(
     calendar,
     important,
-    tomorrowGeneral
+    tomorrow
   );
 
 }
 
 
-init();
+start();
 
 </script>
 
