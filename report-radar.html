@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DNK Report Radar</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --green:#00f500;
+  --red:#ff2d2d;
+  --orange:#ff9f0a;
+  --black:#111;
+  --gray:#8f8f8f;
+  --bg:#f7f7f5;
+  --accent:#00f500;
+  --accent-rgb:0,245,0;
+}
+
+html,body{
+  min-height:100%;
+}
+
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--black);
+  padding:9px;
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(circle at 85% 10%,rgba(var(--accent-rgb),.12),transparent 25%),
+    radial-gradient(circle at 10% 90%,rgba(var(--accent-rgb),.06),transparent 24%),
+    var(--bg);
+
+  transition:background .4s ease;
+}
+
+.widget{
+  width:100%;
+  max-width:340px;
+  margin:0 auto;
+}
+
+
+/* HEADER */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+  padding:0 3px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:.11em;
+}
+
+.live-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+
+  background:var(--accent);
+
+  box-shadow:
+    0 0 11px rgba(var(--accent-rgb),.65);
+
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  50%{
+    opacity:.45;
+    transform:scale(.78);
+  }
+}
+
+.projects-pill{
+  padding:6px 9px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.7);
+
+  border:1px solid rgba(255,255,255,.95);
+
+  box-shadow:
+    inset 0 1px 0 white,
+    0 6px 18px rgba(0,0,0,.04);
+
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.07em;
+}
+
+
+/* MAIN */
+
+.main-card{
+  position:relative;
+  overflow:hidden;
+
+  padding:18px;
+
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.88),
+      rgba(255,255,255,.57)
+    );
+
+  border:1px solid rgba(255,255,255,.96);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.065),
+    inset 0 1px 0 white;
+
+  backdrop-filter:blur(22px);
+
+  isolation:isolate;
+
+  transition:
+    box-shadow .4s ease,
+    border-color .4s ease;
+}
+
+.main-card::before{
+  content:"";
+
+  position:absolute;
+
+  width:220px;
+  height:220px;
+
+  right:-90px;
+  top:-100px;
+
+  border-radius:50%;
+
+  background:
+    rgba(var(--accent-rgb),.15);
+
+  filter:blur(17px);
+
+  z-index:-2;
+
+  transition:background .4s ease;
+}
+
+
+/* EYEBROW */
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+
+  margin-bottom:13px;
+}
+
+.eyebrow-left{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  color:#777;
+
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:.11em;
+}
+
+.mini-dot{
+  width:5px;
+  height:5px;
+
+  border-radius:50%;
+
+  background:var(--accent);
+
+  box-shadow:
+    0 0 8px rgba(var(--accent-rgb),.65);
+}
+
+.mode{
+  padding:5px 7px;
+
+  border-radius:999px;
+
+  background:
+    rgba(var(--accent-rgb),.10);
+
+  color:var(--black);
+
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.06em;
+
+  transition:background .4s ease;
+}
+
+
+/* PROJECTS */
+
+.projects{
+  position:relative;
+  z-index:2;
+}
+
+.project-name{
+  font-size:28px;
+  line-height:.94;
+
+  font-weight:950;
+  letter-spacing:-.045em;
+
+  text-transform:uppercase;
+}
+
+.project-name.multiple{
+  font-size:22px;
+}
+
+.secondary-project{
+  margin-top:5px;
+
+  color:#6d6d6d;
+
+  font-size:10px;
+  font-weight:850;
+}
+
+.report-date{
+  margin-top:7px;
+
+  color:#747474;
+
+  font-size:11px;
+  font-weight:800;
+}
+
+
+/* COUNTDOWN */
+
+.countdown{
+  display:flex;
+  align-items:flex-end;
+  gap:9px;
+
+  margin-top:20px;
+}
+
+.number-window{
+  position:relative;
+
+  width:72px;
+  height:58px;
+
+  overflow:hidden;
+}
+
+.days{
+  position:absolute;
+  left:0;
+  bottom:0;
+
+  color:var(--accent);
+
+  font-size:58px;
+  line-height:.82;
+
+  font-weight:950;
+  letter-spacing:-.075em;
+
+  text-shadow:
+    0 0 20px rgba(var(--accent-rgb),.10);
+
+  will-change:transform,opacity,filter;
+
+  transition:color .4s ease;
+}
+
+.days.enter{
+  animation:numberIn .4s cubic-bezier(.2,.8,.2,1);
+}
+
+.days.out{
+  animation:numberOut .18s ease forwards;
+}
+
+@keyframes numberIn{
+  0%{
+    transform:translateY(-65%);
+    opacity:0;
+    filter:blur(7px);
+  }
+
+  100%{
+    transform:translateY(0);
+    opacity:1;
+    filter:blur(0);
+  }
+}
+
+@keyframes numberOut{
+  to{
+    transform:translateY(65%);
+    opacity:0;
+    filter:blur(6px);
+  }
+}
+
+.count-copy{
+  padding-bottom:3px;
+}
+
+.count-copy strong{
+  display:block;
+
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:.09em;
+}
+
+.count-copy span{
+  display:block;
+
+  margin-top:3px;
+
+  color:#999;
+
+  font-size:8px;
+  font-weight:700;
+}
+
+
+/* ALERT */
+
+.alert{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-top:16px;
+
+  padding:10px 11px;
+
+  border-radius:15px;
+
+  background:
+    rgba(var(--accent-rgb),.09);
+
+  transition:
+    background .4s ease,
+    box-shadow .4s ease;
+}
+
+.alert-text{
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:.07em;
+}
+
+.alert-right{
+  color:#858585;
+
+  font-size:7px;
+  font-weight:800;
+}
+
+
+/* NEXT REPORTS */
+
+.next-card{
+  margin-top:8px;
+
+  padding:14px;
+
+  border-radius:22px;
+
+  background:rgba(255,255,255,.68);
+
+  border:1px solid rgba(255,255,255,.96);
+
+  box-shadow:
+    0 13px 32px rgba(0,0,0,.05),
+    inset 0 1px 0 white;
+
+  backdrop-filter:blur(20px);
+}
+
+.next-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:9px;
+}
+
+.next-title{
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:.1em;
+}
+
+.next-note{
+  color:#aaa;
+
+  font-size:7px;
+  font-weight:850;
+}
+
+.report-list{
+  display:grid;
+  gap:4px;
+}
+
+.report-row{
+  display:grid;
+  grid-template-columns:38px minmax(0,1fr) auto;
+  align-items:center;
+  gap:8px;
+
+  min-height:37px;
+
+  padding:5px 6px;
+
+  border-radius:13px;
+}
+
+.report-row:first-child{
+  background:rgba(17,17,17,.035);
+}
+
+.date-box{
+  text-align:center;
+}
+
+.date-day{
+  font-size:13px;
+  line-height:1;
+  font-weight:950;
+}
+
+.date-month{
+  margin-top:2px;
+
+  color:#999;
+
+  font-size:6px;
+  font-weight:850;
+}
+
+.row-projects{
+  min-width:0;
+
+  font-size:8px;
+  line-height:1.3;
+  font-weight:900;
+}
+
+.row-count{
+  padding:5px 7px;
+
+  border-radius:999px;
+
+  background:rgba(17,17,17,.045);
+
+  color:#777;
+
+  font-size:7px;
+  font-weight:850;
+
+  white-space:nowrap;
+}
+
+
+/* FOOTER */
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+
+  padding:7px 4px 0;
+
+  color:#aaa;
+
+  font-size:6.5px;
+  font-weight:850;
+  letter-spacing:.08em;
+}
+
+
+/* RED MODE */
+
+body.red-mode{
+  --accent:#ff2d2d;
+  --accent-rgb:255,45,45;
+}
+
+body.red-mode .main-card{
+  border-color:
+    rgba(255,45,45,.14);
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.065),
+    0 0 30px rgba(255,45,45,.09),
+    inset 0 1px 0 white;
+
+  animation:redGlow 2.1s ease-in-out infinite;
+}
+
+body.red-mode .alert{
+  background:rgba(255,45,45,.11);
+}
+
+@keyframes redGlow{
+  50%{
+    box-shadow:
+      0 18px 45px rgba(0,0,0,.065),
+      0 0 42px rgba(255,45,45,.17),
+      inset 0 1px 0 white;
+  }
+}
+
+
+/* ORANGE MODE */
+
+body.orange-mode{
+  --accent:#ff9f0a;
+  --accent-rgb:255,159,10;
+}
+
+
+/* MOBILE */
+
+@media(max-width:360px){
+
+  body{
+    padding:6px;
+  }
+
+  .main-card{
+    padding:16px;
+  }
+
+  .project-name{
+    font-size:25px;
+  }
+
+  .days{
+    font-size:53px;
+  }
+
+  .number-window{
+    width:66px;
+    height:54px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<main class="widget">
+
+  <div class="header">
+
+    <div class="brand">
+      <span class="live-dot"></span>
+      📅 REPORT RADAR
+    </div>
+
+    <div class="projects-pill">
+      12 ПРОЄКТІВ
+    </div>
+
+  </div>
+
+
+  <section class="main-card">
+
+    <div class="eyebrow">
+
+      <div class="eyebrow-left">
+        <span class="mini-dot"></span>
+        НАЙБЛИЖЧИЙ ЗВІТ
+      </div>
+
+      <div
+        class="mode"
+        id="mode"
+      >
+        СПОКІЙНО
+      </div>
+
+    </div>
+
+
+    <div
+      class="projects"
+      id="mainProjects"
+    ></div>
+
+
+    <div class="countdown">
+
+      <div class="number-window">
+
+        <div
+          class="days"
+          id="days"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="count-copy">
+
+        <strong id="dayWord">
+          ДНІВ
+        </strong>
+
+        <span>
+          до звіту
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="alert">
+
+      <div
+        class="alert-text"
+        id="alertText"
+      >
+        ВСЕ СПОКІЙНО
+      </div>
+
+      <div
+        class="alert-right"
+        id="alertRight"
+      >
+        —
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="next-card">
+
+    <div class="next-header">
+
+      <div class="next-title">
+        ДАЛІ ПО ЗВІТАХ
+      </div>
+
+      <div class="next-note">
+        NEXT →
+      </div>
+
+    </div>
+
+
+    <div
+      class="report-list"
+      id="reportList"
+    ></div>
+
+  </section>
+
+
+  <div class="footer">
+
+    <span>
+      DNK · REPORT CONTROL
+    </span>
+
+    <span>
+      AUTO
+    </span>
+
+  </div>
+
+</main>
+
+
+<script>
+
+/* ==========================================
+   REPORT RADAR
+
+   reportDay:
+   4  = period 5 → 4
+   10 = period 11 → 10
+   17 = period 18 → 17
+   "last" = calendar month
+========================================== */
+
+
+const projects = [
+
+  {
+    name:"DNK AGENCY",
+    reportDay:4
+  },
+
+  {
+    name:"ORISING",
+    reportDay:4
+  },
+
+  {
+    name:"EPILAX",
+    reportDay:10
+  },
+
+  {
+    name:"AMTEX",
+    reportDay:17
+  },
+
+  {
+    name:"REDEFINE",
+    reportDay:"last"
+  },
+
+  {
+    name:"DUSO CONSULTING",
+    reportDay:"last"
+  },
+
+  {
+    name:"ICOONE",
+    reportDay:"last"
+  },
+
+  {
+    name:"ENDYMED",
+    reportDay:"last"
+  },
+
+  {
+    name:"DUSO",
+    reportDay:"last"
+  },
+
+  {
+    name:"CARP PRO",
+    reportDay:"last"
+  },
+
+  {
+    name:"AZURA",
+    reportDay:"last"
+  },
+
+  {
+    name:"AERODROM",
+    reportDay:"last"
+  }
+
+];
+
+
+const months = [
+  "СІЧ",
+  "ЛЮТ",
+  "БЕР",
+  "КВІ",
+  "ТРА",
+  "ЧЕР",
+  "ЛИП",
+  "СЕР",
+  "ВЕР",
+  "ЖОВ",
+  "ЛИС",
+  "ГРУ"
+];
+
+
+const monthsFull = [
+  "січня",
+  "лютого",
+  "березня",
+  "квітня",
+  "травня",
+  "червня",
+  "липня",
+  "серпня",
+  "вересня",
+  "жовтня",
+  "листопада",
+  "грудня"
+];
+
+
+const DAY = 86400000;
+
+
+/* ==========================================
+   KYIV TODAY
+========================================== */
+
+function kyivToday(){
+
+  const formatter =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:"Europe/Kyiv",
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit"
+      }
+    );
+
+
+  const parts =
+    formatter.formatToParts(
+      new Date()
+    );
+
+
+  return {
+
+    year:Number(
+      parts.find(
+        p => p.type === "year"
+      ).value
+    ),
+
+    month:Number(
+      parts.find(
+        p => p.type === "month"
+      ).value
+    ),
+
+    day:Number(
+      parts.find(
+        p => p.type === "day"
+      ).value
+    )
+
+  };
+
+}
+
+
+function utcDate(
+  year,
+  month,
+  day
+){
+
+  return new Date(
+    Date.UTC(
+      year,
+      month - 1,
+      day
+    )
+  );
+
+}
+
+
+function lastDayOfMonth(
+  year,
+  month
+){
+
+  return new Date(
+    Date.UTC(
+      year,
+      month,
+      0
+    )
+  ).getUTCDate();
+
+}
+
+
+function diffDays(
+  a,
+  b
+){
+
+  return Math.round(
+    (b - a) / DAY
+  );
+
+}
+
+
+/* ==========================================
+   NEXT REPORT DATE
+========================================== */
+
+function getNextReport(
+  project,
+  today
+){
+
+  const todayDate =
+    utcDate(
+      today.year,
+      today.month,
+      today.day
+    );
+
+
+  let year =
+    today.year;
+
+  let month =
+    today.month;
+
+  let day;
+
+
+  if(
+    project.reportDay === "last"
+  ){
+
+    day =
+      lastDayOfMonth(
+        year,
+        month
+      );
+
+
+    let candidate =
+      utcDate(
+        year,
+        month,
+        day
+      );
+
+
+    /*
+      Якщо сьогодні останній день місяця,
+      звіт ще вважаємо актуальним сьогодні.
+    */
+
+    if(
+      candidate < todayDate
+    ){
+
+      month++;
+
+
+      if(month > 12){
+
+        month = 1;
+        year++;
+
+      }
+
+
+      day =
+        lastDayOfMonth(
+          year,
+          month
+        );
+
+    }
+
+  }
+
+  else{
+
+    day =
+      project.reportDay;
+
+
+    let candidate =
+      utcDate(
+        year,
+        month,
+        day
+      );
+
+
+    /*
+      Якщо дата вже пройшла —
+      беремо наступний місяць.
+    */
+
+    if(
+      candidate < todayDate
+    ){
+
+      month++;
+
+
+      if(month > 12){
+
+        month = 1;
+        year++;
+
+      }
+
+    }
+
+  }
+
+
+  const reportDate =
+    utcDate(
+      year,
+      month,
+      day
+    );
+
+
+  const days =
+    diffDays(
+      todayDate,
+      reportDate
+    );
+
+
+  return {
+
+    ...project,
+
+    year,
+    month,
+    day,
+
+    reportDate,
+    days
+
+  };
+
+}
+
+
+/* ==========================================
+   GROUP SAME DATES
+========================================== */
+
+function getReportGroups(){
+
+  const today =
+    kyivToday();
+
+
+  const reports =
+    projects
+      .map(
+        project =>
+          getNextReport(
+            project,
+            today
+          )
+      )
+      .sort(
+        (a,b) =>
+          a.reportDate -
+          b.reportDate
+      );
+
+
+  const groups = [];
+
+
+  reports.forEach(
+    report => {
+
+      const key =
+        report.reportDate
+          .toISOString()
+          .slice(
+            0,
+            10
+          );
+
+
+      let group =
+        groups.find(
+          item =>
+            item.key === key
+        );
+
+
+      if(!group){
+
+        group = {
+
+          key,
+
+          date:
+            report.reportDate,
+
+          day:
+            report.day,
+
+          month:
+            report.month,
+
+          year:
+            report.year,
+
+          days:
+            report.days,
+
+          projects:[]
+
+        };
+
+
+        groups.push(
+          group
+        );
+
+      }
+
+
+      group.projects.push(
+        report.name
+      );
+
+    }
+  );
+
+
+  return groups;
+
+}
+
+
+/* ==========================================
+   STATUS
+========================================== */
+
+function applyStatus(
+  days
+){
+
+  document.body
+    .classList
+    .remove(
+      "red-mode",
+      "orange-mode"
+    );
+
+
+  const mode =
+    document.getElementById(
+      "mode"
+    );
+
+
+  const alert =
+    document.getElementById(
+      "alertText"
+    );
+
+
+  if(days <= 2){
+
+    document.body
+      .classList
+      .add(
+        "red-mode"
+      );
+
+
+    mode.textContent =
+      "🔥 ГОРИТЬ";
+
+
+    alert.textContent =
+      "🔥 ЗВІТ ГОРИТЬ";
+
+  }
+
+  else if(days <= 7){
+
+    document.body
+      .classList
+      .add(
+        "orange-mode"
+      );
+
+
+    mode.textContent =
+      "СКОРО";
+
+
+    alert.textContent =
+      "ГОТУЄМО ЗВІТ";
+
+  }
+
+  else if(days <= 14){
+
+    mode.textContent =
+      "НА РАДАРІ";
+
+
+    alert.textContent =
+      "ВЖЕ НА РАДАРІ 👀";
+
+  }
+
+  else{
+
+    mode.textContent =
+      "СПОКІЙНО";
+
+
+    alert.textContent =
+      "ВСЕ СПОКІЙНО 😌";
+
+  }
+
+}
+
+
+/* ==========================================
+   WORD
+========================================== */
+
+function dayWord(
+  number
+){
+
+  const n =
+    Math.abs(number) % 100;
+
+
+  const n1 =
+    n % 10;
+
+
+  if(
+    n > 10 &&
+    n < 20
+  )
+    return "ДНІВ";
+
+
+  if(n1 === 1)
+    return "ДЕНЬ";
+
+
+  if(
+    n1 >= 2 &&
+    n1 <= 4
+  )
+    return "ДНІ";
+
+
+  return "ДНІВ";
+
+}
+
+
+/* ==========================================
+   NUMBER ANIMATION
+========================================== */
+
+function animateNumber(
+  finalNumber
+){
+
+  const element =
+    document.getElementById(
+      "days"
+    );
+
+
+  let current =
+    finalNumber + 4;
+
+
+  element.textContent =
+    current;
+
+
+  element.classList.add(
+    "enter"
+  );
+
+
+  function step(){
+
+    if(
+      current <= finalNumber
+    ){
+
+      element.textContent =
+        finalNumber;
+
+      return;
+
+    }
+
+
+    element.classList.remove(
+      "enter"
+    );
+
+
+    element.classList.add(
+      "out"
+    );
+
+
+    setTimeout(
+      () => {
+
+        current--;
+
+
+        element.textContent =
+          current;
+
+
+        element.classList.remove(
+          "out"
+        );
+
+
+        void element.offsetWidth;
+
+
+        element.classList.add(
+          "enter"
+        );
+
+
+        setTimeout(
+          step,
+          110
+        );
+
+      },
+      160
+    );
+
+  }
+
+
+  setTimeout(
+    step,
+    300
+  );
+
+}
+
+
+/* ==========================================
+   MAIN REPORT
+========================================== */
+
+function renderMain(
+  group
+){
+
+  applyStatus(
+    group.days
+  );
+
+
+  const main =
+    document.getElementById(
+      "mainProjects"
+    );
+
+
+  let projectHTML;
+
+
+  if(
+    group.projects.length === 1
+  ){
+
+    projectHTML = `
+
+      <div class="project-name">
+        ${group.projects[0]}
+      </div>
+
+    `;
+
+  }
+
+  else{
+
+    projectHTML = `
+
+      <div class="project-name multiple">
+        ${group.projects[0]}
+      </div>
+
+      <div class="secondary-project">
+        + ${group.projects.length - 1}
+        ${
+          group.projects.length - 1 === 1
+          ?
+          "ЗВІТ НА ЦЮ Ж ДАТУ"
+          :
+          "ЗВІТІВ НА ЦЮ Ж ДАТУ"
+        }
+      </div>
+
+    `;
+
+  }
+
+
+  main.innerHTML = `
+
+    ${projectHTML}
+
+    <div class="report-date">
+      ${group.day}
+      ${monthsFull[group.month - 1]}
+    </div>
+
+  `;
+
+
+  document
+    .getElementById(
+      "dayWord"
+    )
+    .textContent =
+      dayWord(
+        group.days
+      );
+
+
+  document
+    .getElementById(
+      "alertRight"
+    )
+    .textContent =
+      group.days === 0
+      ?
+      "СЬОГОДНІ"
+      :
+      group.days === 1
+      ?
+      "ЗАВТРА"
+      :
+      "через " +
+      group.days +
+      " дн.";
+
+
+  animateNumber(
+    group.days
+  );
+
+}
+
+
+/* ==========================================
+   NEXT LIST
+========================================== */
+
+function renderList(
+  groups
+){
+
+  const container =
+    document.getElementById(
+      "reportList"
+    );
+
+
+  container.innerHTML = "";
+
+
+  /*
+    Головний звіт уже зверху.
+    Тут показуємо наступні 3 групи.
+  */
+
+  const nextGroups =
+    groups.slice(
+      1,
+      4
+    );
+
+
+  nextGroups.forEach(
+    group => {
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "report-row";
+
+
+      let projectText;
+
+
+      if(
+        group.projects.length <= 2
+      ){
+
+        projectText =
+          group.projects.join(
+            " · "
+          );
+
+      }
+
+      else{
+
+        projectText =
+          group.projects[0]
+          +
+          " +"
+          +
+          (
+            group.projects.length - 1
+          );
+
+      }
+
+
+      let countText;
+
+
+      if(group.days === 0){
+
+        countText =
+          "СЬОГОДНІ";
+
+      }
+
+      else if(group.days === 1){
+
+        countText =
+          "ЗАВТРА";
+
+      }
+
+      else{
+
+        countText =
+          group.days +
+          " дн.";
+
+      }
+
+
+      row.innerHTML = `
+
+        <div class="date-box">
+
+          <div class="date-day">
+            ${
+              String(
+                group.day
+              ).padStart(
+                2,
+                "0"
+              )
+            }
+          </div>
+
+          <div class="date-month">
+            ${
+              months[
+                group.month - 1
+              ]
+            }
+          </div>
+
+        </div>
+
+
+        <div class="row-projects">
+          ${projectText}
+        </div>
+
+
+        <div class="row-count">
+          ${countText}
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        row
+      );
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+function init(){
+
+  const groups =
+    getReportGroups();
+
+
+  if(!groups.length)
+    return;
+
+
+  renderMain(
+    groups[0]
+  );
+
+
+  renderList(
+    groups
+  );
+
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>
