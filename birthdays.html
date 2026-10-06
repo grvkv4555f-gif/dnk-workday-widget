@@ -1,1262 +1,1845 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DNK Birthdays</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --green: #00f500;
-      --black: #111111;
-      --gray: #8f8f8f;
-      --light-gray: #dcdcdc;
-      --bg: #f7f7f5;
-      --glass: rgba(255, 255, 255, 0.72);
-    }
-
-    html,
-    body {
-      min-height: 100%;
-    }
-
-    body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background:
-        radial-gradient(
-          circle at 14% 5%,
-          rgba(0, 245, 0, 0.16),
-          transparent 26%
-        ),
-        radial-gradient(
-          circle at 90% 90%,
-          rgba(0, 245, 0, 0.08),
-          transparent 28%
-        ),
-        var(--bg);
-      color: var(--black);
-      padding: 16px;
-      overflow-x: hidden;
-    }
-
-    .widget {
-      width: 100%;
-      max-width: 760px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    /* HEADER */
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      padding: 0 3px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.11em;
-    }
-
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 12px rgba(0, 245, 0, 0.8);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.55;
-        transform: scale(0.82);
-      }
-    }
-
-    .team-pill {
-      font-size: 10px;
-      font-weight: 850;
-      letter-spacing: 0.09em;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.95),
-        0 8px 25px rgba(0, 0, 0, 0.05);
-      backdrop-filter: blur(16px);
-    }
-
-    /* MAIN CARD */
-
-    .main-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 390px;
-      padding: 28px;
-      border-radius: 30px;
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.84),
-          rgba(255, 255, 255, 0.54)
-        );
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
-      backdrop-filter: blur(25px);
-      isolation: isolate;
-    }
-
-    .main-card::before {
-      content: "";
-      position: absolute;
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      right: -110px;
-      top: -120px;
-      background: rgba(0, 245, 0, 0.13);
-      filter: blur(12px);
-      z-index: -1;
-    }
-
-    .main-card::after {
-      content: "";
-      position: absolute;
-      width: 230px;
-      height: 230px;
-      border-radius: 50%;
-      left: -110px;
-      bottom: -140px;
-      background: rgba(0, 245, 0, 0.08);
-      filter: blur(10px);
-      z-index: -1;
-    }
-
-    /* HUGE BACKGROUND NUMBER */
-
-    .ghost-number {
-      position: absolute;
-      right: 16px;
-      top: 32px;
-      font-size: clamp(145px, 27vw, 245px);
-      line-height: 0.8;
-      font-weight: 950;
-      letter-spacing: -0.09em;
-      color: rgba(17, 17, 17, 0.035);
-      user-select: none;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 0.11em;
-      margin-bottom: 24px;
-    }
-
-    .eyebrow-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 10px rgba(0, 245, 0, 0.7);
-    }
-
-    .next-name {
-      font-size: clamp(42px, 9vw, 72px);
-      line-height: 0.92;
-      font-weight: 950;
-      letter-spacing: -0.055em;
-      max-width: 80%;
-      text-transform: uppercase;
-    }
-
-    .next-date {
-      margin-top: 10px;
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: #4d4d4d;
-    }
-
-    /* COUNTDOWN */
-
-    .countdown-row {
-      margin-top: 34px;
-      display: flex;
-      align-items: flex-end;
-      gap: 14px;
-    }
-
-    .days-number {
-      font-size: 72px;
-      line-height: 0.78;
-      font-weight: 950;
-      letter-spacing: -0.075em;
-    }
-
-    .days-copy {
-      padding-bottom: 2px;
-    }
-
-    .days-copy strong {
-      display: block;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-    }
-
-    .days-copy span {
-      display: block;
-      margin-top: 5px;
-      color: var(--gray);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    /* PROGRESS */
-
-    .progress-wrap {
-      margin-top: 27px;
-    }
-
-    .progress {
-      height: 9px;
-      width: 100%;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(17, 17, 17, 0.07);
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      border-radius: inherit;
-      background: var(--green);
-      box-shadow: 0 0 15px rgba(0, 245, 0, 0.38);
-      transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .progress-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-      gap: 10px;
-    }
-
-    .status {
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-    }
-
-    .progress-text {
-      font-size: 10px;
-      font-weight: 750;
-      color: var(--gray);
-    }
-
-    /* DECORATIONS */
-
-    .float-icon {
-      position: absolute;
-      user-select: none;
-      pointer-events: none;
-      filter: drop-shadow(0 10px 13px rgba(0, 0, 0, 0.09));
-    }
-
-    .float-icon.one {
-      right: 32px;
-      bottom: 96px;
-      font-size: 39px;
-      transform: rotate(8deg);
-      animation: floatOne 4.5s ease-in-out infinite;
-    }
-
-    .float-icon.two {
-      right: 91px;
-      bottom: 50px;
-      font-size: 24px;
-      animation: floatTwo 5.2s ease-in-out infinite;
-    }
-
-    .float-icon.three {
-      right: 25px;
-      bottom: 35px;
-      font-size: 18px;
-      animation: floatOne 5.8s ease-in-out infinite reverse;
-    }
-
-    @keyframes floatOne {
-      0%,
-      100% {
-        transform: translateY(0) rotate(8deg);
-      }
-      50% {
-        transform: translateY(-8px) rotate(3deg);
-      }
-    }
-
-    @keyframes floatTwo {
-      0%,
-      100% {
-        transform: translateY(0) rotate(-5deg);
-      }
-      50% {
-        transform: translateY(-11px) rotate(4deg);
-      }
-    }
-
-    /* UPCOMING */
-
-    .upcoming-card {
-      margin-top: 12px;
-      padding: 22px;
-      border-radius: 27px;
-      background: rgba(255, 255, 255, 0.66);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.055),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
-      backdrop-filter: blur(22px);
-    }
-
-    .section-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 17px;
-    }
-
-    .section-title {
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-    }
-
-    .section-note {
-      color: var(--gray);
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .birthday-list {
-      display: grid;
-      gap: 8px;
-    }
-
-    .birthday-row {
-      display: grid;
-      grid-template-columns: 42px minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 12px;
-      padding: 11px 12px;
-      border-radius: 18px;
-      transition: 0.2s ease;
-    }
-
-    .birthday-row:hover {
-      background: rgba(255, 255, 255, 0.72);
-      transform: translateX(2px);
-    }
-
-    .position {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 13px;
-      background: rgba(17, 17, 17, 0.055);
-      font-size: 11px;
-      font-weight: 900;
-      color: #5f5f5f;
-    }
-
-    .birthday-row:first-child .position {
-      background: var(--green);
-      color: #071407;
-      box-shadow: 0 6px 16px rgba(0, 245, 0, 0.2);
-    }
-
-    .person-name {
-      font-size: 14px;
-      font-weight: 850;
-      letter-spacing: -0.02em;
-    }
-
-    .person-date {
-      margin-top: 3px;
-      color: var(--gray);
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .person-days {
-      padding: 7px 9px;
-      border-radius: 999px;
-      background: rgba(17, 17, 17, 0.05);
-      font-size: 9px;
-      font-weight: 850;
-      white-space: nowrap;
-    }
-
-    .birthday-row:first-child .person-days {
-      background: rgba(0, 245, 0, 0.12);
-    }
-
-    /* FOOTER */
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 13px 5px 2px;
-      color: #a1a1a1;
-      font-size: 9px;
-      font-weight: 850;
-      letter-spacing: 0.09em;
-    }
-
-    /* ===============================
-       BIRTHDAY MODE
-    =============================== */
-
-    body.birthday-mode {
-      background:
-        radial-gradient(
-          circle at 15% 10%,
-          rgba(0, 245, 0, 0.24),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 85% 75%,
-          rgba(0, 245, 0, 0.13),
-          transparent 28%
-        ),
-        #f7f7f5;
-    }
-
-    body.birthday-mode .main-card {
-      min-height: 460px;
-      background:
-        radial-gradient(
-          circle at 85% 20%,
-          rgba(0, 245, 0, 0.2),
-          transparent 28%
-        ),
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.9),
-          rgba(255, 255, 255, 0.58)
-        );
-      animation: birthdayGlow 4s ease-in-out infinite;
-    }
-
-    @keyframes birthdayGlow {
-      0%,
-      100% {
-        box-shadow:
-          0 24px 60px rgba(0, 0, 0, 0.08),
-          0 0 0 rgba(0, 245, 0, 0);
-      }
-      50% {
-        box-shadow:
-          0 24px 60px rgba(0, 0, 0, 0.08),
-          0 0 45px rgba(0, 245, 0, 0.13);
-      }
-    }
-
-    .birthday-content {
-      display: none;
-    }
-
-    body.birthday-mode .normal-content {
-      display: none;
-    }
-
-    body.birthday-mode .birthday-content {
-      display: block;
-    }
-
-    .today-label {
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: 0.14em;
-      color: #535353;
-      margin-bottom: 22px;
-    }
-
-    .birthday-big {
-      font-size: clamp(45px, 10vw, 76px);
-      line-height: 0.9;
-      font-weight: 950;
-      letter-spacing: -0.06em;
-      text-transform: uppercase;
-      max-width: 92%;
-    }
-
-    .birthday-sub {
-      margin-top: 12px;
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .birthday-message {
-      max-width: 600px;
-      margin-top: 30px;
-      padding: 18px 19px;
-      border-radius: 21px;
-      background: rgba(255, 255, 255, 0.58);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-      font-size: 14px;
-      line-height: 1.55;
-      font-weight: 650;
-      white-space: pre-line;
-    }
-
-    .birthday-sign {
-      margin-top: 18px;
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: 0.13em;
-    }
-
-    .marquee {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 17px;
-      overflow: hidden;
-      opacity: 0.045;
-      pointer-events: none;
-    }
-
-    .marquee-inner {
-      width: max-content;
-      white-space: nowrap;
-      font-size: 37px;
-      font-weight: 950;
-      letter-spacing: -0.04em;
-      animation: marquee 18s linear infinite;
-    }
-
-    @keyframes marquee {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-50%);
-      }
-    }
-
-    /* CONFETTI */
-
-    #confetti {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 100;
-    }
-
-    .confetti-piece {
-      position: absolute;
-      top: -20px;
-      width: 8px;
-      height: 14px;
-      border-radius: 3px;
-      opacity: 0.9;
-      animation: confettiFall linear forwards;
-    }
-
-    @keyframes confettiFall {
-      0% {
-        transform: translate3d(0, -10px, 0) rotate(0deg);
-      }
-      100% {
-        transform: translate3d(var(--drift), 110vh, 0) rotate(720deg);
-      }
-    }
-
-    @media (max-width: 520px) {
-      body {
-        padding: 10px;
-      }
-
-      .main-card {
-        padding: 21px 18px;
-        border-radius: 25px;
-        min-height: 350px;
-      }
-
-      .upcoming-card {
-        padding: 17px 13px;
-        border-radius: 23px;
-      }
-
-      .next-name {
-        max-width: 90%;
-        font-size: 42px;
-      }
-
-      .next-date {
-        font-size: 15px;
-      }
-
-      .days-number {
-        font-size: 61px;
-      }
-
-      .float-icon.one {
-        right: 22px;
-        bottom: 83px;
-        font-size: 32px;
-      }
-
-      .float-icon.two {
-        right: 70px;
-        bottom: 43px;
-      }
-
-      .float-icon.three {
-        right: 18px;
-        bottom: 35px;
-      }
-
-      .ghost-number {
-        right: 8px;
-        top: 48px;
-        font-size: 150px;
-      }
-
-      .birthday-row {
-        grid-template-columns: 36px minmax(0, 1fr) auto;
-        gap: 9px;
-        padding: 9px 7px;
-      }
-
-      .position {
-        width: 34px;
-        height: 34px;
-      }
-
-      .person-name {
-        font-size: 13px;
-      }
-
-      .person-days {
-        font-size: 8px;
-      }
-
-      body.birthday-mode .main-card {
-        min-height: 480px;
-      }
-
-      .birthday-message {
-        font-size: 13px;
-      }
-
-      .footer {
-        padding-left: 3px;
-        padding-right: 3px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DNK Birthdays</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --green:#00f500;
+  --black:#111;
+  --gray:#8f8f8f;
+  --bg:#f7f7f5;
+  --glass:rgba(255,255,255,.72);
+}
+
+html,body{
+  min-height:100%;
+}
+
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--black);
+  padding:10px;
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(circle at 10% 10%,rgba(0,245,0,.13),transparent 24%),
+    radial-gradient(circle at 92% 85%,rgba(0,245,0,.08),transparent 25%),
+    var(--bg);
+}
+
+.widget{
+  width:100%;
+  max-width:760px;
+  margin:auto;
+}
+
+
+/* =========================
+HEADER
+========================= */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+  padding:0 4px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.11em;
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px rgba(0,245,0,.8);
+
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  50%{
+    opacity:.5;
+    transform:scale(.8);
+  }
+}
+
+.team-pill{
+  padding:6px 10px;
+
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.95);
+
+  background:rgba(255,255,255,.65);
+
+  box-shadow:
+    inset 0 1px 0 white,
+    0 6px 18px rgba(0,0,0,.04);
+
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.08em;
+
+  backdrop-filter:blur(14px);
+}
+
+
+/* =========================
+MAIN CARD
+========================= */
+
+.main-card{
+  position:relative;
+  overflow:hidden;
+
+  min-height:230px;
+
+  padding:20px 22px;
+
+  border-radius:25px;
+
+  border:1px solid rgba(255,255,255,.95);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.86),
+      rgba(255,255,255,.55)
+    );
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.07),
+    inset 0 1px 0 white;
+
+  backdrop-filter:blur(22px);
+  isolation:isolate;
+}
+
+
+/* GREEN GLOW */
+
+.main-card:before{
+  content:"";
+
+  position:absolute;
+
+  width:240px;
+  height:240px;
+
+  border-radius:50%;
+
+  right:-80px;
+  top:-100px;
+
+  background:rgba(0,245,0,.13);
+
+  filter:blur(18px);
+
+  z-index:-2;
+}
+
+.main-card:after{
+  content:"";
+
+  position:absolute;
+
+  width:180px;
+  height:180px;
+
+  border-radius:50%;
+
+  left:-90px;
+  bottom:-110px;
+
+  background:rgba(0,245,0,.08);
+
+  filter:blur(16px);
+
+  z-index:-2;
+}
+
+
+/* =========================
+CONFETTI DECOR
+========================= */
+
+.decor{
+  position:absolute;
+  pointer-events:none;
+  user-select:none;
+
+  z-index:-1;
+
+  filter:drop-shadow(0 5px 7px rgba(0,0,0,.07));
+}
+
+.d1{
+  top:13px;
+  right:32px;
+  font-size:24px;
+
+  animation:float1 4s ease-in-out infinite;
+}
+
+.d2{
+  right:17px;
+  bottom:21px;
+  font-size:28px;
+
+  animation:float2 4.8s ease-in-out infinite;
+}
+
+.d3{
+  top:65px;
+  right:87px;
+  font-size:16px;
+
+  animation:float1 5.4s ease-in-out infinite reverse;
+}
+
+.d4{
+  top:14px;
+  left:47%;
+  font-size:15px;
+
+  animation:spinFloat 6s ease-in-out infinite;
+}
+
+.d5{
+  right:135px;
+  bottom:15px;
+  font-size:14px;
+
+  animation:float2 5s ease-in-out infinite;
+}
+
+.d6{
+  left:13px;
+  bottom:18px;
+  font-size:15px;
+
+  animation:float1 5.5s ease-in-out infinite;
+}
+
+@keyframes float1{
+  0%,100%{
+    transform:translateY(0) rotate(-5deg);
+  }
+
+  50%{
+    transform:translateY(-7px) rotate(5deg);
+  }
+}
+
+@keyframes float2{
+  0%,100%{
+    transform:translateY(0) rotate(6deg);
+  }
+
+  50%{
+    transform:translateY(-10px) rotate(-3deg);
+  }
+}
+
+@keyframes spinFloat{
+  0%,100%{
+    transform:translateY(0) rotate(0);
+  }
+
+  50%{
+    transform:translateY(-6px) rotate(18deg);
+  }
+}
+
+
+/* =========================
+MAIN CONTENT
+========================= */
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  margin-bottom:12px;
+
+  color:#777;
+
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+
+.eyebrow-dot{
+  width:5px;
+  height:5px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  box-shadow:0 0 8px rgba(0,245,0,.7);
+}
+
+
+/* NAME + COUNTDOWN */
+
+.hero{
+  display:flex;
+  align-items:flex-end;
+  gap:24px;
+
+  position:relative;
+  z-index:2;
+}
+
+.person{
+  min-width:0;
+}
+
+.name{
+  font-size:clamp(35px,7vw,54px);
+
+  line-height:.9;
+
+  font-weight:950;
+
+  letter-spacing:-.055em;
+
+  text-transform:uppercase;
+}
+
+.date{
+  margin-top:7px;
+
+  font-size:13px;
+  font-weight:800;
+
+  color:#686868;
+}
+
+
+/* COUNT */
+
+.countdown{
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+}
+
+.number{
+  font-size:55px;
+
+  line-height:.78;
+
+  font-weight:950;
+
+  letter-spacing:-.07em;
+}
+
+.count-copy{
+  padding-bottom:1px;
+}
+
+.count-copy strong{
+  display:block;
+
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:.09em;
+}
+
+.count-copy span{
+  display:block;
+
+  margin-top:3px;
+
+  color:#999;
+
+  font-size:8px;
+  font-weight:700;
+}
+
+
+/* =========================
+PROGRESS
+========================= */
+
+.progress-section{
+  margin-top:20px;
+}
+
+.progress{
+  width:100%;
+  height:7px;
+
+  border-radius:999px;
+
+  background:rgba(17,17,17,.07);
+
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+
+  border-radius:inherit;
+
+  background:var(--green);
+
+  box-shadow:0 0 12px rgba(0,245,0,.4);
+
+  transition:width .8s ease;
+}
+
+.progress-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-top:8px;
+}
+
+.status{
+  font-size:9px;
+
+  font-weight:950;
+
+  letter-spacing:.07em;
+}
+
+.remaining{
+  color:#969696;
+
+  font-size:8px;
+
+  font-weight:750;
+}
+
+
+/* =========================
+BIRTHDAY QUEUE
+========================= */
+
+.queue-card{
+  position:relative;
+
+  margin-top:8px;
+
+  padding:14px 15px 13px;
+
+  border-radius:23px;
+
+  background:rgba(255,255,255,.67);
+
+  border:1px solid rgba(255,255,255,.95);
+
+  box-shadow:
+    0 13px 35px rgba(0,0,0,.05),
+    inset 0 1px 0 white;
+
+  backdrop-filter:blur(20px);
+
+  overflow:hidden;
+}
+
+.queue-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:12px;
+}
+
+.queue-title{
+  font-size:9px;
+
+  font-weight:950;
+
+  letter-spacing:.1em;
+}
+
+.queue-note{
+  color:#aaa;
+
+  font-size:8px;
+
+  font-weight:800;
+
+  letter-spacing:.06em;
+}
+
+
+/* HORIZONTAL TIMELINE */
+
+.timeline{
+  display:flex;
+
+  gap:7px;
+
+  width:100%;
+
+  overflow-x:auto;
+
+  padding-bottom:3px;
+
+  scrollbar-width:none;
+}
+
+.timeline::-webkit-scrollbar{
+  display:none;
+}
+
+.birthday{
+  flex:1 0 82px;
+
+  min-width:82px;
+
+  padding:10px 7px 9px;
+
+  text-align:center;
+
+  border-radius:17px;
+
+  background:rgba(17,17,17,.035);
+
+  border:1px solid rgba(255,255,255,.7);
+
+  transition:.2s ease;
+}
+
+.birthday:first-child{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(0,245,0,.18),
+      rgba(255,255,255,.7)
+    );
+
+  border-color:rgba(0,245,0,.18);
+
+  box-shadow:
+    0 7px 18px rgba(0,245,0,.08);
+}
+
+.birthday:hover{
+  transform:translateY(-2px);
+}
+
+.bday-icon{
+  height:18px;
+
+  margin-bottom:4px;
+
+  font-size:14px;
+}
+
+.bday-date{
+  font-size:15px;
+
+  font-weight:950;
+
+  letter-spacing:-.03em;
+}
+
+.bday-month{
+  margin-top:1px;
+
+  color:#999;
+
+  font-size:8px;
+
+  font-weight:850;
+}
+
+.bday-name{
+  margin-top:7px;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+
+  font-size:9px;
+
+  font-weight:900;
+}
+
+.bday-days{
+  margin-top:3px;
+
+  color:#999;
+
+  font-size:7px;
+
+  font-weight:750;
+}
+
+
+/* =========================
+FOOTER
+========================= */
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+
+  padding:8px 4px 0;
+
+  color:#aaa;
+
+  font-size:7px;
+
+  font-weight:850;
+
+  letter-spacing:.09em;
+}
+
+
+/* =========================
+BIRTHDAY MODE
+========================= */
+
+.birthday-mode-content{
+  display:none;
+}
+
+body.birthday-mode .normal-content{
+  display:none;
+}
+
+body.birthday-mode .birthday-mode-content{
+  display:block;
+}
+
+body.birthday-mode .main-card{
+  min-height:275px;
+
+  background:
+    radial-gradient(
+      circle at 78% 25%,
+      rgba(0,245,0,.2),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.9),
+      rgba(255,255,255,.57)
+    );
+
+  animation:birthdayGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes birthdayGlow{
+
+  0%,100%{
+    box-shadow:
+      0 18px 45px rgba(0,0,0,.07),
+      0 0 0 rgba(0,245,0,0);
+  }
+
+  50%{
+    box-shadow:
+      0 18px 45px rgba(0,0,0,.07),
+      0 0 40px rgba(0,245,0,.15);
+  }
+
+}
+
+.today{
+  font-size:9px;
+
+  font-weight:950;
+
+  letter-spacing:.13em;
+
+  color:#666;
+}
+
+.birthday-title{
+  margin-top:12px;
+
+  max-width:88%;
+
+  font-size:clamp(33px,7vw,50px);
+
+  line-height:.93;
+
+  font-weight:950;
+
+  letter-spacing:-.05em;
+
+  text-transform:uppercase;
+}
+
+.birthday-subtitle{
+  margin-top:7px;
+
+  font-size:12px;
+
+  font-weight:900;
+}
+
+.message{
+  max-width:570px;
+
+  margin-top:17px;
+
+  padding:13px 15px;
+
+  border-radius:17px;
+
+  background:rgba(255,255,255,.57);
+
+  border:1px solid rgba(255,255,255,.95);
+
+  font-size:11px;
+
+  font-weight:650;
+
+  line-height:1.48;
+
+  white-space:pre-line;
+}
+
+
+/* MARQUEE */
+
+.marquee{
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:9px;
+
+  overflow:hidden;
+
+  opacity:.045;
+
+  pointer-events:none;
+}
+
+.marquee-inner{
+  width:max-content;
+
+  white-space:nowrap;
+
+  font-size:27px;
+
+  font-weight:950;
+
+  animation:marquee 17s linear infinite;
+}
+
+@keyframes marquee{
+
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(-50%);
+  }
+
+}
+
+
+/* =========================
+REAL CONFETTI
+========================= */
+
+#confetti{
+  position:fixed;
+
+  inset:0;
+
+  z-index:100;
+
+  pointer-events:none;
+
+  overflow:hidden;
+}
+
+.confetti{
+  position:absolute;
+
+  top:-15px;
+
+  width:7px;
+  height:11px;
+
+  border-radius:2px;
+
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+
+  to{
+    transform:
+      translate3d(var(--move),110vh,0)
+      rotate(720deg);
+  }
+
+}
+
+
+/* =========================
+MOBILE / NOTION NARROW
+========================= */
+
+@media(max-width:520px){
+
+  body{
+    padding:7px;
+  }
+
+  .main-card{
+    min-height:220px;
+
+    padding:17px;
+
+    border-radius:22px;
+  }
+
+  .hero{
+    gap:14px;
+  }
+
+  .name{
+    font-size:34px;
+  }
+
+  .number{
+    font-size:45px;
+  }
+
+  .date{
+    font-size:11px;
+  }
+
+  .progress-section{
+    margin-top:17px;
+  }
+
+  .queue-card{
+    padding:12px;
+
+    border-radius:20px;
+  }
+
+  .birthday{
+    min-width:75px;
+
+    flex:0 0 75px;
+  }
+
+  .d1{
+    right:18px;
+  }
+
+  .d3{
+    display:none;
+  }
+
+  .birthday-title{
+    max-width:94%;
+  }
+
+  .message{
+    font-size:10px;
+  }
+
+}
+
+</style>
 </head>
 
 <body>
-  <div id="confetti"></div>
 
-  <main class="widget">
+<div id="confetti"></div>
 
-    <div class="topbar">
-      <div class="brand">
-        <span class="live-dot"></span>
-        🎂 DNK BIRTHDAYS
+<main class="widget">
+
+
+<!-- HEADER -->
+
+<div class="topbar">
+
+  <div class="brand">
+    <span class="dot"></span>
+    🎂 DNK BIRTHDAYS
+  </div>
+
+  <div class="team-pill">
+    7 У КОМАНДІ
+  </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<section class="main-card">
+
+
+<!-- DECOR -->
+
+<div class="decor d1">🎈</div>
+<div class="decor d2">🎂</div>
+<div class="decor d3">🎈</div>
+<div class="decor d4">🎉</div>
+<div class="decor d5">✨</div>
+<div class="decor d6">🎊</div>
+
+
+<!-- NORMAL -->
+
+<div class="normal-content">
+
+  <div class="eyebrow">
+    <span class="eyebrow-dot"></span>
+    НАЙБЛИЖЧИЙ ДЕНЬ НАРОДЖЕННЯ
+  </div>
+
+  <div class="hero">
+
+    <div class="person">
+
+      <div
+        class="name"
+        id="nextName"
+      >
+        —
       </div>
 
-      <div class="team-pill">
-        7 У КОМАНДІ
+      <div
+        class="date"
+        id="nextDate"
+      >
+        —
       </div>
+
     </div>
 
-    <section class="main-card">
 
-      <!-- NORMAL MODE -->
-      <div class="normal-content">
+    <div class="countdown">
 
-        <div class="ghost-number" id="ghostNumber">0</div>
+      <div
+        class="number"
+        id="daysNumber"
+      >
+        —
+      </div>
 
-        <div class="eyebrow">
-          <span class="eyebrow-dot"></span>
-          NEXT BIRTHDAY
-        </div>
+      <div class="count-copy">
 
-        <h1 class="next-name" id="nextName">—</h1>
+        <strong id="daysLabel">
+          ДНІ ДО СВЯТА
+        </strong>
 
-        <div class="next-date" id="nextDate">—</div>
-
-        <div class="countdown-row">
-          <div class="days-number" id="daysNumber">0</div>
-
-          <div class="days-copy">
-            <strong id="daysLabel">ДНІ ДО СВЯТА</strong>
-            <span>DNK birthday radar</span>
-          </div>
-        </div>
-
-        <div class="progress-wrap">
-          <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
-          </div>
-
-          <div class="progress-info">
-            <div class="status" id="statusText">ПОКИ СПОКІЙНО 😌</div>
-            <div class="progress-text" id="progressText">—</div>
-          </div>
-        </div>
-
-        <div class="float-icon one">🎂</div>
-        <div class="float-icon two">✦</div>
-        <div class="float-icon three">🎈</div>
+        <span>
+          birthday radar
+        </span>
 
       </div>
 
-      <!-- BIRTHDAY MODE -->
-      <div class="birthday-content">
-
-        <div class="today-label">
-          ✦ TODAY IS THE DAY
-        </div>
-
-        <h1 class="birthday-big" id="birthdayName">
-          —
-        </h1>
-
-        <div class="birthday-sub">
-          IT'S YOUR BIRTHDAY! 🎉
-        </div>
-
-        <div class="birthday-message" id="birthdayMessage"></div>
-
-        <div class="birthday-sign">
-          WITH LOVE · DNK TEAM 💚
-        </div>
-
-        <div class="float-icon one">🎂</div>
-        <div class="float-icon two">🎉</div>
-        <div class="float-icon three">✦</div>
-
-        <div class="marquee">
-          <div class="marquee-inner">
-            HAPPY BIRTHDAY · HAPPY BIRTHDAY · HAPPY BIRTHDAY · HAPPY BIRTHDAY ·
-            HAPPY BIRTHDAY · HAPPY BIRTHDAY · HAPPY BIRTHDAY · HAPPY BIRTHDAY ·
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-    <section class="upcoming-card">
-
-      <div class="section-head">
-        <div class="section-title">
-          ДАЛІ СВЯТКУЄМО
-        </div>
-
-        <div class="section-note">
-          BIRTHDAY QUEUE
-        </div>
-      </div>
-
-      <div class="birthday-list" id="birthdayList"></div>
-
-    </section>
-
-    <div class="footer">
-      <span>DNK TEAM · PEOPLE FIRST 💚</span>
-      <span>UPDATED AUTOMATICALLY</span>
     </div>
 
-  </main>
+  </div>
 
-  <script>
-    /* =========================================
-       DNK TEAM BIRTHDAYS
 
-       РІК НАРОДЖЕННЯ НЕ ЗБЕРІГАЄМО
-       І НІДЕ НЕ ПОКАЗУЄМО.
-    ========================================== */
+  <div class="progress-section">
 
-    const birthdays = [
-      {
-        id: "nadya",
-        name: "Надя",
-        displayName: "НАДЯ",
-        day: 23,
-        month: 12,
-        message:
+    <div class="progress">
+
+      <div
+        class="progress-bar"
+        id="progressBar"
+      ></div>
+
+    </div>
+
+
+    <div class="progress-bottom">
+
+      <div
+        class="status"
+        id="status"
+      >
+        —
+      </div>
+
+      <div
+        class="remaining"
+        id="remaining"
+      >
+        —
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- BIRTHDAY MODE -->
+
+<div class="birthday-mode-content">
+
+  <div class="today">
+    ✦ TODAY IS THE DAY
+  </div>
+
+  <div
+    class="birthday-title"
+    id="birthdayTitle"
+  >
+    —
+  </div>
+
+  <div class="birthday-subtitle">
+    IT'S YOUR BIRTHDAY! 🎂🎈
+  </div>
+
+  <div
+    class="message"
+    id="birthdayMessage"
+  ></div>
+
+
+  <div class="marquee">
+
+    <div class="marquee-inner">
+      HAPPY BIRTHDAY · HAPPY BIRTHDAY · HAPPY BIRTHDAY · HAPPY BIRTHDAY · HAPPY BIRTHDAY · HAPPY BIRTHDAY ·
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- TIMELINE -->
+
+<section class="queue-card">
+
+  <div class="queue-head">
+
+    <div class="queue-title">
+      ДАЛІ СВЯТКУЄМО
+    </div>
+
+    <div class="queue-note">
+      BIRTHDAY QUEUE →
+    </div>
+
+  </div>
+
+
+  <div
+    class="timeline"
+    id="timeline"
+  ></div>
+
+</section>
+
+
+<div class="footer">
+
+  <span>
+    DNK TEAM · PEOPLE FIRST 💚
+  </span>
+
+  <span>
+    BIRTHDAY RADAR
+  </span>
+
+</div>
+
+</main>
+
+
+
+<script>
+
+/* =========================
+TEAM
+NO BIRTH YEARS
+========================= */
+
+const birthdays=[
+
+{
+  id:"nadya",
+  name:"Надя",
+  title:"НАДЯ!",
+  day:23,
+  month:12,
+  message:
 `Бажаємо контенту, який залітає з першого разу, клієнтів, які пишуть «все супер, погоджено» 💚
 І побільше днів, коли о 18:00 реально можна закрити Notion 😌`
-      },
+},
 
-      {
-        id: "yehor",
-        name: "Єгор",
-        displayName: "ЄГОР",
-        day: 3,
-        month: 3,
-        message:
+{
+  id:"yehor",
+  name:"Єгор",
+  title:"ЄГОР!",
+  day:3,
+  month:3,
+  message:
 `Бажаємо поменше «а давайте ще один варіант» і побільше дизайнів, які погоджують з першого разу 😭
 Натхнення, крутих ідей і часу доводити до ідеалу тільки те, що справді цього варте 🖤`
-      },
+},
 
-      {
-        id: "anya_pm",
-        name: "Аня — Проджект",
-        displayName: "АНЯ!",
-        day: 15,
-        month: 4,
-        message:
+{
+  id:"anya_pm",
+  name:"Аня — Проджект",
+  title:"АНЯ!",
+  day:15,
+  month:4,
+  message:
 `Бажаємо, щоб усі дедлайни закривались самі, клієнти відповідали вчасно, а команда ніколи не писала «ой, я забула» 😂
 І хоча б сьогодні — ніякого контролю 💚`
-      },
+},
 
-      {
-        id: "nastya",
-        name: "Настя",
-        displayName: "НАСТЯ",
-        day: 15,
-        month: 2,
-        message:
+{
+  id:"nastya",
+  name:"Настя",
+  title:"НАСТЯ!",
+  day:15,
+  month:2,
+  message:
 `Бажаємо, щоб DNK ріс, команда радувала, клієнти не чудили, а всі твої найбожевільніші ідеї ставали реальністю 😂
 Дякуємо за найкраще керівництво, підтримку і за те, що з тобою хочеться рости разом 🖤`
-      },
+},
 
-      {
-        id: "dasha",
-        name: "Даша",
-        displayName: "ДАША",
-        day: 18,
-        month: 11,
-        message:
+{
+  id:"dasha",
+  name:"Даша",
+  title:"ДАША!",
+  day:18,
+  month:11,
+  message:
 `Нехай контент залітає, ідеї не закінчуються, а правки закінчуються дуже швидко 😂
 Побільше класних проєктів, натхнення і приводів кайфувати від того, що робиш 💚`
-      },
+},
 
-      {
-        id: "svitlana",
-        name: "Свєта",
-        displayName: "СВЄТА",
-        day: 30,
-        month: 1,
-        message:
+{
+  id:"svitlana",
+  name:"Свєта",
+  title:"СВЄТА!",
+  day:30,
+  month:1,
+  message:
 `Бажаємо нескінченного запасу ідей, легких погоджень і Reels, які самі набирають охоплення 😌
 А все, що сьогодні не встиглось, — офіційно переноситься на завтра 💚`
-      },
+},
 
-      {
-        id: "anya_target",
-        name: "Аня — Таргетолог",
-        displayName: "АНЯ!",
-        day: 9,
-        month: 7,
-        message:
+{
+  id:"anya_target",
+  name:"Аня — Таргетолог",
+  title:"АНЯ!",
+  day:9,
+  month:7,
+  message:
 `Бажаємо дешевих лідів, красивих цифр у кабінеті й кампаній, які працюють краще, ніж прогнозували 😎
 А сьогодні єдиний бюджет, який треба контролювати, — бюджет на святкування 🥂`
+}
+
+];
+
+
+const months=[
+"січня",
+"лютого",
+"березня",
+"квітня",
+"травня",
+"червня",
+"липня",
+"серпня",
+"вересня",
+"жовтня",
+"листопада",
+"грудня"
+];
+
+
+const shortMonths=[
+"СІЧ",
+"ЛЮТ",
+"БЕР",
+"КВІ",
+"ТРА",
+"ЧЕР",
+"ЛИП",
+"СЕР",
+"ВЕР",
+"ЖОВ",
+"ЛИС",
+"ГРУ"
+];
+
+
+const DAY=86400000;
+
+
+/* =========================
+KYIV DATE
+========================= */
+
+function kyivToday(){
+
+  const formatter=
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:"Europe/Kyiv",
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit"
       }
-    ];
+    );
 
-    const months = [
-      "січня",
-      "лютого",
-      "березня",
-      "квітня",
-      "травня",
-      "червня",
-      "липня",
-      "серпня",
-      "вересня",
-      "жовтня",
-      "листопада",
-      "грудня"
-    ];
+  const parts=
+    formatter.formatToParts(
+      new Date()
+    );
 
-    const shortMonths = [
-      "СІЧ",
-      "ЛЮТ",
-      "БЕР",
-      "КВІ",
-      "ТРА",
-      "ЧЕР",
-      "ЛИП",
-      "СЕР",
-      "ВЕР",
-      "ЖОВ",
-      "ЛИС",
-      "ГРУ"
-    ];
+  return{
 
-    const MS_DAY = 1000 * 60 * 60 * 24;
+    year:Number(
+      parts.find(
+        x=>x.type==="year"
+      ).value
+    ),
 
-    function kyivToday() {
-      const formatter = new Intl.DateTimeFormat("en-CA", {
-        timeZone: "Europe/Kyiv",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      });
+    month:Number(
+      parts.find(
+        x=>x.type==="month"
+      ).value
+    ),
 
-      const parts = formatter.formatToParts(new Date());
+    day:Number(
+      parts.find(
+        x=>x.type==="day"
+      ).value
+    )
 
-      const year = Number(
-        parts.find(p => p.type === "year").value
-      );
+  };
 
-      const month = Number(
-        parts.find(p => p.type === "month").value
-      );
+}
 
-      const day = Number(
-        parts.find(p => p.type === "day").value
-      );
 
-      return { year, month, day };
-    }
+function utcDate(y,m,d){
 
-    function utcDate(year, month, day) {
-      return new Date(Date.UTC(year, month - 1, day));
-    }
+  return new Date(
+    Date.UTC(
+      y,
+      m-1,
+      d
+    )
+  );
 
-    function daysBetween(a, b) {
-      return Math.round((b - a) / MS_DAY);
-    }
+}
 
-    function getBirthdayData(person, today) {
-      const todayDate = utcDate(
-        today.year,
-        today.month,
-        today.day
-      );
 
-      let birthdayDate = utcDate(
-        today.year,
+function daysBetween(a,b){
+
+  return Math.round(
+    (b-a)/DAY
+  );
+
+}
+
+
+/* =========================
+NEXT BIRTHDAY
+========================= */
+
+function prepareBirthday(
+  person,
+  today
+){
+
+  const todayDate=
+    utcDate(
+      today.year,
+      today.month,
+      today.day
+    );
+
+
+  let next=
+    utcDate(
+      today.year,
+      person.month,
+      person.day
+    );
+
+
+  let days=
+    daysBetween(
+      todayDate,
+      next
+    );
+
+
+  if(days<0){
+
+    next=
+      utcDate(
+        today.year+1,
         person.month,
         person.day
       );
 
-      let days = daysBetween(todayDate, birthdayDate);
-
-      if (days < 0) {
-        birthdayDate = utcDate(
-          today.year + 1,
-          person.month,
-          person.day
-        );
-
-        days = daysBetween(todayDate, birthdayDate);
-      }
-
-      return {
-        ...person,
-        nextDate: birthdayDate,
-        days
-      };
-    }
-
-    function getSortedBirthdays() {
-      const today = kyivToday();
-
-      return birthdays
-        .map(person => getBirthdayData(person, today))
-        .sort((a, b) => a.days - b.days);
-    }
-
-    function formatDate(person) {
-      return `${person.day} ${months[person.month - 1]}`;
-    }
-
-    function formatShortDate(person) {
-      return `${String(person.day).padStart(2, "0")} ${shortMonths[person.month - 1]}`;
-    }
-
-    function getDaysWord(number) {
-      const n = Math.abs(number) % 100;
-      const n1 = n % 10;
-
-      if (n > 10 && n < 20) return "ДНІВ";
-      if (n1 === 1) return "ДЕНЬ";
-      if (n1 >= 2 && n1 <= 4) return "ДНІ";
-      return "ДНІВ";
-    }
-
-    function getStatus(days) {
-      if (days === 0) return "СЬОГОДНІ ГУЛЯЄМО 🎉";
-      if (days === 1) return "ЗАВТРА 👀";
-      if (days <= 6) return "ГОТУЄМО ПОДАРУНОК 🎁";
-      if (days <= 13) return "СКОРО СВЯТКУЄМО 🎈";
-      if (days <= 30) return "ВЖЕ НА РАДАРІ 👀";
-      return "ПОКИ СПОКІЙНО 😌";
-    }
-
-    function getProgress(days) {
-      /*
-        Це не "відсоток року".
-        Це просто візуальний birthday radar:
-        чим ближче дата — тим більше заповнюється смуга.
-      */
-
-      const radarWindow = 60;
-
-      if (days >= radarWindow) return 5;
-      if (days <= 0) return 100;
-
-      return Math.max(
-        5,
-        Math.min(
-          100,
-          ((radarWindow - days) / radarWindow) * 100
-        )
+    days=
+      daysBetween(
+        todayDate,
+        next
       );
+
+  }
+
+
+  return{
+    ...person,
+    days,
+    next
+  };
+
+}
+
+
+function sortedBirthdays(){
+
+  const today=
+    kyivToday();
+
+
+  return birthdays
+    .map(
+      person=>
+        prepareBirthday(
+          person,
+          today
+        )
+    )
+    .sort(
+      (a,b)=>
+        a.days-b.days
+    );
+
+}
+
+
+/* =========================
+TEXT
+========================= */
+
+function fullDate(person){
+
+  return(
+    person.day+
+    " "+
+    months[
+      person.month-1
+    ]
+  );
+
+}
+
+
+function statusText(days){
+
+  if(days===0)
+    return "СЬОГОДНІ ГУЛЯЄМО 🎉";
+
+  if(days===1)
+    return "ВЖЕ ЗАВТРА 👀";
+
+  if(days<=6)
+    return "ГОТУЄМО ПОДАРУНОК 🎁";
+
+  if(days<=13)
+    return "СКОРО СВЯТКУЄМО 🎈";
+
+  if(days<=30)
+    return "ВЖЕ НА РАДАРІ 👀";
+
+  return "ПОКИ СПОКІЙНО 😌";
+
+}
+
+
+function dayWord(n){
+
+  const a=
+    Math.abs(n)%100;
+
+  const b=
+    a%10;
+
+
+  if(
+    a>10 &&
+    a<20
+  )
+    return "ДНІВ";
+
+
+  if(b===1)
+    return "ДЕНЬ";
+
+
+  if(
+    b>=2 &&
+    b<=4
+  )
+    return "ДНІ";
+
+
+  return "ДНІВ";
+
+}
+
+
+/* =========================
+PROGRESS
+========================= */
+
+function progressValue(days){
+
+  const windowDays=60;
+
+  if(days>=windowDays)
+    return 5;
+
+  if(days<=0)
+    return 100;
+
+
+  return Math.max(
+    5,
+    (
+      (
+        windowDays-days
+      )
+      /
+      windowDays
+    )
+    *100
+  );
+
+}
+
+
+/* =========================
+NORMAL RENDER
+========================= */
+
+function renderNormal(person){
+
+  document
+    .getElementById(
+      "nextName"
+    )
+    .textContent=
+      person.name;
+
+
+  document
+    .getElementById(
+      "nextDate"
+    )
+    .textContent=
+      fullDate(person);
+
+
+  document
+    .getElementById(
+      "daysNumber"
+    )
+    .textContent=
+      person.days;
+
+
+  document
+    .getElementById(
+      "daysLabel"
+    )
+    .textContent=
+      dayWord(person.days)
+      +" ДО СВЯТА";
+
+
+  document
+    .getElementById(
+      "status"
+    )
+    .textContent=
+      statusText(
+        person.days
+      );
+
+
+  document
+    .getElementById(
+      "remaining"
+    )
+    .textContent=
+      person.days===1
+      ?
+      "ще 1 день"
+      :
+      "ще "+
+      person.days+
+      " дн.";
+
+
+  requestAnimationFrame(
+    ()=>{
+
+      document
+        .getElementById(
+          "progressBar"
+        )
+        .style.width=
+          progressValue(
+            person.days
+          )+"%";
+
     }
+  );
 
-    function renderNormal(next) {
-      document.getElementById("nextName").textContent =
-        next.displayName;
+}
 
-      document.getElementById("nextDate").textContent =
-        formatDate(next);
 
-      document.getElementById("daysNumber").textContent =
-        next.days;
+/* =========================
+TIMELINE
+========================= */
 
-      document.getElementById("ghostNumber").textContent =
-        next.days;
+function renderTimeline(
+  sorted
+){
 
-      document.getElementById("daysLabel").textContent =
-        `${getDaysWord(next.days)} ДО СВЯТА`;
+  const container=
+    document.getElementById(
+      "timeline"
+    );
 
-      document.getElementById("statusText").textContent =
-        getStatus(next.days);
 
-      document.getElementById("progressText").textContent =
-        next.days === 1
-          ? "ще 1 день"
-          : `ще ${next.days} дн.`;
+  container.innerHTML="";
 
-      const progress = getProgress(next.days);
 
-      requestAnimationFrame(() => {
-        document.getElementById("progressBar").style.width =
-          `${progress}%`;
-      });
-    }
+  sorted.forEach(
+    (
+      person,
+      index
+    )=>{
 
-    function renderBirthday(person) {
-      document.body.classList.add("birthday-mode");
-
-      document.getElementById("birthdayName").textContent =
-        `З ДНЕМ НАРОДЖЕННЯ, ${person.displayName}`;
-
-      document.getElementById("birthdayMessage").textContent =
-        person.message;
-
-      launchConfetti();
-    }
-
-    function renderList(sorted) {
-      const list = document.getElementById("birthdayList");
-      list.innerHTML = "";
-
-      /*
-        Якщо сьогодні чийсь ДН —
-        його не дублюємо першим у нижньому списку.
-        Показуємо наступні свята.
-      */
-
-      let listPeople = sorted;
-
-      if (sorted[0] && sorted[0].days === 0) {
-        const birthdayPerson = sorted[0];
-        const today = kyivToday();
-
-        listPeople = birthdays
-          .filter(person => person.id !== birthdayPerson.id)
-          .map(person => getBirthdayData(person, today))
-          .sort((a, b) => a.days - b.days);
-
-        const nextYearBirthday = {
-          ...birthdayPerson,
-          nextDate: utcDate(
-            today.year + 1,
-            birthdayPerson.month,
-            birthdayPerson.day
-          )
-        };
-
-        const todayDate = utcDate(
-          today.year,
-          today.month,
-          today.day
+      const item=
+        document.createElement(
+          "div"
         );
 
-        nextYearBirthday.days = daysBetween(
-          todayDate,
-          nextYearBirthday.nextDate
-        );
 
-        listPeople.push(nextYearBirthday);
-        listPeople.sort((a, b) => a.days - b.days);
-      }
+      item.className=
+        "birthday";
 
-      listPeople.forEach((person, index) => {
-        const row = document.createElement("div");
-        row.className = "birthday-row";
 
-        let daysText;
+      let icon="";
 
-        if (person.days === 0) {
-          daysText = "СЬОГОДНІ 🎉";
-        } else if (person.days === 1) {
-          daysText = "ЗАВТРА";
-        } else {
-          daysText = `через ${person.days} дн.`;
-        }
+      if(index===0)
+        icon="🎂";
 
-        row.innerHTML = `
-          <div class="position">
-            ${String(index + 1).padStart(2, "0")}
-          </div>
+      else if(index===1)
+        icon="🎈";
 
-          <div>
-            <div class="person-name">
-              ${person.name}
-            </div>
+      else if(index===2)
+        icon="✨";
 
-            <div class="person-date">
-              ${formatShortDate(person)}
-            </div>
-          </div>
+      else
+        icon="";
 
-          <div class="person-days">
-            ${daysText}
-          </div>
-        `;
 
-        list.appendChild(row);
-      });
+      let daysText;
+
+
+      if(person.days===0)
+        daysText="СЬОГОДНІ";
+
+      else if(person.days===1)
+        daysText="ЗАВТРА";
+
+      else
+        daysText=
+          "через "+
+          person.days+
+          " дн.";
+
+
+      item.innerHTML=`
+
+        <div class="bday-icon">
+          ${icon}
+        </div>
+
+        <div class="bday-date">
+          ${String(
+            person.day
+          ).padStart(
+            2,
+            "0"
+          )}
+        </div>
+
+        <div class="bday-month">
+          ${
+            shortMonths[
+              person.month-1
+            ]
+          }
+        </div>
+
+        <div class="bday-name">
+          ${person.name}
+        </div>
+
+        <div class="bday-days">
+          ${daysText}
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        item
+      );
+
     }
+  );
 
-    function launchConfetti() {
-      const container =
-        document.getElementById("confetti");
+}
 
-      const colors = [
-        "#00f500",
-        "#111111",
-        "#ffffff",
-        "#bdbdbd"
+
+/* =========================
+BIRTHDAY MODE
+========================= */
+
+function renderBirthday(
+  person
+){
+
+  document.body
+    .classList
+    .add(
+      "birthday-mode"
+    );
+
+
+  document
+    .getElementById(
+      "birthdayTitle"
+    )
+    .textContent=
+      "З ДНЕМ НАРОДЖЕННЯ, "+
+      person.title;
+
+
+  document
+    .getElementById(
+      "birthdayMessage"
+    )
+    .textContent=
+      person.message;
+
+
+  launchConfetti();
+
+}
+
+
+/* =========================
+CONFETTI
+========================= */
+
+function launchConfetti(){
+
+  const holder=
+    document.getElementById(
+      "confetti"
+    );
+
+
+  const colors=[
+    "#00f500",
+    "#111111",
+    "#ffffff",
+    "#ff4fa3",
+    "#ffd43b"
+  ];
+
+
+  for(
+    let i=0;
+    i<80;
+    i++
+  ){
+
+    const piece=
+      document.createElement(
+        "div"
+      );
+
+
+    piece.className=
+      "confetti";
+
+
+    piece.style.left=
+      Math.random()*100+
+      "%";
+
+
+    piece.style.background=
+      colors[
+        Math.floor(
+          Math.random()*
+          colors.length
+        )
       ];
 
-      const amount = 75;
 
-      for (let i = 0; i < amount; i++) {
-        const piece = document.createElement("div");
+    piece.style.animationDuration=
+      (
+        2+
+        Math.random()*2
+      )+
+      "s";
 
-        piece.className = "confetti-piece";
 
-        piece.style.left =
-          `${Math.random() * 100}%`;
+    piece.style.animationDelay=
+      (
+        Math.random()*.8
+      )+
+      "s";
 
-        piece.style.background =
-          colors[
-            Math.floor(Math.random() * colors.length)
-          ];
 
-        piece.style.animationDuration =
-          `${2.2 + Math.random() * 1.8}s`;
+    piece.style.setProperty(
+      "--move",
+      (
+        -90+
+        Math.random()*180
+      )+
+      "px"
+    );
 
-        piece.style.animationDelay =
-          `${Math.random() * 0.9}s`;
 
-        piece.style.setProperty(
-          "--drift",
-          `${-80 + Math.random() * 160}px`
-        );
+    if(
+      Math.random()>.65
+    ){
 
-        piece.style.transform =
-          `rotate(${Math.random() * 360}deg)`;
+      piece.style.borderRadius=
+        "50%";
 
-        if (Math.random() > 0.55) {
-          piece.style.borderRadius = "50%";
-          piece.style.width = "8px";
-          piece.style.height = "8px";
-        }
+      piece.style.width=
+        "7px";
 
-        container.appendChild(piece);
-      }
+      piece.style.height=
+        "7px";
 
-      setTimeout(() => {
-        container.innerHTML = "";
-      }, 5000);
     }
 
-    function init() {
-      const sorted = getSortedBirthdays();
 
-      if (!sorted.length) return;
+    holder.appendChild(
+      piece
+    );
 
-      const next = sorted[0];
+  }
 
-      if (next.days === 0) {
-        renderBirthday(next);
-      } else {
-        renderNormal(next);
-      }
 
-      renderList(sorted);
-    }
+  setTimeout(
+    ()=>{
+      holder.innerHTML="";
+    },
+    5000
+  );
 
-    init();
-  </script>
+}
+
+
+/* =========================
+START
+========================= */
+
+function init(){
+
+  const sorted=
+    sortedBirthdays();
+
+
+  if(!sorted.length)
+    return;
+
+
+  const next=
+    sorted[0];
+
+
+  if(next.days===0){
+
+    renderBirthday(
+      next
+    );
+
+  }
+
+  else{
+
+    renderNormal(
+      next
+    );
+
+  }
+
+
+  renderTimeline(
+    sorted
+  );
+
+}
+
+
+init();
+
+</script>
+
 </body>
 </html>
