@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DNK — New Year Preview</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --green:#00f500;
+  --red:#ff3b30;
+  --orange:#ff9500;
+  --text:#111;
+  --muted:#929292;
+  --bg:#f7f7f5;
+}
+
+body{
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 95% 0%,
+      rgba(0,245,0,.08),
+      transparent 30%
+    ),
+    var(--bg);
+
+  color:var(--text);
+
+  padding:10px 6px 20px;
+}
+
+
+/* =========================
+   PREVIEW NAVIGATION
+========================= */
+
+.preview-nav{
+  width:100%;
+  max-width:320px;
+
+  margin:0 auto 7px;
+
+  display:grid;
+  grid-template-columns:32px 1fr 32px;
+  gap:5px;
+  align-items:center;
+}
+
+.nav-btn{
+  height:29px;
+
+  border:0;
+  border-radius:10px;
+
+  background:#111;
+  color:white;
+
+  cursor:pointer;
+
+  font-size:13px;
+  font-weight:900;
+
+  transition:.15s ease;
+}
+
+.nav-btn:hover{
+  transform:translateY(-1px);
+}
+
+.nav-center{
+  height:29px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:rgba(255,255,255,.75);
+
+  border:1px solid rgba(255,255,255,.95);
+
+  box-shadow:
+    0 5px 16px rgba(0,0,0,.04);
+
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.05em;
+}
+
+
+/* =========================
+   WIDGET
+========================= */
+
+.widget{
+  width:100%;
+  max-width:320px;
+  margin:auto;
+}
+
+.card{
+  padding:11px 12px 9px;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.94),
+      rgba(255,255,255,.72)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.96);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.055),
+    inset 0 1px 0 white;
+
+  backdrop-filter:blur(20px);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+
+  padding-bottom:8px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:5px;
+
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:.10em;
+}
+
+.dot{
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  box-shadow:
+    0 0 8px rgba(0,245,0,.55);
+
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  50%{
+    opacity:.4;
+    transform:scale(.8);
+  }
+}
+
+.today{
+  color:#aaa;
+
+  font-size:6px;
+  font-weight:850;
+  letter-spacing:.05em;
+
+  white-space:nowrap;
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{
+  margin-top:7px;
+}
+
+.section:first-of-type{
+  margin-top:0;
+}
+
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:8px;
+
+  margin-bottom:5px;
+}
+
+.section-title{
+  color:#777;
+
+  font-size:6px;
+  font-weight:950;
+  letter-spacing:.09em;
+}
+
+.section-count{
+  color:#aaa;
+
+  font-size:5.5px;
+  font-weight:900;
+}
+
+
+/* =========================
+   IMPORTANT EVENT
+========================= */
+
+.important-list{
+  display:grid;
+  gap:4px;
+}
+
+.event{
+  position:relative;
+
+  padding:7px 8px 7px 10px;
+
+  border-radius:11px;
+
+  background:
+    linear-gradient(
+      100deg,
+      rgba(0,185,90,.055),
+      rgba(255,255,255,.72)
+    );
+
+  border:
+    1px solid rgba(0,0,0,.03);
+
+  overflow:hidden;
+}
+
+.event::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:2px;
+
+  background:#00b85a;
+}
+
+.event.christmas::before{
+  background:#168d51;
+}
+
+.event.newyear::before{
+  background:#00b85a;
+}
+
+.event-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:7px;
+}
+
+.event-date{
+  display:flex;
+  align-items:center;
+
+  gap:4px;
+
+  font-size:6.5px;
+  font-weight:950;
+  letter-spacing:.04em;
+}
+
+.emoji{
+  font-size:10px;
+}
+
+.badge{
+  flex-shrink:0;
+
+  padding:3px 5px;
+
+  border-radius:999px;
+
+  background:
+    rgba(0,185,90,.09);
+
+  color:#078247;
+
+  font-size:5.3px;
+  font-weight:950;
+  letter-spacing:.04em;
+}
+
+.event-name{
+  margin-top:3px;
+
+  font-size:8.5px;
+  line-height:1.18;
+
+  font-weight:900;
+}
+
+
+/* =========================
+   TOMORROW
+========================= */
+
+.tomorrow{
+  padding:7px 8px;
+
+  border-radius:11px;
+
+  background:
+    rgba(17,17,17,.025);
+}
+
+.tomorrow-date{
+  margin-bottom:5px;
+
+  color:#999;
+
+  font-size:5.8px;
+  font-weight:950;
+  letter-spacing:.07em;
+}
+
+.tomorrow-list{
+  display:grid;
+  gap:4px;
+}
+
+.tomorrow-row{
+  display:grid;
+
+  grid-template-columns:14px minmax(0,1fr);
+
+  gap:3px;
+
+  align-items:start;
+
+  font-size:7.3px;
+  line-height:1.25;
+
+  font-weight:850;
+}
+
+.tomorrow-emoji{
+  font-size:9px;
+}
+
+.empty{
+  color:#aaa;
+
+  font-size:6.5px;
+  font-weight:800;
+}
+
+
+/* =========================
+   NEXT
+========================= */
+
+.next{
+  display:grid;
+
+  grid-template-columns:
+    auto
+    minmax(0,1fr)
+    auto;
+
+  align-items:center;
+
+  gap:5px;
+
+  margin-top:7px;
+  padding-top:7px;
+
+  border-top:
+    1px solid rgba(0,0,0,.045);
+}
+
+.next-label{
+  color:#aaa;
+
+  font-size:5.3px;
+  font-weight:950;
+  letter-spacing:.07em;
+}
+
+.next-name{
+  overflow:hidden;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
+
+  font-size:6.3px;
+  font-weight:850;
+}
+
+.next-date{
+  color:#888;
+
+  font-size:5.5px;
+  font-weight:900;
+
+  white-space:nowrap;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+
+  padding-top:7px;
+
+  color:#c1c1c1;
+
+  font-size:4.8px;
+  font-weight:850;
+  letter-spacing:.07em;
+}
+
+
+/* =========================
+   LITTLE CHRISTMAS EFFECT
+========================= */
+
+.snow{
+  pointer-events:none;
+
+  position:fixed;
+
+  inset:0;
+
+  overflow:hidden;
+
+  z-index:-1;
+}
+
+.snow span{
+  position:absolute;
+
+  top:-20px;
+
+  opacity:.20;
+
+  animation:
+    fall linear infinite;
+}
+
+@keyframes fall{
+
+  to{
+    transform:
+      translateY(110vh)
+      rotate(360deg);
+  }
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:300px){
+
+  .card{
+    padding:10px;
+  }
+
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- PREVIEW CONTROL -->
+
+<div class="preview-nav">
+
+  <button
+    class="nav-btn"
+    id="prev"
+  >
+    ←
+  </button>
+
+
+  <div
+    class="nav-center"
+    id="previewLabel"
+  >
+  </div>
+
+
+  <button
+    class="nav-btn"
+    id="next"
+  >
+    →
+  </button>
+
+</div>
+
+
+
+<!-- INFO WIDGET -->
+
+<div class="widget">
+
+  <div class="card">
+
+    <div class="header">
+
+      <div class="brand">
+
+        <span class="dot"></span>
+
+        📡 ІНФОПРИВОДЕР
+
+      </div>
+
+
+      <div
+        class="today"
+        id="today"
+      ></div>
+
+    </div>
+
+
+
+    <!-- IMPORTANT -->
+
+    <section
+      class="section"
+      id="importantSection"
+    >
+
+      <div class="section-head">
+
+        <div class="section-title">
+          🔴 ВАЖЛИВІ НАГАДУВАННЯ
+        </div>
+
+        <div
+          class="section-count"
+          id="importantCount"
+        ></div>
+
+      </div>
+
+
+      <div
+        class="important-list"
+        id="importantList"
+      ></div>
+
+    </section>
+
+
+
+    <!-- TOMORROW -->
+
+    <section class="section">
+
+      <div class="section-head">
+
+        <div class="section-title">
+          ЗАВТРА
+        </div>
+
+        <div
+          class="section-count"
+          id="tomorrowCount"
+        ></div>
+
+      </div>
+
+
+      <div class="tomorrow">
+
+        <div
+          class="tomorrow-date"
+          id="tomorrowDate"
+        ></div>
+
+
+        <div
+          class="tomorrow-list"
+          id="tomorrowList"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- NEXT -->
+
+    <div
+      class="next"
+      id="nextBlock"
+    >
+
+      <div class="next-label">
+        ДАЛІ →
+      </div>
+
+
+      <div
+        class="next-name"
+        id="nextName"
+      ></div>
+
+
+      <div
+        class="next-date"
+        id="nextDate"
+      ></div>
+
+    </div>
+
+
+
+    <div class="footer">
+
+      <span>
+        DNK · CONTENT RADAR
+      </span>
+
+      <span>
+        PREVIEW
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<div
+  class="snow"
+  id="snow"
+></div>
+
+
+
+<script>
+
+/* ==========================================
+   DATES WE WANT TO PREVIEW
+========================================== */
+
+const previewDates = [
+
+  {
+    year:2026,
+    month:12,
+    day:22
+  },
+
+  {
+    year:2026,
+    month:12,
+    day:25
+  },
+
+  {
+    year:2026,
+    month:12,
+    day:28
+  },
+
+  {
+    year:2026,
+    month:12,
+    day:31
+  },
+
+  {
+    year:2027,
+    month:1,
+    day:1
+  }
+
+];
+
+
+let currentIndex = 0;
+
+
+const DAY =
+  24 * 60 * 60 * 1000;
+
+
+const MONTHS = [
+
+  "СІЧНЯ",
+  "ЛЮТОГО",
+  "БЕРЕЗНЯ",
+  "КВІТНЯ",
+  "ТРАВНЯ",
+  "ЧЕРВНЯ",
+  "ЛИПНЯ",
+  "СЕРПНЯ",
+  "ВЕРЕСНЯ",
+  "ЖОВТНЯ",
+  "ЛИСТОПАДА",
+  "ГРУДНЯ"
+
+];
+
+
+const WEEKDAYS = [
+
+  "НД",
+  "ПН",
+  "ВТ",
+  "СР",
+  "ЧТ",
+  "ПТ",
+  "СБ"
+
+];
+
+
+function makeDate(
+  year,
+  month,
+  day
+){
+
+  return new Date(
+    Date.UTC(
+      year,
+      month - 1,
+      day
+    )
+  );
+
+}
+
+
+function formatDate(date){
+
+  return (
+    date.getUTCDate()
+    +
+    " "
+    +
+    MONTHS[
+      date.getUTCMonth()
+    ]
+  );
+
+}
+
+
+function difference(
+  start,
+  end
+){
+
+  return Math.round(
+    (
+      end.getTime()
+      -
+      start.getTime()
+    )
+    /
+    DAY
+  );
+
+}
+
+
+/* ==========================================
+   TEST EVENT DATABASE
+========================================== */
+
+const events = [
+
+  {
+    date:makeDate(
+      2026,
+      12,
+      25
+    ),
+
+    name:
+      "Різдво Христове",
+
+    emoji:
+      "🎄",
+
+    reminder:
+      1,
+
+    theme:
+      "christmas"
+  },
+
+
+  {
+    date:makeDate(
+      2026,
+      12,
+      26
+    ),
+
+    name:
+      "День подарунків",
+
+    emoji:
+      "🎁",
+
+    reminder:
+      1,
+
+    theme:
+      "christmas"
+  },
+
+
+  {
+    date:makeDate(
+      2026,
+      12,
+      31
+    ),
+
+    name:
+      "Переддень Нового року",
+
+    emoji:
+      "✨",
+
+    reminder:
+      1,
+
+    theme:
+      "newyear"
+  },
+
+
+  {
+    date:makeDate(
+      2027,
+      1,
+      1
+    ),
+
+    name:
+      "Новий рік",
+
+    emoji:
+      "🥂",
+
+    reminder:
+      10,
+
+    theme:
+      "newyear"
+  },
+
+
+  {
+    date:makeDate(
+      2027,
+      1,
+      4
+    ),
+
+    name:
+      "Всесвітній день абетки Брайля",
+
+    emoji:
+      "🤍",
+
+    reminder:
+      1,
+
+    theme:
+      "social"
+  }
+
+];
+
+
+/* ==========================================
+   BADGE
+========================================== */
+
+function badgeText(days){
+
+  if(days === 0){
+    return "СЬОГОДНІ";
+  }
+
+
+  if(days === 1){
+    return "ЗАВТРА";
+  }
+
+
+  if(days === 2){
+    return "ЧЕРЕЗ 2 ДНІ";
+  }
+
+
+  if(days === 3){
+    return "ЧЕРЕЗ 3 ДНІ";
+  }
+
+
+  if(days === 4){
+    return "ЧЕРЕЗ 4 ДНІ";
+  }
+
+
+  return (
+    "ЧЕРЕЗ "
+    +
+    days
+    +
+    " ДНІВ"
+  );
+
+}
+
+
+/* ==========================================
+   RENDER
+========================================== */
+
+function render(){
+
+  const selected =
+    previewDates[
+      currentIndex
+    ];
+
+
+  const today =
+    makeDate(
+      selected.year,
+      selected.month,
+      selected.day
+    );
+
+
+  const tomorrow =
+    new Date(
+      today.getTime()
+      +
+      DAY
+    );
+
+
+  /* PREVIEW LABEL */
+
+  document
+    .getElementById(
+      "previewLabel"
+    )
+    .textContent =
+      "ТЕСТ · "
+      +
+      formatDate(today);
+
+
+  /* HEADER DATE */
+
+  document
+    .getElementById(
+      "today"
+    )
+    .textContent =
+      WEEKDAYS[
+        today.getUTCDay()
+      ]
+      +
+      " · "
+      +
+      formatDate(today);
+
+
+  /* PREPARE EVENTS */
+
+  const calendar =
+    events
+      .map(event => ({
+
+        ...event,
+
+        days:
+          difference(
+            today,
+            event.date
+          )
+
+      }))
+      .filter(event =>
+        event.days >= 0
+      )
+      .sort(
+        (a,b) =>
+          a.date.getTime()
+          -
+          b.date.getTime()
+      );
+
+
+  /* =========================
+     IMPORTANT
+  ========================= */
+
+  const important =
+    calendar.filter(event =>
+
+      event.reminder > 1
+
+      &&
+
+      event.days
+      <=
+      event.reminder
+
+  );
+
+
+  const importantSection =
+    document.getElementById(
+      "importantSection"
+    );
+
+
+  const importantList =
+    document.getElementById(
+      "importantList"
+    );
+
+
+  importantList.innerHTML = "";
+
+
+  if(
+    important.length === 0
+  ){
+
+    importantSection.style.display =
+      "none";
+
+  }
+
+  else{
+
+    importantSection.style.display =
+      "block";
+
+
+    document
+      .getElementById(
+        "importantCount"
+      )
+      .textContent =
+        important.length;
+
+
+    important.forEach(
+      event => {
+
+        const item =
+          document.createElement(
+            "div"
+          );
+
+
+        item.className =
+          "event "
+          +
+          event.theme;
+
+
+        item.innerHTML = `
+
+          <div class="event-top">
+
+            <div class="event-date">
+
+              <span class="emoji">
+                ${event.emoji}
+              </span>
+
+              ${formatDate(event.date)}
+
+            </div>
+
+
+            <div class="badge">
+              ${badgeText(event.days)}
+            </div>
+
+          </div>
+
+
+          <div class="event-name">
+            ${event.name}
+          </div>
+
+        `;
+
+
+        importantList.appendChild(
+          item
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =========================
+     TOMORROW
+  ========================= */
+
+  const tomorrowEvents =
+    calendar.filter(event =>
+
+      event.days === 1
+
+      &&
+
+      event.reminder === 1
+
+    );
+
+
+  document
+    .getElementById(
+      "tomorrowDate"
+    )
+    .textContent =
+      formatDate(
+        tomorrow
+      );
+
+
+  document
+    .getElementById(
+      "tomorrowCount"
+    )
+    .textContent =
+      tomorrowEvents.length
+      ?
+      tomorrowEvents.length
+      :
+      "";
+
+
+  const tomorrowList =
+    document.getElementById(
+      "tomorrowList"
+    );
+
+
+  tomorrowList.innerHTML = "";
+
+
+  if(
+    tomorrowEvents.length === 0
+  ){
+
+    tomorrowList.innerHTML = `
+
+      <div class="empty">
+        На завтра додаткових інфоприводів немає
+      </div>
+
+    `;
+
+  }
+
+  else{
+
+    tomorrowEvents.forEach(
+      event => {
+
+        const row =
+          document.createElement(
+            "div"
+          );
+
+
+        row.className =
+          "tomorrow-row";
+
+
+        row.innerHTML = `
+
+          <div class="tomorrow-emoji">
+            ${event.emoji}
+          </div>
+
+          <div>
+            ${event.name}
+          </div>
+
+        `;
+
+
+        tomorrowList.appendChild(
+          row
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =========================
+     NEXT
+  ========================= */
+
+  const nextEvent =
+    calendar.find(event =>
+      event.days > 1
+    );
+
+
+  const nextBlock =
+    document.getElementById(
+      "nextBlock"
+    );
+
+
+  if(!nextEvent){
+
+    nextBlock.style.display =
+      "none";
+
+  }
+
+  else{
+
+    nextBlock.style.display =
+      "grid";
+
+
+    document
+      .getElementById(
+        "nextName"
+      )
+      .textContent =
+        nextEvent.emoji
+        +
+        " "
+        +
+        nextEvent.name;
+
+
+    document
+      .getElementById(
+        "nextDate"
+      )
+      .textContent =
+        formatDate(
+          nextEvent.date
+        );
+
+  }
+
+
+  /* BUTTON STATE */
+
+  document
+    .getElementById(
+      "prev"
+    )
+    .style.opacity =
+      currentIndex === 0
+      ?
+      ".25"
+      :
+      "1";
+
+
+  document
+    .getElementById(
+      "next"
+    )
+    .style.opacity =
+      currentIndex
+      ===
+      previewDates.length - 1
+      ?
+      ".25"
+      :
+      "1";
+
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+document
+  .getElementById(
+    "prev"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      if(
+        currentIndex > 0
+      ){
+
+        currentIndex--;
+
+        render();
+
+      }
+
+    }
+  );
+
+
+document
+  .getElementById(
+    "next"
+  )
+  .addEventListener(
+    "click",
+    () => {
+
+      if(
+        currentIndex
+        <
+        previewDates.length - 1
+      ){
+
+        currentIndex++;
+
+        render();
+
+      }
+
+    }
+  );
+
+
+/* ==========================================
+   VERY SUBTLE SNOW
+========================================== */
+
+const snow =
+  document.getElementById(
+    "snow"
+  );
+
+
+for(
+  let i = 0;
+  i < 12;
+  i++
+){
+
+  const flake =
+    document.createElement(
+      "span"
+    );
+
+
+  flake.textContent =
+    "•";
+
+
+  flake.style.left =
+    (
+      Math.random()
+      *
+      100
+    )
+    +
+    "%";
+
+
+  flake.style.fontSize =
+    (
+      5
+      +
+      Math.random()
+      *
+      7
+    )
+    +
+    "px";
+
+
+  flake.style.animationDuration =
+    (
+      7
+      +
+      Math.random()
+      *
+      8
+    )
+    +
+    "s";
+
+
+  flake.style.animationDelay =
+    (
+      Math.random()
+      *
+      -10
+    )
+    +
+    "s";
+
+
+  snow.appendChild(
+    flake
+  );
+
+}
+
+
+/* START */
+
+render();
+
+</script>
+
+</body>
+</html>
